@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
-
+import store from '@/store'
 import { getToken } from '@/utils/auth'
 
 import routes from '@/router/modules/routers'
@@ -20,23 +20,25 @@ const router = new Router({
 
 // 路由拦截
 router.beforeEach((to, from, next) => {
-    let token = getToken()
-    let path = to.path
+    const token = getToken()
     NProgress.start()
-    if (to.meta.requiresAuth && path.indexOf('/admin/') > -1) {
+    if (to.meta.requiresAuth) {
         if (token) {
-            next()
+            const userInfo = store.getters.name
+            if (userInfo) {
+                next()
+            } else {
+                store.dispatch('user/getUserInfo').finally(() => {
+                    next()
+                })
+            }
         } else {
-            // store.dispatch('user/loginOut').then(() => {
             next({
                 path: '/login'
             })
-            // })
         }
     } else {
-        // store.dispatch('user/loginOut').then(() => {
         next()
-        // })
     }
 })
 
