@@ -1,7 +1,7 @@
 import axios from 'axios'
 import qs from 'qs'
-import {Message, MessageBox} from 'element-ui'
-import {getToken} from '@/utils/auth'
+import {Message} from 'element-ui'
+import {cacheAccessToken} from '@/utils/auth'
 import router from '@/router/index'
 
 const http = axios.create({
@@ -12,8 +12,8 @@ const http = axios.create({
 // 添加请求拦截
 http.interceptors.request.use(config => {
     // 请求头添加token
-    if (getToken()) {
-        config.headers['authorization'] = 'Bearer ' + getToken()
+    if (cacheAccessToken.load()) {
+        config.headers['authorization'] = `Bearer ${cacheAccessToken.load()}`
     }
 
     if (config.method === 'post') {
@@ -34,14 +34,10 @@ http.interceptors.request.use(config => {
 
 // 添加相应拦截器
 http.interceptors.response.use(response => {
-    if (response.data.code === -4001) {
-        MessageBox.confirm('您已退出登录，您可以取消继续留在本页面，或者重新登录', '退出登录提示', {
-            confirmButtonText: '重新登录',
-            cancelButtonText: '取消',
-            type: 'warning'
-        }).then(() => {
-            router.push({ path: '/login' })
-        })
+    if (!response.data.status) {
+        if (response.data.code === -4001) {
+            router.replace({path: '/403'})
+        }
         return Promise.reject(response.data)
     }
     return response

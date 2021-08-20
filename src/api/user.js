@@ -15,7 +15,7 @@ export const login = ({username, password}) => {
  * @returns {*}
  */
 export const getUserInfo = () => {
-    return fetchGet('/getUserInfo')
+    return fetchGet('/admin/getUserInfo')
 }
 
 /**

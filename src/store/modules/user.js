@@ -2,12 +2,12 @@
  * @description 用户信息状态管理
  */
 import {login, getUserInfo, loginOut} from '../../api/user'
-import {getToken, setToken, removeToken} from '@/utils/auth'
+import {cacheAccessToken, cacheRefreshToken} from '@/utils/auth'
 import {SET_USERNAME, SET_AVATAR, SET_TOKEN, RESET_USER_STATE} from '../mutation_type'
 
 const getDefaultState = () => {
     return {
-        token: getToken(),
+        token: cacheAccessToken.load(),
         username: '',
         avatar: ''
     }
@@ -49,8 +49,9 @@ const actions = {
         const {username, password} = userInfo
         return new Promise((resolve, reject) => {
             login({username, password}).then(res => {
-                commit(SET_TOKEN, res.data.token)
-                setToken(res.data.token)
+                commit(SET_TOKEN, res.data.accessToken)
+                cacheAccessToken.save(res.data.accessToken)
+                cacheRefreshToken.save(res.data.accessToken)
                 resolve(res)
             }).catch(error => {
                 reject(error)
@@ -79,9 +80,10 @@ const actions = {
      */
     loginOut ({commit}) {
         return new Promise((resolve, reject) => {
+            cacheAccessToken.delete()
+            cacheRefreshToken.delete()
+            commit(RESET_USER_STATE)
             loginOut().then(res => {
-                removeToken()
-                commit(RESET_USER_STATE)
                 resolve(res)
             }).catch(error => {
                 reject(error)

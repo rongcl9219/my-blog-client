@@ -1,15 +1,72 @@
-import Cookies from 'js-cookie'
+/**
+ * 本地存储
+ */
+import Cache from 'web-storage-cache'
 
-const TokenKey = 'my_blog_token'
+const lsCache = new Cache()
+const ssCache = new Cache({storage: 'sessionStorage'})
 
-export const getToken = () => {
-    return Cookies.get(TokenKey)
+const KEYS = {
+    accessToken: 'ak',
+    refreshToken: 'rk'
 }
 
-export const setToken = (token) => {
-    return Cookies.set(TokenKey, token)
+const nameSpace = 'MY_BLOG'
+
+for (let key in KEYS) {
+    if (KEYS.hasOwnProperty(key)) {
+        KEYS[key] = `${nameSpace}:${key}`.toUpperCase()
+    }
 }
 
-export const removeToken = () => {
-    return Cookies.remove(TokenKey)
+/**
+ * 本地存储类
+ */
+class CommonStorage {
+    constructor (key, exp = null, type = 'localStorage') {
+        this.key = key
+        this.exp = exp
+        this.storage = (type === 'localStorage') ? lsCache : ssCache
+    }
+
+    /**
+     * 保存
+     * @param value 值
+     */
+    save (value) {
+        const options = this.exp ? {exp: this.exp} : null
+        this.storage.set(this.key, value, options)
+    }
+
+    /**
+     * 获取值
+     * @returns {any}
+     */
+    load () {
+        return this.storage.get(this.key)
+    }
+
+    /**
+     * 删除
+     */
+    delete () {
+        this.storage.delete(this.key)
+    }
+}
+
+/**
+ * 保存accessToken
+ * @type {CommonStorage}
+ */
+const cacheAccessToken = new CommonStorage(KEYS.accessToken, 10 * 60, 'sessionStorage')
+
+/**
+ * 保存refreshToken
+ * @type {CommonStorage}
+ */
+const cacheRefreshToken = new CommonStorage(KEYS.refreshToken, 60 * 60, 'sessionStorage')
+
+export {
+    cacheAccessToken,
+    cacheRefreshToken
 }

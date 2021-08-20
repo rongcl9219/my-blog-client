@@ -9,7 +9,17 @@ import AdminRouters from '@/router/modules/admin'
 
 let routes = [
     ...HomeRouters,
-    ...AdminRouters
+    ...AdminRouters,
+    {
+        path: '/403',
+        name: '403',
+        component: resolve => require(['@/views/403.vue'], resolve)
+    },
+    {
+        path: '*',
+        name: '404',
+        component: resolve => require(['@/views/404.vue'], resolve)
+    }
 ]
 
 /**

@@ -122,7 +122,9 @@ export default {
         }
     },
     created () {
-        this.loginOut()
+        this.loginOut().then(() => {
+        }).catch(() => {
+        })
     }
 }
 </script>
