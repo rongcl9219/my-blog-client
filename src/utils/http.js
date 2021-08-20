@@ -1,7 +1,7 @@
 import axios from 'axios'
 import qs from 'qs'
 import {Message} from 'element-ui'
-import {cacheAccessToken} from '@/utils/auth'
+import {cacheAccessToken, cacheRefreshToken} from '@/utils/auth'
 import router from '@/router/index'
 
 const http = axios.create({
@@ -14,6 +14,10 @@ http.interceptors.request.use(config => {
     // 请求头添加token
     if (cacheAccessToken.load()) {
         config.headers['authorization'] = `Bearer ${cacheAccessToken.load()}`
+    }
+
+    if (config.url === '/refreshToken') {
+        config.headers['authorization'] = `Bearer ${cacheAccessToken.load()} ${cacheRefreshToken.load()}`
     }
 
     if (config.method === 'post') {

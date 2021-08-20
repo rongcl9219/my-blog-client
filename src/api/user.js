@@ -25,3 +25,11 @@ export const getUserInfo = () => {
 export const loginOut = () => {
     return fetchPost('/loginOut')
 }
+
+/**
+ * 刷新token
+ * @returns {Promise<*>}
+ */
+export const refreshToken = () => {
+    return fetchPost('/refreshToken')
+}
