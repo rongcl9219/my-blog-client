@@ -21,3 +21,9 @@ export const SET_AVATAR = 'SET_AVATAR'
  * @type {string}
  */
 export const RESET_USER_STATE = 'RESET_USER_STATE'
+
+/**
+ * 设置菜单展开
+ * @type {string}
+ */
+export const SET_SIDEBAR = 'SET_SIDEBAR'

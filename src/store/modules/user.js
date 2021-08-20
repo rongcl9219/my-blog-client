@@ -16,10 +16,10 @@ const getDefaultState = () => {
 const state = getDefaultState()
 
 const getters = {
-    getUsername: (state) => {
+    getUsername: state => {
         return state.username
     },
-    getAvatar: (state) => {
+    getAvatar: state => {
         return state.avatar
     }
 }

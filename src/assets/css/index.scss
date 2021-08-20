@@ -1,3 +1,9 @@
+@import './variables.scss';
+@import './mixin.scss';
+@import './transition.scss';
+@import './element-ui.scss';
+@import './sidebar.scss';
+
 html, body, div, span, h1, h2, h3, h4, h5, h6, p, em, small, strong, dl, dt, dd, ol, ul, li {
     margin: 0;
     padding: 0;
@@ -12,6 +18,8 @@ h1, h2, h3, h4, h5, h6 {
 html {
     height: 100%;
     box-sizing: border-box;
+
+    @include scrollBar;
 }
 body {
     width: 100%;
