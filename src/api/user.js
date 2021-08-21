@@ -33,3 +33,14 @@ export const loginOut = () => {
 export const refreshToken = () => {
     return fetchPost('/refreshToken')
 }
+
+/**
+ * 修改密码
+ * @param oldPass 旧密码
+ * @param newPass 新密码
+ * @param checkPass 确认密码
+ * @returns {*}
+ */
+export const updatePassword = ({oldPass, newPass, checkPass}) => {
+    return fetchPost('/admin/updatePassword', {oldPass, newPass, checkPass})
+}

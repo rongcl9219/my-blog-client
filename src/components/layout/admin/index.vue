@@ -1,7 +1,7 @@
 <template>
     <div :class="classObj" class="app-wrapper">
         <Side-Bar></Side-Bar>
-        <div class="main-container">
+        <div class="main-container hasTagsView">
             <div class="fixed-header">
                 <Nav-Bar></Nav-Bar>
             </div>
@@ -39,6 +39,8 @@ export default {
     },
     created () {
         let _this = this
+        _this.refreshToken().catch(() => {
+        })
         setInterval(() => {
             _this.refreshToken().catch(() => {
             })
@@ -82,9 +84,5 @@ export default {
 
 .hideSidebar .fixed-header {
     width: calc(100% - 54px)
-}
-
-.mobile .fixed-header {
-    width: 100%;
 }
 </style>

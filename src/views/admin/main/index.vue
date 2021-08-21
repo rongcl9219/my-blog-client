@@ -21,21 +21,21 @@
                         <li class="list_item about"><span class="list_item_title"><i
                             class="el-icon-third-yuan list_icon"></i>开源项目地址：</span>
                             <el-link :underline="false" type="primary" target="_blank"
-                                     href="https://github.com/rongcl9219">https://github.com/rongcl9219
+                                     :href="github">{{github}}
                             </el-link>
                         </li>
                         <li class="list_item about"><span class="list_item_title"><i
                             class="el-icon-third-yuan list_icon"></i>前台项目地址：</span>
                             <el-link :underline="false" type="primary" target="_blank"
-                                     href="https://github.com/rongcl9219/my-home-client">
-                                https://github.com/rongcl9219/my-home-client
+                                     :href="clientGithub">
+                                {{clientGithub}}
                             </el-link>
                         </li>
                         <li class="list_item about"><span class="list_item_title"><i
                             class="el-icon-third-yuan list_icon"></i>后台项目地址：</span>
                             <el-link :underline="false" type="primary" target="_blank"
-                                     href="https://github.com/rongcl9219/my-home-server">
-                                https://github.com/rongcl9219/my-home-server
+                                     :href="adminGithub">
+                                {{adminGithub}}
                             </el-link>
                         </li>
                     </ul>
@@ -78,7 +78,14 @@
 
 <script>
 export default {
-    name: 'AdminMain'
+    name: 'AdminMain',
+    data () {
+        return {
+            github: 'https://github.com/rongcl9219',
+            clientGithub: 'https://github.com/rongcl9219/my-blog-client',
+            adminGithub: 'https://github.com/rongcl9219/my-blog-server'
+        }
+    }
 }
 </script>
 

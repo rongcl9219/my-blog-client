@@ -40,7 +40,8 @@
                         <span class="login-icon" style="margin-right: 5px;">
                             <i class="el-icon-third-yanzhengma"></i>
                         </span>
-                        <el-input v-model="loginForm.validCode" autocomplete="off" placeholder="验证码，不区分大小写"></el-input>
+                        <el-input v-model="loginForm.validCode" autocomplete="off"
+                                  placeholder="验证码，不区分大小写"></el-input>
                         <ValidCode v-model="ValidCodeModel.validCode"
                                    :refresh="ValidCodeModel.codeRefresh"></ValidCode>
                     </div>
@@ -91,7 +92,8 @@ export default {
                 codeRefresh: 0
             },
             loading: false,
-            passwordType: true
+            passwordType: true,
+            loginLock: false
         }
     },
     methods: {
@@ -101,30 +103,47 @@ export default {
         ]),
         handleLogin (formName) {
             let _this = this
+
+            if (_this.loginLock) {
+                return false
+            }
+            _this.loginLock = true
+            _this.loading = true
             _this.$refs[formName].validate((valid) => {
                 if (valid) {
                     let data = {
                         username: _this.loginForm.username,
                         password: _this.loginForm.password
                     }
-                    _this.login(data).then(res => {
-                        if (res.code === 200) {
-                            _this.$router.push('/admin')
-                        } else {
-                            _this.$message.error(res.msg)
-                        }
-                    }).catch(() => {
+                    _this.login(data).then(() => {
+                        _this.$router.push('/admin')
+                    }).catch(err => {
+                        _this.$message.error(err.msg)
+                        _this.ValidCodeModel.codeRefresh++
+                        _this.loading = false
+                        _this.loginLock = false
                     })
                 } else {
                     return false
                 }
             })
+        },
+        handleKeyup (e) {
+            if (e.keyCode === 13 && e.target.baseURI.match(/login/)) {
+                this.handleLogin('loginForm') // 调用登录 验证方法
+            }
         }
     },
     created () {
-        this.loginOut().then(() => {
+        let _this = this
+        _this.loginOut().then(() => {
         }).catch(() => {
         })
+
+        document.addEventListener('keyup', this.handleKeyup)
+    },
+    destroyed () {
+        document.removeEventListener('keyup', this.handleKeyup)
     }
 }
 </script>
