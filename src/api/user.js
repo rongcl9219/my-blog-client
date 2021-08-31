@@ -44,3 +44,15 @@ export const refreshToken = () => {
 export const updatePassword = ({oldPass, newPass, checkPass}) => {
     return fetchPost('/admin/updatePassword', {oldPass, newPass, checkPass})
 }
+
+/**
+ * 修改用户信息
+ * @param avatar 头像
+ * @param signature 个性签名
+ * @param email 邮箱
+ * @param userId 用户id
+ * @returns {*}
+ */
+export const updateUserInfo = ({avatar, signature, email, userId}) => {
+    return fetchPost('/admin/updateUserInfo', {avatar, signature, email, userId})
+}

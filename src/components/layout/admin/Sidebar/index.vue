@@ -15,10 +15,6 @@
                     <i class="el-icon-third-shouye"></i>
                     <span slot="title">主页</span>
                 </el-menu-item>
-                <el-menu-item index="/admin/user" :class="{'submenu-title-noDropdown': getSidebarOpen}">
-                    <i class="el-icon-third-yonghuguanli"></i>
-                    <span slot="title">用户管理</span>
-                </el-menu-item>
                 <el-menu-item index="/admin/class" :class="{'submenu-title-noDropdown': getSidebarOpen}">
                     <i class="el-icon-third-fenleiguanli"></i>
                     <span slot="title">分类管理</span>

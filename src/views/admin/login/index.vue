@@ -14,7 +14,6 @@
                         name="username"
                         type="text"
                         tabindex="1"
-                        auto-complete="off"
                     />
                 </el-form-item>
                 <el-form-item prop="password">
@@ -29,7 +28,6 @@
                         placeholder="密码"
                         name="password"
                         tabindex="2"
-                        auto-complete="off"
                     />
                     <span class="show-pwd" @click="passwordType = !passwordType">
                         <i :class="passwordType ? 'el-icon-third-yanjing_bi' : 'el-icon-third-yanjing'"></i>
@@ -176,8 +174,8 @@ $cursor: #222;
             caret-color: $cursor;
 
             &:-webkit-autofill {
-                box-shadow: 0 0 0px 1000px $bg inset !important;
-                -webkit-text-fill-color: $cursor !important;
+                box-shadow: 0 0 0px 1000px #bcd4e1 inset !important;
+                -webkit-text-fill-color: $bg !important;
             }
 
             &::-webkit-input-placeholder {

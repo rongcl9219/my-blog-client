@@ -7,11 +7,13 @@
         <div class="right-menu">
             <el-dropdown class="avatar-container" trigger="click">
                 <div class="avatar-wrapper">
-                    <img src="@/assets/error_images/403.png" class="user-avatar">
+                    <el-avatar style="float: left; cursor: pointer;" shape="square" :size="40">
+                        <img :src="userAvatar"/>
+                    </el-avatar>
                     <i class="el-icon-caret-bottom"/>
                 </div>
                 <el-dropdown-menu slot="dropdown" class="user-dropdown">
-                    <el-dropdown-item>个人信息</el-dropdown-item>
+                    <el-dropdown-item @click.native="openUserInfoDialog">个人信息</el-dropdown-item>
                     <el-dropdown-item @click.native="updatePasswordDialog.visible = true">修改密码</el-dropdown-item>
                     <el-dropdown-item divided @click.native="logout">
                         <span style="display:block;">退出</span>
@@ -23,7 +25,7 @@
         <el-dialog title="修改密码"
                    @close="closeUpdatePasswordDialog('updatePasswordForm')"
                    :visible.sync="updatePasswordDialog.visible"
-                   :append-to-body="true"
+                   :modal-append-to-body="false"
                    :close-on-press-escape="false"
                    :close-on-click-modal="false">
             <el-form ref="updatePasswordForm" :model="updatePasswordDialog.updatePasswordForm" status-icon
@@ -32,7 +34,8 @@
                     <el-input v-model="updatePasswordDialog.updatePasswordForm.oldPass" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="输入新密码" prop="newPass">
-                    <el-input placeholder="密码必须包含且只能由数字和字母组成，长度8~16" v-model="updatePasswordDialog.updatePasswordForm.newPass" autocomplete="off"></el-input>
+                    <el-input placeholder="密码必须包含且只能由数字和字母组成，长度8~16"
+                              v-model="updatePasswordDialog.updatePasswordForm.newPass" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="再次输入新密码" prop="checkPass">
                     <el-input v-model="updatePasswordDialog.updatePasswordForm.checkPass" autocomplete="off"></el-input>
@@ -43,25 +46,67 @@
                 <el-button type="primary" @click="updatePassword('updatePasswordForm')">确 定</el-button>
             </div>
         </el-dialog>
+
+        <el-dialog title="个人信息"
+                   @close="closeUserInfoDialog('updateUserInfoForm')"
+                   :visible.sync="userInfoDialog.visible"
+                   :close-on-press-escape="false"
+                   :append-to-body="true"
+                   :close-on-click-modal="false">
+            <el-form ref="updateUserInfoForm"
+                     :model="userInfoDialog.userInfoForm"
+                     status-icon label-width="80px">
+                <el-form-item label="头像">
+                    <el-avatar style="float: left; margin-right: 10px;" shape="square" :size="50">
+                        <img :src="userInfoDialog.userInfoForm.avatarUrl"/>
+                    </el-avatar>
+                    <el-button type="primary" @click="uploadAvatarVisible = true">上传头像</el-button>
+                </el-form-item>
+                <el-form-item label="邮箱">
+                    <el-input v-model="userInfoDialog.userInfoForm.email" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="个性签名">
+                    <el-input type="textarea"
+                              :autosize="{ minRows: 2, maxRows: 5}"
+                              v-model="userInfoDialog.userInfoForm.signature" autocomplete="off"></el-input>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="userInfoDialog.visible = false">取 消</el-button>
+                <el-button type="primary" @click="updateUserInfo('updateUserInfoForm')">确 定</el-button>
+            </div>
+        </el-dialog>
+
+        <upload-avatar thumbnail="avatar" @crop-upload-success="uploadAvatarSuccess"
+                       :uploadAvatarVisible.sync="uploadAvatarVisible"></upload-avatar>
     </div>
 </template>
 
 <script>
+import defaultUser from '@/assets/images/default_user.png'
 import {mapActions, mapGetters} from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
-import {updatePassword} from '@/api/user'
+import UploadAvatar from '@/components/UploadAvatar'
+import {updatePassword, getUserInfo, updateUserInfo} from '@/api/user'
 
 export default {
     name: 'NavBar',
     components: {
         Breadcrumb,
-        Hamburger
+        Hamburger,
+        'upload-avatar': UploadAvatar
     },
     computed: {
         ...mapGetters('setting', [
             'getSidebarOpen'
-        ])
+        ]),
+        ...mapGetters('user', [
+            'getAvatar'
+        ]),
+        userAvatar () {
+            return this.getAvatar || defaultUser
+        }
     },
     data () {
         let validatePassword = (rule, value, callback) => {
@@ -106,7 +151,17 @@ export default {
                         {validator: checkPassword, required: true, trigger: 'blur'}
                     ]
                 }
-            }
+            },
+            userInfoDialog: {
+                visible: false,
+                userInfoForm: {
+                    avatar: '',
+                    signature: '',
+                    email: '',
+                    avatarUrl: ''
+                }
+            },
+            uploadAvatarVisible: false
         }
     },
     methods: {
@@ -114,7 +169,8 @@ export default {
             'toggleSideBar'
         ]),
         ...mapActions('user', [
-            'loginOut'
+            'loginOut',
+            'setUserAvatar'
         ]),
         logout () {
             this.$router.push({
@@ -144,6 +200,46 @@ export default {
                     return false
                 }
             })
+        },
+        openUserInfoDialog () {
+            this.userInfoDialog.visible = true
+            getUserInfo().then(res => {
+                this.userInfoDialog.userInfoForm = res.data.userInfo
+            }).catch(err => {
+                this.$message.error(err.msg || err.message)
+            })
+        },
+        updateUserInfo () {
+            const updateLoading = this.$loading({
+                lock: true,
+                text: '保存中...',
+                spinner: 'el-icon-loading',
+                background: 'rgba(0, 0, 0, 0.7)'
+            })
+
+            let data = {
+                avatar: this.userInfoDialog.userInfoForm.avatar,
+                signature: this.userInfoDialog.userInfoForm.signature,
+                email: this.userInfoDialog.userInfoForm.email,
+                userId: this.userInfoDialog.userInfoForm.userId
+            }
+
+            updateUserInfo(data).then(() => {
+                this.$message.success('修改成功')
+                this.setUserAvatar(this.userInfoDialog.userInfoForm.avatarUrl)
+                this.userInfoDialog.visible = false
+            }).catch(() => {
+                this.$message.error('修改失败')
+            }).finally(() => {
+                updateLoading.close()
+            })
+        },
+        closeUserInfoDialog (formName) {
+            this.$refs[formName].resetFields()
+        },
+        uploadAvatarSuccess (fileObj) {
+            this.userInfoDialog.userInfoForm.avatar = fileObj.key
+            this.userInfoDialog.userInfoForm.avatarUrl = fileObj.url
         }
     }
 }

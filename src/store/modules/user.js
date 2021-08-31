@@ -65,9 +65,9 @@ const actions = {
     getUserInfo ({commit}) {
         return new Promise((resolve, reject) => {
             getUserInfo().then(res => {
-                const {name, avatar} = res.data
-                commit(SET_USERNAME, name)
-                commit(SET_AVATAR, avatar)
+                const {userName, avatarUrl} = res.data.userInfo
+                commit(SET_USERNAME, userName)
+                commit(SET_AVATAR, avatarUrl)
                 resolve(res)
             }).catch(error => {
                 reject(error)
@@ -105,6 +105,9 @@ const actions = {
                 reject(error)
             })
         })
+    },
+    setUserAvatar ({commit}, avatarUrl) {
+        commit(SET_AVATAR, avatarUrl)
     }
 }
 
