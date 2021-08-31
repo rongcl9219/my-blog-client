@@ -10,7 +10,7 @@
             <div class="tips">
                 <div class="tips__headline">{{ msg }}</div>
                 <div class="tips__info">{{ tips }}</div>
-                <a href="/" class="tips__return-home">返回首页</a>
+                <a :href="homeUrl" class="tips__return-home">返回首页</a>
             </div>
         </div>
     </div>
@@ -22,7 +22,13 @@ export default {
     data () {
         return {
             msg: '访问的页面不存在',
-            tips: '请检查您输入的地址是否正确，或者点击下方按钮返回首页。'
+            tips: '请检查您输入的地址是否正确，或者点击下方按钮返回首页。',
+            homeUrl: '/'
+        }
+    },
+    mounted () {
+        if (this.$route.path.indexOf('/admin/') > -1) {
+            this.homeUrl = '/admin'
         }
     }
 }
