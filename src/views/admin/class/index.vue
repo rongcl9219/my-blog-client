@@ -121,7 +121,7 @@
 import {getClassList, getClassInfo, deleteClass, updateClass, newClass} from '@/api/class'
 
 export default {
-    name: 'Class',
+    name: 'AdminClass',
     filters: {
         classTypeFilter: function (value) {
             let classTypeStr = ''

@@ -108,7 +108,7 @@ import {getTagList, getTagInfo, deleteTag, updateTag, newTag} from '@/api/tag'
 import {getAllClass} from '@/api/class'
 
 export default {
-    name: 'Tag',
+    name: 'AdminTag',
     data () {
         return {
             tagTableList: [],
