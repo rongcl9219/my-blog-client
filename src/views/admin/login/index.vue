@@ -122,6 +122,8 @@ export default {
                         _this.loginLock = false
                     })
                 } else {
+                    _this.loading = false
+                    _this.loginLock = false
                     return false
                 }
             })

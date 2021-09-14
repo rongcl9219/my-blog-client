@@ -10,6 +10,8 @@ const AdminLayout = () => import(/* webpackChunkName: "admin-main" */ '@/compone
 // 后台首页
 const AdminMain = () => import(/* webpackChunkName: "admin-main" */ '@/views/admin/main')
 
+const AdminClass = () => import(/* webpackChunkName: "admin-class" */ '@/views/admin/class')
+
 export default [
     {
         path: '/login',
@@ -34,6 +36,15 @@ export default [
                 meta: {
                     requiresAuth: true,
                     title: '主页'
+                }
+            },
+            {
+                path: 'class',
+                name: 'AdminClass',
+                component: AdminClass,
+                meta: {
+                    requiresAuth: true,
+                    title: '分类'
                 }
             }
         ]

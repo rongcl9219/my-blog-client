@@ -39,8 +39,6 @@ export default {
     },
     created () {
         let _this = this
-        _this.refreshToken().catch(() => {
-        })
         setInterval(() => {
             _this.refreshToken().catch(() => {
             })
