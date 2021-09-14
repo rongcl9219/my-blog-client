@@ -118,7 +118,7 @@
 </template>
 
 <script>
-import {getClassList, getClassInfo, deleteClass, updateClass, newClass} from '../../../api/class'
+import {getClassList, getClassInfo, deleteClass, updateClass, newClass} from '@/api/class'
 
 export default {
     name: 'Class',

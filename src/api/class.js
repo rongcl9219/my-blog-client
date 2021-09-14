@@ -50,3 +50,11 @@ export const deleteClass = ({classId}) => {
 export const getClassInfo = ({classId}) => {
     return fetchGet('/admin/getClassInfo', {classId})
 }
+
+/**
+ * 获取全部分类
+ * @returns {*}
+ */
+export const getAllClass = () => {
+    return fetchGet('/admin/getAllClass')
+}

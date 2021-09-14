@@ -27,7 +27,7 @@
                     <i class="el-icon-third-svgwrite"></i>
                     <span slot="title">文章管理</span>
                 </el-menu-item>
-                <el-menu-item index="/admin/aboutMe" :class="{'submenu-title-noDropdown': getSidebarOpen}">
+                <el-menu-item index="/admin/about" :class="{'submenu-title-noDropdown': getSidebarOpen}">
                     <i class="el-icon-third-xin"></i>
                     <span slot="title">关于我</span>
                 </el-menu-item>

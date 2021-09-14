@@ -12,6 +12,12 @@ const AdminMain = () => import(/* webpackChunkName: "admin-main" */ '@/views/adm
 
 const AdminClass = () => import(/* webpackChunkName: "admin-class" */ '@/views/admin/class')
 
+const AdminTag = () => import(/* webpackChunkName: "admin-tag" */ '@/views/admin/tag')
+
+const AdminArticle = () => import(/* webpackChunkName: "admin-article" */ '@/views/admin/article')
+
+const AdminAbout = () => import(/* webpackChunkName: "admin-about" */ '@/views/admin/about')
+
 export default [
     {
         path: '/login',
@@ -45,6 +51,33 @@ export default [
                 meta: {
                     requiresAuth: true,
                     title: '分类'
+                }
+            },
+            {
+                path: 'tag',
+                name: 'AdminTag',
+                component: AdminTag,
+                meta: {
+                    requiresAuth: true,
+                    title: '标签'
+                }
+            },
+            {
+                path: 'article',
+                name: 'AdminArticle',
+                component: AdminArticle,
+                meta: {
+                    requiresAuth: true,
+                    title: '文章'
+                }
+            },
+            {
+                path: 'about',
+                name: 'AdminAbout',
+                component: AdminAbout,
+                meta: {
+                    requiresAuth: true,
+                    title: '关于'
                 }
             }
         ]
