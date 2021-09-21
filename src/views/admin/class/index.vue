@@ -198,6 +198,7 @@ export default {
             this.classTableLoading = true
 
             getClassList({page: page, pageSize: this.pagination.pageSize}).then(res => {
+                debugger
                 let data = res.data
                 this.pagination.page = data.pagination.page
                 this.pagination.total = data.pagination.total
@@ -219,16 +220,15 @@ export default {
                 this.classDialog.title = '修改分类'
                 this.classDialog.loading = true
                 getClassInfo({classId: rowData.classId}).then(res => {
-                    if (res.code === 200) {
-                        this.classDialog.classForm.classId = res.data.classId
-                        this.classDialog.classForm.classCode = res.data.classCode
-                        this.classDialog.classForm.className = res.data.className
-                        this.classDialog.classForm.classType = res.data.classType
-                        this.classDialog.classForm.classDesc = res.data.classDesc
-                    } else {
-                        this.$message.error('获取信息失败')
-                    }
-                }).catch().finally(() => {
+                    this.classDialog.classForm.classId = res.data.classId
+                    this.classDialog.classForm.classCode = res.data.classCode
+                    this.classDialog.classForm.className = res.data.className
+                    this.classDialog.classForm.classType = res.data.classType
+                    this.classDialog.classForm.classDesc = res.data.classDesc
+                }).catch(e => {
+                    console.log(e)
+                    this.$message.error('获取失败')
+                }).finally(() => {
                     this.classDialog.loading = false
                 })
             }

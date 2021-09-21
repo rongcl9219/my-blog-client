@@ -19,7 +19,7 @@ const router = new Router({
 
 // 路由拦截
 router.beforeEach((to, from, next) => {
-    const token = store.state.user.token
+    const token = store.state.common.token
     NProgress.start()
     if (to.meta.requiresAuth) {
         if (token) {

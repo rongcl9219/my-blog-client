@@ -9,6 +9,14 @@ export const getValidCode = () => {
 }
 
 /**
+ * 刷新token
+ * @returns {Promise<*>}
+ */
+export const refreshToken = () => {
+    return fetchPost('/refreshToken')
+}
+
+/**
  * 获取上传token
  * @param keys
  * @param thumbnail
@@ -16,4 +24,8 @@ export const getValidCode = () => {
  */
 export const getUploadToken = ({keys, thumbnail}) => {
     return fetchPost('/getUploadToken', {keys, thumbnail})
+}
+
+export const uploadImg = formData => {
+    return fetchPost('http://upload-z2.qiniup.com', {formData})
 }

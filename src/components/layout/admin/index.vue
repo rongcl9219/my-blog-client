@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import {mapGetters} from 'vuex'
 import SideBar from './Sidebar'
 import NavBar from './NavBar'
 import AppMain from './AppMain'
@@ -31,18 +31,6 @@ export default {
                 openSidebar: !this.getSidebarOpen
             }
         }
-    },
-    methods: {
-        ...mapActions('user', [
-            'refreshToken'
-        ])
-    },
-    created () {
-        let _this = this
-        setInterval(() => {
-            _this.refreshToken().catch(() => {
-            })
-        }, 1000 * 60 * 9)
     }
 }
 </script>

@@ -27,14 +27,6 @@ export const loginOut = () => {
 }
 
 /**
- * 刷新token
- * @returns {Promise<*>}
- */
-export const refreshToken = () => {
-    return fetchPost('/refreshToken')
-}
-
-/**
  * 修改密码
  * @param oldPass 旧密码
  * @param newPass 新密码

@@ -27,3 +27,15 @@ export const RESET_USER_STATE = 'RESET_USER_STATE'
  * @type {string}
  */
 export const SET_SIDEBAR = 'SET_SIDEBAR'
+
+/**
+ * 刷新token
+ * @type {string}
+ */
+export const REFRESH_TOKEN = 'REFRESH_TOKEN'
+
+/**
+ * 设置token过期时间
+ * @type {string}
+ */
+export const SET_TOKEN_EXP = 'SET_TOKEN_EXP'

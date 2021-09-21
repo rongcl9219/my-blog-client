@@ -8,7 +8,8 @@ const ssCache = new Cache({storage: 'sessionStorage'})
 
 const KEYS = {
     accessToken: 'ak',
-    refreshToken: 'rk'
+    refreshToken: 'rk',
+    tokenExp: 'exp'
 }
 
 const nameSpace = 'MY_BLOG'
@@ -58,15 +59,22 @@ class CommonStorage {
  * 保存accessToken
  * @type {CommonStorage}
  */
-const cacheAccessToken = new CommonStorage(KEYS.accessToken, 10 * 60, 'sessionStorage')
+const cacheAccessToken = new CommonStorage(KEYS.accessToken, null, 'sessionStorage')
 
 /**
  * 保存refreshToken
  * @type {CommonStorage}
  */
-const cacheRefreshToken = new CommonStorage(KEYS.refreshToken, 60 * 60 * 2, 'sessionStorage')
+const cacheRefreshToken = new CommonStorage(KEYS.refreshToken, 60 * 60 * 24, 'sessionStorage')
+
+/**
+ * 保存tokenExp
+ * @type {CommonStorage}
+ */
+const cacheTokenExp = new CommonStorage(KEYS.tokenExp, null, 'sessionStorage')
 
 export {
     cacheAccessToken,
-    cacheRefreshToken
+    cacheRefreshToken,
+    cacheTokenExp
 }
