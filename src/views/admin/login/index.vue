@@ -225,7 +225,7 @@ $cursor: #222;
         left: 0;
         width: 100%;
         height: 100%;
-        background-image: url('/static/imgs/default_img/login_bg.jpg');
+        background-image: url('/static/img/default_img/login_bg.jpg');
         background-origin: revert;
         background-repeat: no-repeat;
         background-position: center;
