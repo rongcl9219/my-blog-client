@@ -198,7 +198,6 @@ export default {
             this.classTableLoading = true
 
             getClassList({page: page, pageSize: this.pagination.pageSize}).then(res => {
-                debugger
                 let data = res.data
                 this.pagination.page = data.pagination.page
                 this.pagination.total = data.pagination.total

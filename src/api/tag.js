@@ -48,3 +48,11 @@ export const deleteTag = ({tagId}) => {
 export const getTagInfo = ({tagId}) => {
     return fetchGet('/admin/getTagInfo', {tagId})
 }
+
+/**
+ * 获取全部标签
+ * @returns {*}
+ */
+export const getAllTag = () => {
+    return fetchGet('/getAllTag')
+}

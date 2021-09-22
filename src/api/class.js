@@ -56,5 +56,5 @@ export const getClassInfo = ({classId}) => {
  * @returns {*}
  */
 export const getAllClass = () => {
-    return fetchGet('/admin/getAllClass')
+    return fetchGet('/getAllClass')
 }
