@@ -93,8 +93,7 @@
 
 <script>
 import md5 from 'js-md5'
-import {fetchPost} from '@/utils/http'
-import {getUploadToken} from '@/api/common'
+import {getUploadToken, uploadImg} from '@/api/common'
 
 export default {
     name: 'UploadAvatar',
@@ -330,7 +329,7 @@ export default {
             getUploadToken({keys: key, thumbnail: this.thumbnail}).then(res => {
                 let data = res.data[0]
                 formData.append('token', data.token)
-                fetchPost('http://upload-z2.qiniup.com', formData).then(() => {
+                uploadImg(formData).then(() => {
                     let fileObj = {
                         key: key,
                         url: data.url
@@ -339,7 +338,7 @@ export default {
                 }).catch(err => {
                     this.$emit('crop-upload-fail', err)
                 }).finally(() => {
-                    this.closeUpLoadImg()
+                    this.$emit('update:uploadAvatarVisible', false)
                     uploadLoading.close()
                 })
             }).catch(err => {

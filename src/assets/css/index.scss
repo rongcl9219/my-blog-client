@@ -66,3 +66,8 @@ img {
 .clearfix {
     *zoom: 1; /*ie6清除浮动的方式 *号只有IE6-IE7执行，其他浏览器不执行*/
 }
+
+// 图片预览样式
+.pswp {
+    z-index: 99999 !important;
+}

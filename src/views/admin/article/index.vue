@@ -106,18 +106,11 @@
                                                             </el-button>
                                                         </p>
                                                         <p>
-                                                            <template>
-                                                                <el-popconfirm
-                                                                    icon="el-icon-info"
-                                                                    icon-color="red"
-                                                                    @onConfirm="deleteArticle(article.articleId)"
-                                                                    title="确定删除该文章吗？">
-                                                                    <el-button slot="reference" type="text" size="mini"
-                                                                               icon="el-icon-delete"
-                                                                               style="color: #ff0000;">删除
-                                                                    </el-button>
-                                                                </el-popconfirm>
-                                                            </template>
+                                                            <el-button type="text" size="mini"
+                                                                       icon="el-icon-delete"
+                                                                       @click="deleteArticle(article.articleId)"
+                                                                       style="color: #ff0000;">删除
+                                                            </el-button>
                                                         </p>
                                                     </template>
                                                 </div>
@@ -142,6 +135,159 @@
                 :total="pagination.total">
             </el-pagination>
         </template>
+
+        <!--    新增文章弹窗    -->
+        <el-dialog
+            title="新增文章"
+            :visible.sync="newArticleDialog.dialogVisible"
+            :close-on-press-escape="false"
+            :close-on-click-modal="false"
+            @close="closeNewArticleDialog('newArticleForm')"
+            width="40%">
+            <el-form :model="newArticleDialog.newArticleForm" status-icon :rules="formRules"
+                     ref="newArticleForm" label-width="100px">
+                <el-form-item label="文章标题" prop="articleTitle">
+                    <el-input type="text" v-model="newArticleDialog.newArticleForm.articleTitle"
+                              autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="文章副标题">
+                    <el-input type="text" v-model="newArticleDialog.newArticleForm.articleSubtitle"
+                              autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="文章关键词">
+                    <el-input type="text" v-model="newArticleDialog.newArticleForm.articleKeyword"
+                              autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="文章简介" prop="articleInfo">
+                    <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}"
+                              v-model="newArticleDialog.newArticleForm.articleInfo"
+                              autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="文章封面" prop="articleCover">
+                    <template v-if="newArticleDialog.newArticleForm.articleCover.length > 0">
+                        <div
+                            style="float: left; width: 60px; height: 60px; margin-right: 20px; border-radius: 6px; overflow: hidden;">
+                            <img style="width: 100%; height: 100%; cursor: pointer;"
+                                 :src="newArticleDialog.newArticleForm.articleCover[0].url" preview="articleCover">
+                        </div>
+                    </template>
+                    <el-button type="primary" size="mini" icon="el-icon-upload"
+                               @click="newArticleDialog.uploadImgVisible = true">上传封面
+                    </el-button>
+                    <UploadImage :imgList.sync="newArticleDialog.newArticleForm.articleCover"
+                                 :uploadImgVisible.sync="newArticleDialog.uploadImgVisible"
+                                 @upload-close="uploadDialogClose"
+                                 thumbnail="articleCover"
+                                 :limitNum="1"></UploadImage>
+                </el-form-item>
+                <el-form-item label="所属类型" prop="classType">
+                    <el-select v-model="newArticleDialog.newArticleForm.classType" style="width: 100%" multiple
+                               @visible-change="classTypeChange" @remove-tag="classTypeRemove" placeholder="请选择">
+                        <el-option
+                            v-for="item in classTypeOptions"
+                            :key="item.classId"
+                            :label="item.className"
+                            :value="item.classId">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="文章标签" prop="tagType">
+                    <el-select v-model="newArticleDialog.newArticleForm.tagType" style="width: 100%" multiple
+                               placeholder="请选择">
+                        <el-option
+                            v-for="item in newArticleDialog.tagTypeOptions"
+                            :key="item.tagId"
+                            :label="item.tagName"
+                            :value="item.tagId">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="newArticleDialog.dialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="newArticle('newArticleForm')"
+                           v-loading="newArticleDialog.loading">
+                    {{ newArticleDialog.loading ? '加载中...' : '保 存' }}
+                </el-button>
+              </span>
+        </el-dialog>
+
+        <!--    编辑文章弹窗    -->
+        <el-dialog
+            title="编辑文章"
+            :visible.sync="editArticleDialog.dialogVisible"
+            :close-on-press-escape="false"
+            :close-on-click-modal="false"
+            @close="closeEditArticleDialog('editArticleForm')"
+            width="40%">
+            <el-form :model="editArticleDialog.editArticleForm" status-icon :rules="formRules"
+                     ref="editArticleForm" label-width="100px" v-loading="editArticleDialog.formLoading">
+                <el-form-item label="文章标题" prop="articleTitle">
+                    <el-input type="text" v-model="editArticleDialog.editArticleForm.articleTitle"
+                              autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="文章副标题">
+                    <el-input type="text" v-model="editArticleDialog.editArticleForm.articleSubtitle"
+                              autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="文章关键词">
+                    <el-input type="text" v-model="editArticleDialog.editArticleForm.articleKeyword"
+                              autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="文章简介" prop="articleInfo">
+                    <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}"
+                              v-model="editArticleDialog.editArticleForm.articleInfo"
+                              autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="文章封面" prop="articleCover">
+                    <template v-if="editArticleDialog.editArticleForm.articleCover.length > 0">
+                        <div
+                            style="float: left; width: 60px; height: 60px; margin-right: 20px; border-radius: 6px; overflow: hidden;">
+                            <img style="width: 100%; height: 100%; cursor: pointer;"
+                                 :src="editArticleDialog.editArticleForm.articleCover[0].url" preview="articleCover">
+                        </div>
+                    </template>
+                    <el-button type="primary" size="mini" icon="el-icon-upload"
+                               @click="editArticleDialog.uploadImgVisible = true">上传封面
+                    </el-button>
+                    <Upload-Image :imgList.sync="editArticleDialog.editArticleForm.articleCover"
+                                  :uploadImgVisible.sync="editArticleDialog.uploadImgVisible"
+                                  thumbnail="articleCover"
+                                  @upload-close="uploadDialogClose"
+                                  :limitNum="1"></Upload-Image>
+                </el-form-item>
+                <el-form-item label="所属类型" prop="classType">
+                    <el-select v-model="editArticleDialog.editArticleForm.classType" style="width: 100%" multiple
+                               @visible-change="classTypeChange"
+                               @remove-tag="classTypeRemove" placeholder="请选择">
+                        <el-option
+                            v-for="item in classTypeOptions"
+                            :key="item.classId"
+                            :label="item.className"
+                            :value="item.classId">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="文章标签" prop="tagType">
+                    <el-select v-model="editArticleDialog.editArticleForm.tagType" style="width: 100%" multiple
+                               placeholder="请选择">
+                        <el-option
+                            v-for="item in editArticleDialog.tagTypeOptions"
+                            :key="item.tagId"
+                            :label="item.tagName"
+                            :value="item.tagId">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="editArticleDialog.dialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="updateArticle('editArticleForm')"
+                           v-loading="editArticleDialog.loading">
+                    {{ editArticleDialog.loading ? '加载中...' : '保 存' }}
+                </el-button>
+              </span>
+        </el-dialog>
     </div>
 </template>
 
@@ -150,8 +296,13 @@ import {getArticleList, newArticle, editArticle, deleteArticle, recoverArticle, 
 import {getAllClass} from '@/api/class'
 import {getAllTag} from '@/api/tag'
 
+import UploadImage from '@/components/UploadImage'
+
 export default {
     name: 'AdminArticle',
+    components: {
+        UploadImage
+    },
     data () {
         return {
             articleStatus: 0,
@@ -193,7 +344,7 @@ export default {
             newArticleDialog: {
                 dialogVisible: false,
                 loading: false,
-                upLoadImgVisible: false,
+                uploadImgVisible: false,
                 tagTypeOptions: [],
                 newArticleForm: {
                     articleTitle: '',
@@ -214,7 +365,7 @@ export default {
                 dialogVisible: false,
                 formLoading: false,
                 loading: false,
-                upLoadImgVisible: false,
+                uploadImgVisible: false,
                 tagTypeOptions: [],
                 editArticleForm: {
                     articleId: '',
@@ -324,19 +475,27 @@ export default {
             })
         },
         deleteArticle (articleId) {
-            deleteArticle({articleId: articleId}).then(res => {
-                this.$message.success('删除成功')
-                this.getArticleList(1)
-            }).catch(err => {
-                console.log(err)
-                this.$message.error('删除失败')
+            this.$confirm('确定删除该文章？', '提示', {
+                type: 'warning',
+                confirmButtonText: '删除',
+                confirmButtonClass: 'del-btn'
+            }).then(() => {
+                deleteArticle(articleId).then(res => {
+                    this.$message.success('删除成功')
+                    this.getArticleList(1)
+                }).catch(err => {
+                    console.log(err)
+                    this.$message.error('删除失败')
+                })
+            }).catch(() => {
+
             })
         },
         openEditArticleDialog (articleId) {
             this.editArticleDialog.dialogVisible = true
             this.editArticleDialog.formLoading = true
             this.isEdit = true
-            getArticleInfo({articleId: articleId}).then(res => {
+            getArticleInfo(articleId).then(res => {
                 this.editArticleDialog.editArticleForm.articleId = res.data.articleId
                 this.editArticleDialog.editArticleForm.articleTitle = res.data.articleTitle
                 this.editArticleDialog.editArticleForm.articleSubtitle = res.data.articleSubtitle
@@ -421,13 +580,17 @@ export default {
             this.getArticleList(1)
         },
         recoverArticle (articleId) {
-            recoverArticle({articleId: articleId}).then(res => {
+            recoverArticle(articleId).then(res => {
                 this.$message.success('恢复成功')
                 this.getArticleList(1)
             }).catch(err => {
                 console.log(err)
                 this.$message.error('删除失败')
             })
+        },
+        uploadDialogClose () {
+            console.log(1)
+            this.$previewRefresh()
         }
     },
     created () {
@@ -445,6 +608,13 @@ export default {
     }
 }
 </script>
+
+<style lang="scss">
+.del-btn {
+    background-color: #f00 !important;
+    border-color: #f00 !important;
+}
+</style>
 
 <style scoped lang="scss">
 #articleManage {

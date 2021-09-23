@@ -26,6 +26,11 @@ export const getUploadToken = ({keys, thumbnail}) => {
     return fetchPost('/getUploadToken', {keys, thumbnail})
 }
 
-export const uploadImg = formData => {
-    return fetchPost('http://upload-z2.qiniup.com', {formData})
+/**
+ * 上传图片
+ * @param formData
+ * @returns {*}
+ */
+export const uploadImg = function (formData) {
+    return fetchPost('http://upload-z2.qiniup.com', formData)
 }
