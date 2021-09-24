@@ -13,7 +13,7 @@
         </div>
         <template v-if="articleList.length == 0 && (articleStatus == 3 || articleStatus == 1)">
             <div style="margin-top: 5%; text-align: center;">
-                <img src="/static/img/default_img/no_data.png" alt="">
+                <img src="@/assets/images/default_img/no_data.png" alt="">
                 <p style="font-size: 20px;">没有发现文章</p>
             </div>
         </template>
@@ -768,7 +768,7 @@ export default {
 
 .new_card {
     .card_back {
-        background-image: url("/static/img/default_img/default_article_cover/2.jpg");
+        background-image: url("~@/assets/images/default_img/default_article_cover/2.jpg");
     }
 
     .card_content {

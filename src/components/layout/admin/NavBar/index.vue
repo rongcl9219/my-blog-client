@@ -83,7 +83,7 @@
 </template>
 
 <script>
-import defaultUser from '@/assets/images/default_user.png'
+import defaultUserImg from '@/assets/images/default_img/default_user.png'
 import {mapActions, mapGetters} from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
@@ -105,7 +105,7 @@ export default {
             'getAvatar'
         ]),
         userAvatar () {
-            return this.getAvatar || defaultUser
+            return this.getAvatar || defaultUserImg
         }
     },
     data () {

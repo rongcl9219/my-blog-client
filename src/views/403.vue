@@ -2,7 +2,7 @@
     <div class="page403_container">
         <div class="page403_http403">
             <div class="pic_403">
-                <img class="pic_403__parent" src="@/assets/error_images/403.png" alt="403">
+                <img class="pic_403__parent" src="@/assets/images/error_images/403.png" alt="403">
             </div>
             <div class="tips">
                 <div class="tips__headline">{{ msg }}</div>

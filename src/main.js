@@ -9,7 +9,7 @@ import preview from 'vue-photo-preview'
 import resetMessage from '@/utils/resetMessage'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/css/index.scss'
-import '../static/icon/iconfont.css'
+import '@/assets/icon/iconfont.css'
 import 'vue-photo-preview/dist/skin.css'
 
 Vue.use(ElementUI)
