@@ -29,8 +29,10 @@ import {
     Card,
     Link,
     Image,
+    Popover,
     Scrollbar,
     Avatar,
+    Tag,
     Loading,
     MessageBox,
     Notification
@@ -68,6 +70,8 @@ Vue.use(Link)
 Vue.use(Image)
 Vue.use(Scrollbar)
 Vue.use(Avatar)
+Vue.use(Popover)
+Vue.use(Tag)
 
 Vue.use(Loading.directive)
 

@@ -34,8 +34,9 @@
                 <template v-for="article in articleList">
                     <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="6" :key="article.articleId"
                             style="margin-bottom: 20px">
-                        <el-link :href="'/admin/articlePreview?articleId='+article.articleId" style="display: block;"
-                                 target="_blank" :underline="false">
+                        <el-link :href="'/admin/articlePreview?articleId='+article.articleId"
+                                 style="display: block;"
+                                 :underline="false">
                             <div class="card_item">
                                 <el-card class="box-card">
                                     <div class="card_back"
