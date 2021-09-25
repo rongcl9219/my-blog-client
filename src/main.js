@@ -5,11 +5,13 @@ import router from './router'
 import store from '@/store/index'
 import preview from 'vue-photo-preview'
 import '@/utils/elementImport'
+import mavonEditor from 'mavon-editor'
 
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/css/index.scss'
 import '@/assets/icon/iconfont.css'
 import 'vue-photo-preview/dist/skin.css'
+import '@/assets/css/main.scss'
 
 Vue.config.productionTip = false
 
@@ -27,6 +29,7 @@ let previewOption = {
 }
 
 Vue.use(preview, previewOption)
+Vue.use(mavonEditor)
 
 sync(store, router)
 

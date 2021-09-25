@@ -40,6 +40,8 @@ import {
 
 import resetMessage from './resetMessage'
 
+Vue.prototype.$ELEMENT = { size: 'small' }
+
 Vue.use(Pagination)
 Vue.use(Dialog)
 Vue.use(Dropdown)

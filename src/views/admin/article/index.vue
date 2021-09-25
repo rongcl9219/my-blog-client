@@ -34,7 +34,8 @@
                 <template v-for="article in articleList">
                     <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="6" :key="article.articleId"
                             style="margin-bottom: 20px">
-                        <el-link :href="'/admin/articlePreview?articleId='+article.articleId"
+                        <el-link :href="'/articlePreview?articleId='+article.articleId"
+                                 target="_blank"
                                  style="display: block;"
                                  :underline="false">
                             <div class="card_item">
@@ -289,20 +290,36 @@
                 </el-button>
               </span>
         </el-dialog>
+
+        <!--    编辑文章内容    -->
+        <el-dialog
+            title="编辑文章内容"
+            fullscreen
+            center
+            custom-class="markdown-content"
+            :visible.sync="editContentModel.mavonEditorVisible">
+            <Markdown ref="markdown" :content="editContentModel.articleContent"></Markdown>
+            <span slot="footer" class="dialog-footer">
+                <el-button size="small" @click="editContentModel.mavonEditorVisible = false">返 回</el-button>
+                <el-button type="primary" @click="saveContent">保 存</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
 <script>
-import {getArticleList, newArticle, editArticle, deleteArticle, recoverArticle, updatePublish, getArticleInfo} from '@/api/article'
+import {getArticleList, newArticle, editArticle, deleteArticle, recoverArticle, updatePublish, getArticleInfo, saveContent, getContent} from '@/api/article'
 import {getAllClass} from '@/api/class'
 import {getAllTag} from '@/api/tag'
 
 import UploadImage from '@/components/UploadImage'
+import Markdown from '@/components/Markdown'
 
 export default {
     name: 'AdminArticle',
     components: {
-        UploadImage
+        UploadImage,
+        Markdown
     },
     data () {
         return {
@@ -381,6 +398,7 @@ export default {
             },
             editContentModel: {
                 articleId: '',
+                articleContent: '',
                 mavonEditorVisible: false
             }
         }
@@ -572,6 +590,14 @@ export default {
         },
         openUpdateContent (articleId) {
             this.editContentModel.articleId = articleId
+
+            getContent(articleId).then(res => {
+                this.editContentModel.articleContent = res.data.articleContent || ''
+            }).catch(err => {
+                console.log(err)
+                this.$message.error('获取内容失败')
+            })
+
             this.editContentModel.mavonEditorVisible = true
         },
         currentChange (page) {
@@ -592,6 +618,19 @@ export default {
         uploadDialogClose () {
             console.log(1)
             this.$previewRefresh()
+        },
+        saveContent () {
+            this.editContentModel.articleContent = this.$refs['markdown'].getContent()
+
+            saveContent({
+                articleId: this.editContentModel.articleId,
+                articledContent: this.editContentModel.articleContent
+            }).then(() => {
+                this.$message.success('保存成功')
+            }).catch(err => {
+                console.log(err)
+                this.$message.error('保存失败')
+            })
         }
     },
     created () {
@@ -614,6 +653,15 @@ export default {
 .del-btn {
     background-color: #f00 !important;
     border-color: #f00 !important;
+}
+.markdown-content {
+    .el-dialog__body {
+        height: calc(100vh - 180px);
+
+        #editor {
+            height: 100%;
+        }
+    }
 }
 </style>
 
