@@ -51,14 +51,14 @@
 
 <script>
 import marked from 'marked'
-import highJs from 'highlight.js'
+import highJs from 'highlight'
 import {getArticleInfo} from '@/api/article'
 
 marked.setOptions({
     renderer: new marked.Renderer(),
     highlight: function (code, language) {
         const validLanguage = highJs.getLanguage(language) ? language : 'plaintext'
-        return highJs.highlight(validLanguage, code).value
+        return highJs.highlight(code, {language: validLanguage}).value
     },
     pedantic: false,
     gfm: true,

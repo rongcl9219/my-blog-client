@@ -1,5 +1,5 @@
 <template>
-    <mavon-editor ref="md" id="editor" @imgAdd="imgAdd" v-model="context"/>
+    <mavon-editor :externalLink="externalLink" ref="md" id="editor" @imgAdd="imgAdd" v-model="context"/>
 </template>
 
 <script>
@@ -23,7 +23,13 @@ export default {
     },
     data () {
         return {
-            context: ''
+            context: '',
+            externalLink: {
+                markdown_css: false,
+                hljs_js: false,
+                hljs_css: false,
+                hljs_lang: false
+            }
         }
     },
     methods: {

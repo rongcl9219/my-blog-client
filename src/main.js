@@ -4,16 +4,18 @@ import {sync} from 'vuex-router-sync'
 import router from './router'
 import store from '@/store/index'
 import preview from 'vue-photo-preview'
-import '@/utils/elementImport'
+import resetMessage from '@/utils/resetMessage'
 import mavonEditor from 'mavon-editor'
+import ElementUI from 'element-ui'
 
-import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/css/index.scss'
 import '@/assets/icon/iconfont.css'
-import 'vue-photo-preview/dist/skin.css'
 import '@/assets/css/main.scss'
 
 Vue.config.productionTip = false
+
+Vue.use(ElementUI, {size: 'small'})
+Vue.prototype.$message = resetMessage
 
 let previewOption = {
     maxSpreadZoom: 1, // 控制预览图最大的倍数，默认是2倍，我这里改成了原图

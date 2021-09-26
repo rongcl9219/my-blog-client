@@ -24,6 +24,16 @@ module.exports = {
   entry: {
     app: './src/main.js'
   },
+    externals: {
+        'vue': 'Vue',
+        'vuex': 'Vuex',
+        'vue-router': 'VueRouter',
+        'mavon-editor': 'MavonEditor',
+        'element-ui': 'ELEMENT',
+        'highlight': 'hljs',
+        'marked': 'marked',
+        'vue-photo-preview': 'vuePhotoPreview'
+    },
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
@@ -53,15 +63,21 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-          loader: [
-              'url-loader?limit=10000&name=' + utils.assetsPath('img/[name].[hash:7].[ext]'),
-              'image-webpack-loader'
+          use: [
+              {
+                  loader: 'url-loader',
+                  options: {
+                      limit: 10000,
+                      name: utils.assetsPath('img/[name].[hash:7].[ext]')
+                  }
+              },
+              {
+                  loader: 'image-webpack-loader',
+                  options: {
+                      bypassOnDebug: true
+                  }
+              }
           ]
-          // loader: 'url-loader',
-        // options: {
-        //   limit: 10000,
-        //   name: utils.assetsPath('img/[name].[hash:7].[ext]')
-        // }
       },
       {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
