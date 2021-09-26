@@ -9,6 +9,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
+const cndUtils = require('./cdn.utils')
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
@@ -56,7 +57,9 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       filename: 'index.html',
       template: 'public/index.html',
       favicon: 'public/favicon.ico',
-      inject: true
+      inject: true,
+        cdnConfig: cndUtils.cdnConfig,
+        isExternalJs: cndUtils.isExternalJs
     }),
     // copy custom static assets
     new CopyWebpackPlugin([

@@ -3,6 +3,7 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
+const cndUtils = require('./cdn.utils')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -24,17 +25,8 @@ module.exports = {
   entry: {
     app: './src/main.js'
   },
-    externals: {
-        'vue': 'Vue',
-        'vuex': 'Vuex',
-        'vue-router': 'VueRouter',
-        'mavon-editor': 'MavonEditor',
-        'element-ui': 'ELEMENT',
-        'highlight': 'hljs',
-        'marked': 'marked',
-        'vue-photo-preview': 'vuePhotoPreview'
-    },
-  output: {
+    externals: cndUtils.externalModules,
+    output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
     publicPath: process.env.NODE_ENV === 'production'
