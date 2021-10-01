@@ -1,52 +1,30 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import NProgress from 'nprogress'
-import 'nprogress/nprogress.css'
-import store from '@/store'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import Home from "../views/Home.vue";
 
-import routes from '@/router/modules/routers'
+Vue.use(VueRouter);
 
-Vue.use(Router)
+const routes = [
+  {
+    path: "/",
+    name: "Home",
+    component: Home,
+  },
+  {
+    path: "/about",
+    name: "About",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/About.vue"),
+  },
+];
 
-const router = new Router({
-    mode: 'history',
-    routes,
-    scrollBehavior (to, from, savedPosition) {
-        // return 期望滚动到哪个的位置
-        return {x: 0, y: 0}
-    }
-})
+const router = new VueRouter({
+  mode: "history",
+  base: process.env.BASE_URL,
+  routes,
+});
 
-// 路由拦截
-router.beforeEach((to, from, next) => {
-    const token = store.state.common.token
-    NProgress.start()
-    if (to.meta.requiresAuth) {
-        if (token) {
-            const userInfo = store.state.user.username
-            if (userInfo) {
-                next()
-            } else {
-                store.dispatch('user/getUserInfo').then(() => {
-                    next()
-                }).catch(() => {
-                    next()
-                })
-            }
-        } else {
-            next({
-                path: '/login',
-                replace: true
-            })
-        }
-    } else {
-        next()
-    }
-    next()
-})
-
-router.afterEach((to, from) => {
-    NProgress.done()
-})
-
-export default router
+export default router;
