@@ -45,8 +45,12 @@
                     </div>
                 </el-form-item>
                 <el-button :loading="loading" type="primary" @click="handleLogin('loginForm')"
-                           style="width:100%;margin-bottom:30px;">
+                           style="width: 100%; margin-bottom: 30px;">
                     登录
+                </el-button>
+                <el-button :loading="loading" type="primary" @click="initSysAdmin"
+                           style="width: 100%; margin: 0;">
+                  初始化管理员
                 </el-button>
             </el-form>
         </div>
@@ -54,6 +58,7 @@
 </template>
 
 <script>
+import {initSysAdmin} from '@/api/user'
 import {mapActions} from 'vuex'
 import ValidCode from '@/components/ValidCode'
 
@@ -132,6 +137,13 @@ export default {
             if (e.keyCode === 13 && e.target.baseURI.match(/login/)) {
                 this.handleLogin('loginForm') // 调用登录 验证方法
             }
+        },
+        initSysAdmin () {
+            initSysAdmin().then(res => {
+                this.$message.success(`初始化成功！用户名为：${res.data.username}，密码为：${res.data().password}`)
+            }).catch(err => {
+                this.$message.error(err.msg || '初始化失败')
+            })
         }
     },
     created () {

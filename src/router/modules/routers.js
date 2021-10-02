@@ -3,9 +3,9 @@
  */
 
 // 前台页面
-import HomeRouters from '@/router/modules/home'
+import HomeRouters from  './home'
 // 后台页面
-import AdminRouters from '@/router/modules/admin'
+import AdminRouters from './admin'
 
 let routes = [
     ...HomeRouters,
@@ -13,12 +13,12 @@ let routes = [
     {
         path: '/403',
         name: '403',
-        component: resolve => require(['@/views/403.vue'], resolve)
+        component: () => import(/* webpackChunkName: "403" */ '@/views/403.vue')
     },
     {
         path: '*',
         name: '404',
-        component: resolve => require(['@/views/404.vue'], resolve)
+        component: () => import(/* webpackChunkName: "404" */ '@/views/404.vue')
     }
 ]
 

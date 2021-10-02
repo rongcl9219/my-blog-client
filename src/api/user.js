@@ -48,3 +48,10 @@ export const updatePassword = ({oldPass, newPass, checkPass}) => {
 export const updateUserInfo = ({avatar, signature, email, userId}) => {
     return fetchPost('/admin/updateUserInfo', {avatar, signature, email, userId})
 }
+
+/**
+ * 初始化系统管理员
+ */
+export const initSysAdmin = () => {
+    return fetchPost('/initAdmin')
+}

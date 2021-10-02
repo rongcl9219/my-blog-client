@@ -1,12 +1,10 @@
 import axios from 'axios'
-import qs from 'qs'
 import {Message} from 'element-ui'
-// import {cacheAccessToken, cacheRefreshToken} from '@/utils/auth'
 import router from '@/router/index'
 import store from '@/store'
 
 const http = axios.create({
-    baseURL: process.env.BASE_API,
+    baseURL: '/api/',
     timeout: 5000
 })
 
@@ -16,16 +14,20 @@ let requestList = []
 
 // 添加请求拦截
 http.interceptors.request.use(config => {
-    if (config.method === 'post') {
-        if (config.headers['Content-Type'] && config.headers['Content-Type'].indexOf('application/x-www-form-urlencoded') > -1) {
-            config.data = qs.stringify(config.data)
-        }
-    } else if (config.method === 'get') {
-        // get请求添加时间戳
-        config.params = {
-            _: new Date().getTime(),
-            ...config.params
-        }
+    const timestamp = new Date().getTime()
+    // if (config.method === 'post') {
+    //     config.params = _: timestamp
+    // } else if (config.method === 'get') {
+    //     // get请求添加时间戳
+    //     config.params = {
+    //         _: timestamp,
+    //         ...config.params
+    //     }
+    // }
+
+    config.params = {
+        _: timestamp,
+        ...config.params
     }
 
     // 请求头添加token
@@ -51,7 +53,7 @@ http.interceptors.request.use(config => {
                         console.log(err)
                         requestList = []
                         isRefreshing = false
-                        router.replace({path: '/403'})
+                        router.replace({path: '/403'}).then(() => {})
                     })
                 }
 
@@ -80,7 +82,7 @@ http.interceptors.request.use(config => {
 http.interceptors.response.use(response => {
     if (!response.data.status) {
         if (response.data.code === -4001) {
-            router.replace({path: '/403'})
+            router.replace({path: '/403'}).then(() => {})
         }
 
         return Promise.reject(response.data)

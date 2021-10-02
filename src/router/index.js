@@ -3,8 +3,17 @@ import Router from 'vue-router'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import store from '@/store'
-
 import routes from '@/router/modules/routers'
+
+const originalPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+    return originalPush.call(this, location).catch(err => err)
+}
+
+const originalReplace = Router.prototype.replace
+Router.prototype.replace = function push(location) {
+    return originalReplace.call(this, location).catch(err => err)
+}
 
 Vue.use(Router)
 
@@ -12,7 +21,6 @@ const router = new Router({
     mode: 'history',
     routes,
     scrollBehavior () {
-        // return 期望滚动到哪个的位置
         return {x: 0, y: 0}
     }
 })

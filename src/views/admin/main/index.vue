@@ -14,8 +14,8 @@
                     <ul>
                         <li class="list_item about"><span class="list_item_title"><i
                             class="el-icon-third-yuan list_icon"></i>博主网站首页：</span>
-                            <el-link :underline="false" type="primary" target="_blank" href="http://rongcl.club">
-                                http://rongcl.club
+                            <el-link :underline="false" type="primary" target="_blank" :href="myBlog">
+                                {{myBlog}}
                             </el-link>
                         </li>
                         <li class="list_item about"><span class="list_item_title"><i
@@ -81,6 +81,7 @@ export default {
     name: 'AdminMain',
     data () {
         return {
+            myBlog: 'http://rongcl.club',
             github: 'https://github.com/rongcl9219',
             clientGithub: 'https://github.com/rongcl9219/my-blog-client',
             adminGithub: 'https://github.com/rongcl9219/my-blog-server'

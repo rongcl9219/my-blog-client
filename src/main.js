@@ -9,6 +9,7 @@ import mavonEditor from 'mavon-editor'
 import ElementUI from 'element-ui'
 
 import 'normalize.css/normalize.css'
+import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/css/index.scss'
 import '@/assets/icon/iconfont.css'
 import '@/assets/css/main.scss'
