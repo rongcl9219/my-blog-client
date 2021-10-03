@@ -1,7 +1,7 @@
 <template>
     <div :class="classObj" class="app-wrapper">
         <Side-Bar></Side-Bar>
-        <div class="main-container hasTagsView">
+        <div class="main-container">
             <div class="fixed-header">
                 <Nav-Bar></Nav-Bar>
             </div>

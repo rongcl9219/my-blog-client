@@ -8,7 +8,7 @@
 
 <script>
 export default {
-    name: 'AdminAppMain',
+    name: "HomeMain",
     computed: {
         key () {
             return this.$route.path
@@ -17,17 +17,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .app-main {
-    /*50 = navbar  */
-    min-height: calc(100vh - 50px);
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-}
-
-.fixed-header + .app-main {
-    box-sizing: border-box;
-    padding: 65px 15px 15px;
+    padding: 60px 0 0 0;
 }
 </style>

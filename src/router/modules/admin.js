@@ -5,7 +5,7 @@
 // 后台登录页面
 const AdminLogin = () => import(/* webpackChunkName: "admin-login" */ '@/views/admin/login')
 
-const AdminLayout = () => import(/* webpackChunkName: "admin-main" */ '@/components/layout/admin')
+const AdminLayout = () => import(/* webpackChunkName: "admin-layout" */ '@/components/layout/admin')
 
 // 后台首页
 const AdminMain = () => import(/* webpackChunkName: "admin-main" */ '@/views/admin/main')

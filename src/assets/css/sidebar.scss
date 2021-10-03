@@ -61,6 +61,10 @@
             border: none;
             height: 100%;
             width: 100% !important;
+
+            [class^=el-icon-] {
+                margin-left: -5px;
+            }
         }
 
         // menu hover
@@ -103,7 +107,7 @@
                 padding: 0 !important;
 
                 [class^=el-icon-] {
-                    margin-left: 20px;
+                    margin-left: 15px;
                 }
             }
         }

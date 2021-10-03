@@ -11,7 +11,10 @@ export default [
     {
         path: '/',
         name: 'HomePage',
-        component: HomePage
+        component: HomePage,
+        meta: {
+            home: true
+        }
     },
     {
         path: '/articlePreview',
