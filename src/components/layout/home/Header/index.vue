@@ -1,6 +1,6 @@
 <template>
     <header class="header">
-        <router-link class="home-link" to="/"><h1>My Blog</h1></router-link>
+        <router-link class="home-link" to="/"><h1>火星的青青草原</h1></router-link>
         <HeaderSlider/>
     </header>
 </template>
@@ -28,11 +28,17 @@ export default {
     height: 60px;
     padding: 15px 30px;
     box-sizing: border-box;
+    background-color: $--color-white;
+    box-shadow: 0 1px 8px 0 rgba($--color-black, 0.1);
 
     .home-link {
-        color: #424242;
+        color: $--color-text-primary;
         font-weight: 500;
         font-size: 22px;
+
+        h1 {
+            font-weight: 600;
+        }
     }
 }
 </style>

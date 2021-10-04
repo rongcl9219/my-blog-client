@@ -15,16 +15,8 @@ let requestList = []
 // 添加请求拦截
 http.interceptors.request.use(config => {
     const timestamp = new Date().getTime()
-    // if (config.method === 'post') {
-    //     config.params = _: timestamp
-    // } else if (config.method === 'get') {
-    //     // get请求添加时间戳
-    //     config.params = {
-    //         _: timestamp,
-    //         ...config.params
-    //     }
-    // }
 
+    // 添加时间戳
     config.params = {
         _: timestamp,
         ...config.params

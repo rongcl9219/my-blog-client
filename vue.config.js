@@ -44,6 +44,7 @@ module.exports = {
         // html中添加cdn
         config.plugin("html").tap(args => {
             args[0].cdn = cdn;
+            args[0].title = "火星的青青草原";
             return args;
         });
 
@@ -58,6 +59,15 @@ module.exports = {
                     pngquant: { quality: [0.65, 0.9], speed: 4 },
                     gifsicle: { interlaced: false }
                 });
+        }
+    },
+    css: {
+        extract: IS_PROD,
+        sourceMap: false,
+        loaderOptions: {
+            scss: {
+                prependData: `@import "@/assets/css/element-variables.scss";`
+            }
         }
     },
     devServer: {

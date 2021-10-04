@@ -1,8 +1,12 @@
-@import './variables.scss';
 @import './mixin.scss';
 @import './transition.scss';
 @import './element-ui.scss';
 @import './sidebar.scss';
+
+/* 改变 icon 字体路径变量，必需 */
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+
+@import "~element-ui/packages/theme-chalk/src/index";
 
 html, body, div, span, h1, h2, h3, h4, h5, h6, p, em, small, strong, dl, dt, dd, ol, ul, li {
     margin: 0;

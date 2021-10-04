@@ -20,5 +20,6 @@ export default {
 <style scoped lang="scss">
 .app-main {
     padding: 60px 0 0 0;
+    min-height: calc(100vh - 120px);
 }
 </style>

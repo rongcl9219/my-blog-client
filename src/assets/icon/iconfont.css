@@ -5,7 +5,7 @@
     url('iconfont.ttf?t=1629110495231') format('truetype');
 }
 
-[class^="el-icon-third"], [class*=" el-icon-third"] {
+#app [class^="el-icon-third"], #app [class*=" el-icon-third"] {
     font-family: "iconfont" !important;
     font-style: normal;
     -webkit-font-smoothing: antialiased;
