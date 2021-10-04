@@ -30,6 +30,7 @@ export default {
     box-sizing: border-box;
     background-color: $--color-white;
     box-shadow: 0 1px 8px 0 rgba($--color-black, 0.1);
+    z-index: 99999;
 
     .home-link {
         color: $--color-text-primary;

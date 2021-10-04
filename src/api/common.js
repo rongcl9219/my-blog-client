@@ -34,3 +34,11 @@ export const getUploadToken = ({keys, thumbnail}) => {
 export const uploadImg = function (formData) {
     return fetchPost('http://upload-z2.qiniup.com', formData)
 }
+
+/**
+ * 获取侧边栏信息
+ * @returns {Promise<*>}
+ */
+export const getAsideInfo = () => {
+    return fetchGet('/getAsideInfo')
+}

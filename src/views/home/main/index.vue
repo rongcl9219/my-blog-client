@@ -1,14 +1,80 @@
 <template>
-    <div>{{msg}}</div>
+    <div id="homePage">
+        <div class="banner">
+            <div class="banner_bg"></div>
+            <div class="banner_mask"></div>
+            <div class="banner_info">
+                <h2>火星的青青草原</h2>
+                <p>On My Way</p>
+            </div>
+        </div>
+        <div class="container">
+            <ArticleList/>
+            <WebInfo/>
+        </div>
+    </div>
 </template>
 
 <script>
+import ArticleList from '@/components/ArticleList'
+import WebInfo from "./components/WebInfo"
 export default {
     name: 'HomePage',
+    components: {
+        ArticleList,
+        WebInfo
+    },
     data () {
-        return {
-            msg: '首页'
-        }
+        return {}
     }
 }
 </script>
+
+<style lang="scss">
+#homePage {
+    .banner {
+        position: relative;
+        height: calc(100vh - 60px);
+
+        .banner_bg {
+            width: 100%;
+            height: 100%;
+            background-image: url($img_url + "/other/banner.jpg");
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .banner_mask {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .banner_info {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            color: $--color-white;
+            text-align: center;
+            transform: translate(-50%, -50%);
+
+            h2 {
+                margin-bottom: 10px;
+                font-size: 40px;
+                font-weight: 500;
+                letter-spacing: 2px;
+                transition: .3s;
+            }
+
+            & > p {
+                font-size: 24px;
+                transition: .3s;
+            }
+        }
+    }
+}
+</style>

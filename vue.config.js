@@ -66,7 +66,7 @@ module.exports = {
         sourceMap: false,
         loaderOptions: {
             scss: {
-                prependData: `@import "@/assets/css/element-variables.scss";`
+                prependData: `@import "@/assets/css/element-variables.scss";$img_url: "~@/assets/images";`
             }
         }
     },

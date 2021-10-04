@@ -17,8 +17,9 @@ export default {
     align-items: center;
     height: 60px;
     text-align: center;
-    background-color: #262a30;
-    color: #999;
+    border-top: 1px solid $--border-color-base;
+    background-color: $--color-white;
+    color: $--color-text-regular;
     font-size: 14px;
 
     p {
@@ -26,12 +27,8 @@ export default {
     }
 
     a {
-        color: #999;
+        color: $--color-text-regular;
         font-size: 14px;
-    }
-
-    a:hover {
-        color: #fff;
     }
 }
 </style>

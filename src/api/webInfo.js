@@ -5,7 +5,7 @@ import {fetchGet, fetchPost} from '@/utils/http'
  * @returns {*}
  */
 export const getWebInfo = () => {
-    return fetchGet('/admin/getWebInfo')
+    return fetchGet('/getWebInfo')
 }
 
 /**
