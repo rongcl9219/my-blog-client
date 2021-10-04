@@ -5,19 +5,20 @@
             <div class="banner_mask"></div>
             <div class="banner_info">
                 <h2>火星的青青草原</h2>
-                <p>On My Way</p>
+                <p v-text="webInfo && webInfo.MOTTO"></p>
             </div>
         </div>
         <div class="container">
             <ArticleList/>
-            <WebInfo/>
+            <WebInfo :web-info="webInfo" />
         </div>
     </div>
 </template>
 
 <script>
-import ArticleList from '@/components/ArticleList'
+import ArticleList from './components/ArticleList'
 import WebInfo from "./components/WebInfo"
+import {getWebInfo} from "@/api/webInfo";
 export default {
     name: 'HomePage',
     components: {
@@ -25,7 +26,14 @@ export default {
         WebInfo
     },
     data () {
-        return {}
+        return {
+            webInfo: null
+        }
+    },
+    created() {
+        getWebInfo().then(res => {
+            this.webInfo = res.data.paramData
+        }).catch(() => {})
     }
 }
 </script>

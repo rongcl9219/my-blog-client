@@ -7,10 +7,10 @@ import preview from 'vue-photo-preview'
 import resetMessage from '@/utils/resetMessage'
 import mavonEditor from 'mavon-editor'
 import ElementUI from 'element-ui'
+import '@/utils/mixin'
 
 import 'normalize.css/normalize.css'
 import "@/assets/css/main.scss"
-// import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/icon/iconfont.css'
 
 Vue.config.productionTip = false;

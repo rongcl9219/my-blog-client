@@ -225,7 +225,7 @@ $cursor: #222;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     user-select: none;
 
     &:after {

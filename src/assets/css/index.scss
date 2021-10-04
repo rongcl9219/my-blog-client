@@ -20,14 +20,12 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: normal;
 }
 html {
-    height: 100%;
     box-sizing: border-box;
 
     @include scrollBar;
 }
 body {
     width: 100%;
-    height: 100%;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;

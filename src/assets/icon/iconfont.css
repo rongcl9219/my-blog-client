@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 2097015 */
-  src: url('iconfont.woff2?t=1633342101613') format('woff2'),
-       url('iconfont.woff?t=1633342101613') format('woff'),
-       url('iconfont.ttf?t=1633342101613') format('truetype');
+  src: url('iconfont.woff2?t=1633355090606') format('woff2'),
+       url('iconfont.woff?t=1633355090606') format('woff'),
+       url('iconfont.ttf?t=1633355090606') format('truetype');
 }
 
 #app [class^="el-icon-third"], #app [class*=" el-icon-third"] {
@@ -10,6 +10,10 @@
     font-style: normal;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+.el-icon-third-huojian:before {
+  content: "\e615";
 }
 
 .el-icon-third-shijian:before {
@@ -118,6 +122,10 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-huojian:before {
+  content: "\e615";
 }
 
 .icon-shijian:before {

@@ -5,6 +5,9 @@
                 <el-form-item label="网站名称">
                     <el-input v-model="form.webName"></el-input>
                 </el-form-item>
+                <el-form-item label="座右铭">
+                    <el-input v-model="form.motto"></el-input>
+                </el-form-item>
                 <el-form-item label="github地址">
                     <el-input v-model="form.githublink"></el-input>
                 </el-form-item>
@@ -47,11 +50,12 @@ export default {
             upLoadImgVisible: false,
             form: {
                 webName: '',
-                githublink: '',
+                githubLink: '',
                 avatar: {
                     url: '',
                     key: ''
                 },
+                motto: '',
                 personalDesc: '',
                 webDesc: ''
             },
@@ -66,10 +70,11 @@ export default {
 
             let paramObj = {
                 WEB_NAME: this.form.webName,
-                GITHUB_LINK: this.form.githublink,
+                GITHUB_LINK: this.form.githubLink,
                 WEB_AVATAR: this.form.avatar.key,
                 PERSONAL_DESC: this.form.personalDesc,
-                WEB_DESC: this.form.webDesc
+                WEB_DESC: this.form.webDesc,
+                MOTTO: this.form.motto
             }
 
             saveWebInfo(paramObj).then(() => {
@@ -92,9 +97,10 @@ export default {
         getWebInfo().then(res => {
             let paramData = res.data.paramData
             this.form.webName = paramData.WEB_NAME || ''
-            this.form.githublink = paramData.GITHUB_LINK || ''
+            this.form.githubLink = paramData.GITHUB_LINK || ''
             this.form.personalDesc = paramData.PERSONAL_DESC || ''
             this.form.webDesc = paramData.WEB_DESC || ''
+            this.form.motto = paramData.MOTTO || ''
             if (paramData.WEB_AVATAR) {
                 this.form.avatar = paramData.WEB_AVATAR
             }

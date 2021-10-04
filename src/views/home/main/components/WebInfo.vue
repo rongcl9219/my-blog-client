@@ -36,31 +36,26 @@
 </template>
 
 <script>
-import {getWebInfo} from '@/api/webInfo'
 import {getAsideInfo} from '@/api/common'
 export default {
     name: "WebInfo",
+    props: {
+        webInfo: {
+            type: Object,
+            default: function () {
+                return null
+            }
+        }
+    },
     data () {
         return {
-            webInfo: null,
             tagList: [],
             classList: [],
             articleCount: 0,
             colorList: ['#12a933', '#e32c2c', '#f58b30', '#fdb004', '#3dccd3', '#a000d3', '#d10074', '#27d984', '#226cb9', '#b36b6b']
         }
     },
-    methods: {
-        getBgColor () {
-            const index = Math.floor(Math.random() * 10)
-
-            return this.colorList[index]
-        }
-    },
     created() {
-        getWebInfo().then(res => {
-            this.webInfo = res.data.paramData
-        }).catch(() => {})
-
         getAsideInfo().then(res => {
             this.tagList = res.data.tagList
             this.classList = res.data.classList
