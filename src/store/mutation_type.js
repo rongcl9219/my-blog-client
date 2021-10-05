@@ -39,3 +39,9 @@ export const REFRESH_TOKEN = 'REFRESH_TOKEN'
  * @type {string}
  */
 export const SET_TOKEN_EXP = 'SET_TOKEN_EXP'
+
+/**
+ * 设置评论用户
+ * @type {string}
+ */
+export const SET_COMMENT_USER = 'SET_COMMENT_USER'

@@ -1,5 +1,5 @@
 <template>
-    <div id="articlePage">
+    <div id="articlePage" class="container">
         <template v-if="loadFail">
             <div class="load_fail" style="text-align: center;margin-top: 100px;">
                 <img src="/static/assets/img/default_img/no_data.png" alt="">
@@ -53,11 +53,85 @@
 </template>
 
 <script>
+import CommentBox from '@/components/CommentBox'
+import {getArticleInfo} from '@/api/article'
+import marked from 'marked'
+import highJs from 'highlight'
+
+let rendererMD = new marked.Renderer()
+
+marked.setOptions({
+    renderer: rendererMD,
+    highlight: function (code, language) {
+        const validLanguage = highJs.getLanguage(language) ? language : 'plaintext'
+        return highJs.highlight(validLanguage, code).value
+    },
+    pedantic: false,
+    gfm: true,
+    breaks: false,
+    sanitize: false,
+    smartLists: true,
+    smartypants: false,
+    xhtml: false
+})
+
+rendererMD.image = function (href, title, text) {
+    return `<img style="cursor: zoom-in;" src="${href}" alt="${text}" preview="articleImage">`
+}
+
 export default {
-    name: 'Article'
+    name: 'Article',
+    components: {
+        'Comment-Box': CommentBox
+    },
+    props: {
+        articleId: {
+            type: String,
+            default: ''
+        }
+    },
+    data() {
+        return {
+            articleData: null,
+            loadFail: false,
+            articleMenu: [],
+            articleHtml: ''
+        }
+    },
+    methods: {
+        setContentHtml() {
+            let index = 1
+            rendererMD.heading = function (text, level) {
+                return `<h${level} class="article_menu_item" id="article_menu_${index++}">${text}</h${level}>`
+            }
+
+            this.articleHtml = marked(this.articleData.articleContent || '', {sanitize: true})
+        }
+    },
+    created () {
+        getArticleInfo(this.articleId).then(res => {
+            this.articleData = res.data
+            this.setContentHtml()
+            // 在数据加载完毕之后调用 实现图片预览
+            this.$previewRefresh()
+        }).catch(() => {
+            this.loadFail = true
+            this.$message.error('获取失败')
+        })
+    }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+#articlePage {
+    min-height: calc(100vh - 60px);
 
+    .article_wrapper {
+        flex: 1;
+    }
+
+    .comment {
+        margin: 20px 0;
+    }
+}
 </style>

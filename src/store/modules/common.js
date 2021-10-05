@@ -3,13 +3,14 @@
  */
 
 import {refreshToken} from '@/api/common'
-import {cacheAccessToken, cacheRefreshToken, cacheTokenExp} from '@/utils/auth'
-import {SET_TOKEN, REFRESH_TOKEN, SET_TOKEN_EXP} from '../mutation_type'
+import {cacheAccessToken, cacheRefreshToken, cacheTokenExp, commentUserInfo} from '@/utils/auth'
+import {SET_TOKEN, REFRESH_TOKEN, SET_TOKEN_EXP, SET_COMMENT_USER} from '../mutation_type'
 
 const state = {
     token: cacheAccessToken.load() || null,
     refreshToken: cacheRefreshToken.load() || null,
-    tokenExp: cacheTokenExp.load() || null
+    tokenExp: cacheTokenExp.load() || null,
+    commentUser: commentUserInfo.load() || null
 }
 
 const getters = {
@@ -21,6 +22,9 @@ const getters = {
     },
     getTokenExp: state => {
         return state.tokenExp
+    },
+    getCommentUser: (state) => {
+        return state.commentUser
     }
 }
 
@@ -33,6 +37,9 @@ const mutations = {
     },
     [SET_TOKEN_EXP]: (state, tokenExp) => {
         state.tokenExp = tokenExp
+    },
+    [SET_COMMENT_USER]: (state, commentUser) => {
+        state.commentUser = commentUser
     }
 }
 
@@ -79,6 +86,15 @@ const actions = {
         cacheAccessToken.delete()
         cacheRefreshToken.delete()
         cacheTokenExp.delete()
+    },
+    /**
+     * 设置评论用户
+     * @param context
+     * @param commentUser
+     */
+    setCommentUser: (context, commentUser) => {
+        context.commit(SET_COMMENT_USER, commentUser)
+        commentUserInfo.save(commentUser, 7 * 24 * 60 * 60)
     }
 }
 

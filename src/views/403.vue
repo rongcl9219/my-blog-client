@@ -39,12 +39,13 @@ export default {
 
 <style lang="scss" scoped>
 .page403_container {
-    transform: translate(-50%, -50%);
-    position: absolute;
-    top: 40%;
-    left: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
     width: 80%;
-    max-width: 1200px;
+    margin: 0 auto;
+    max-width: 1100px;
 }
 
 .page403_http403 {

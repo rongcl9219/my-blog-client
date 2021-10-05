@@ -13,6 +13,8 @@ import 'normalize.css/normalize.css'
 import "@/assets/css/main.scss"
 import '@/assets/icon/iconfont.css'
 
+import "@/svg";
+
 Vue.config.productionTip = false;
 
 Vue.use(ElementUI, {size: 'small'})

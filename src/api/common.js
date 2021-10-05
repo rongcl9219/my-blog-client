@@ -42,3 +42,21 @@ export const uploadImg = function (formData) {
 export const getAsideInfo = () => {
     return fetchGet('/getAsideInfo')
 }
+
+/**
+ * 添加评论
+ * @param data
+ * @returns {Promise<*>}
+ */
+export const addComment = (data) => {
+    return fetchPost('/addComment', data)
+}
+
+/**
+ * 获取评论
+ * @param articleId
+ * @returns {Promise<*>}
+ */
+export const getComment = articleId => {
+    return fetchGet('/getComment', {articleId})
+}

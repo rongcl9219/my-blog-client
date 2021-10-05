@@ -9,7 +9,8 @@ const ssCache = new Cache({storage: 'sessionStorage'})
 const KEYS = {
     accessToken: 'ak',
     refreshToken: 'rk',
-    tokenExp: 'exp'
+    tokenExp: 'exp',
+    commentUser: 'commentUser'
 }
 
 const nameSpace = 'MY_BLOG'
@@ -73,8 +74,15 @@ const cacheRefreshToken = new CommonStorage(KEYS.refreshToken, 60 * 60 * 24, 'se
  */
 const cacheTokenExp = new CommonStorage(KEYS.tokenExp, null, 'sessionStorage')
 
+/**
+ * 评论用户信息
+ * @type {CommonStorage}
+ */
+const commentUserInfo = new CommonStorage(KEYS.commentUser, 0)
+
 export {
     cacheAccessToken,
     cacheRefreshToken,
-    cacheTokenExp
+    cacheTokenExp,
+    commentUserInfo
 }

@@ -1,6 +1,6 @@
 <template>
     <div class="article_card">
-        <div class="article_head" @click="pathTo('/article', {article: articleInfo.articleId})">
+        <div class="article_head" @click="pathTo('/article', {articleId: articleInfo.articleId})">
             <div class="article_cover" :style="{backgroundImage: `url(${articleInfo.articleCover})`}"></div>
             <h3 class="article_title">
                 <span >{{ articleInfo.articleTitle }}</span>

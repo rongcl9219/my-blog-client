@@ -54,12 +54,30 @@ module.exports = {
                 .use("image-webpack-loader")
                 .loader("image-webpack-loader")
                 .options({
-                    mozjpeg: { progressive: true, quality: 65 },
-                    optipng: { enabled: false },
-                    pngquant: { quality: [0.65, 0.9], speed: 4 },
-                    gifsicle: { interlaced: false }
+                    mozjpeg: {progressive: true, quality: 65},
+                    optipng: {enabled: false},
+                    pngquant: {quality: [0.65, 0.9], speed: 4},
+                    gifsicle: {interlaced: false}
                 });
         }
+
+        /* 使用svg组件 */
+        const svgRule = config.module.rule("svg");
+        svgRule.uses.clear();
+        svgRule.exclude.add(/node_modules/);
+        svgRule
+            .test(/\.svg$/)
+            .use("svg-sprite-loader")
+            .loader("svg-sprite-loader")
+            .options({
+                symbolId: "icon-[name]"
+            });
+
+        const imagesRule = config.module.rule("images");
+        imagesRule.exclude.add(resolve("src/svg"));
+        config.module.rule("images").test(/\.(png|jpe?g|gif|svg)(\?.*)?$/);
+
+        return config;
     },
     css: {
         extract: IS_PROD,
