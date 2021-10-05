@@ -21,7 +21,7 @@
                             <div>
                                 <template v-for="item in articleData.classTypeList">
                                     <span class="underline" :key="item.classId"
-                                          @click="pathTo('/articles', {type: 'class', id: item.classId})">{{
+                                          @click="pathTo('/articleList', {type: 'class', id: item.classId})">{{
                                             item.className
                                         }}</span>
                                 </template>
@@ -34,11 +34,12 @@
                     <section class="tag-group">
                         <template v-for="item in articleData.tagTypeList">
                             <el-tag :key="item.tagId"
-                                    style="margin-left: 10px; cursor: pointer;"
+                                    class="tag_item"
+                                    :style="{backgroundColor: getBgColor()}"
                                     type="info"
                                     size="small"
                                     effect="dark"
-                                    @click="pathTo('/articles', {type: 'tag', id: item.tagId})">
+                                    @click="pathTo('/articleList', {type: 'tag', id: item.tagId})">
                                 {{ item.tagName }}
                             </el-tag>
                         </template>
@@ -106,7 +107,13 @@ export default {
             }
 
             this.articleHtml = marked(this.articleData.articleContent || '', {sanitize: true})
-        }
+        },
+        pathTo (path, query) {
+            this.$router.push({
+                path: path,
+                query: query
+            })
+        },
     },
     created () {
         getArticleInfo(this.articleId).then(res => {
@@ -132,6 +139,13 @@ export default {
 
     .comment {
         margin: 20px 0;
+    }
+
+    .tag_item {
+        margin-left: 10px;
+        cursor: pointer;
+        border: none;
+        line-height: 2;
     }
 }
 </style>

@@ -1,7 +1,9 @@
 <template>
     <header class="header">
-        <router-link class="home-link" to="/"><h1>火星的青青草原</h1></router-link>
-        <HeaderSlider/>
+        <div class="header_box">
+            <router-link class="home-link" to="/"><h1>火星的青青草原</h1></router-link>
+            <HeaderSlider/>
+        </div>
     </header>
 </template>
 
@@ -22,15 +24,21 @@ export default {
     top: 0;
     left: 0;
     right: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     height: 60px;
     padding: 15px 30px;
     box-sizing: border-box;
     background-color: $--color-white;
     box-shadow: 0 1px 8px 0 rgba($--color-black, 0.1);
     z-index: 999;
+
+    .header_box {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
 
     .home-link {
         color: $--color-text-primary;

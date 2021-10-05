@@ -9,6 +9,8 @@ const ArticlePreview = () => import(/* webpackChunkName: "article-preview" */ '@
 
 const HomeArticle = () => import(/* webpackChunkName: "home-article" */ '@/views/home/Article')
 
+const ArticleList = () => import(/* webpackChunkName: "home-articleList" */ '@/views/home/ArticleList')
+
 export default [
     {
         path: '/',
@@ -23,6 +25,15 @@ export default [
         name: 'HomeArticle',
         component: HomeArticle,
         props: (route) => ({ articleId: route.query.articleId }),
+        meta: {
+            home: true
+        }
+    },
+    {
+        path: '/articleList',
+        name: 'ArticleList',
+        component: ArticleList,
+        props: (route) => ({ type: route.query.type, typeId: String(route.query.id) }),
         meta: {
             home: true
         }

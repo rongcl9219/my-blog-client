@@ -15,7 +15,7 @@
                 <template v-for="item in articleInfo.classTypeList">
                     <span class="underline"
                           :key="item.classId"
-                          @click="pathTo('/articles', {type: 'class', id: item.classId})">
+                          @click="pathTo('/articleList', {type: 'class', id: item.classId})">
                           {{ item.className }}
                     </span>
                 </template>
@@ -30,7 +30,7 @@
                         type="info"
                         size="small"
                         effect="dark"
-                        @click="pathTo('/articles', {type: 'tag', id: item.tagId})">
+                        @click="pathTo('/articleList', {type: 'tag', id: item.tagId})">
                     {{ item.tagName }}
                 </el-tag>
             </template>

@@ -39,8 +39,11 @@
                                 <span class="reply_time" v-text="formatDate('', item.createDate, 2)"></span>
                                 <a class="reply_btn" @click="reply(item, 1)"><i class="el-icon-chat-dot-square"></i> 回复</a>
                             </div>
-                            <div class="reply_editor">
-                                <transition name="component-fade" mode="out-in">
+                            <div class="reply_editor" :id="'p'+item.commentId">
+                                <transition name="component-fade"
+                                            v-on:before-enter="beforeEnter('p'+item.commentId)"
+                                            v-on:after-enter="afterEnter('p'+item.commentId)"
+                                            mode="out-in">
                                     <div v-if="currentReply === item.commentId">
                                         <div class="comment_content">
                                             <el-input type="textarea"
@@ -58,7 +61,8 @@
                                             <el-button type="text" size="mini" class="cancel_btn"
                                                        @click="currentReply = ''">取消
                                             </el-button>
-                                            <el-button type="text" size="mini" class="send_btn" @click="checkComment(2)">
+                                            <el-button type="text" size="mini" class="send_btn"
+                                                       @click="checkComment(2)">
                                                 发送
                                             </el-button>
                                         </el-row>
@@ -92,8 +96,11 @@
                                                     <a class="reply_btn" @click="reply(child, 2)"><i
                                                         class="el-icon-chat-dot-square"></i> 回复</a>
                                                 </div>
-                                                <div class="reply_editor">
-                                                    <transition name="component-fade" mode="out-in">
+                                                <div class="reply_editor" :id="'r'+child.commentId">
+                                                    <transition name="component-fade"
+                                                                v-on:before-enter="beforeEnter('r'+child.commentId)"
+                                                                v-on:after-enter="afterEnter('r'+child.commentId)"
+                                                                mode="out-in">
                                                         <div v-if="currentReply === child.commentId">
                                                             <div class="comment_content">
                                                                 <el-input type="textarea"
@@ -156,10 +163,10 @@ export default {
             'getCommentUser'
         ]),
         commentUser: {
-            get () {
+            get() {
                 return this.getCommentUser
             },
-            set (newVal) {
+            set(newVal) {
                 this.setCommentUser(newVal)
             }
         }
@@ -170,7 +177,7 @@ export default {
             default: ''
         }
     },
-    data () {
+    data() {
         return {
             commentList: [],
             isVcodeShow: false,
@@ -190,7 +197,7 @@ export default {
         }
     },
     watch: {
-        currentReply () {
+        currentReply() {
             this.replyContent = ''
         }
     },
@@ -199,14 +206,14 @@ export default {
             'setCommentUser'
         ]),
         formatDate,
-        clickSvg (key) {
+        clickSvg(key) {
             if (this.currentReply) {
                 this.replyContent += key
             } else {
                 this.commentContent += key
             }
         },
-        checkComment (type) {
+        checkComment(type) {
             if (!this.commentUser) {
                 this.$message.warning('请输入昵称')
                 return false
@@ -237,14 +244,14 @@ export default {
                     }
                 })
         },
-        getComment () {
+        getComment() {
             getComment(this.articleId).then(res => {
                 this.commentList = res.data.commentList
             }).catch(() => {
 
             })
         },
-        sendComment () {
+        sendComment() {
             let data = {
                 userName: this.commentUser,
                 articleId: this.articleId,
@@ -278,7 +285,7 @@ export default {
                 this.isVcodeShow = false
             })
         },
-        reply (data, type) {
+        reply(data, type) {
             if (type === 1) {
                 this.replyModule.replyCommentId = ''
                 this.replyModule.replyCommentUserName = ''
@@ -293,9 +300,19 @@ export default {
 
             this.replyPlaceholder = `@${data.userName}`
             this.currentReply = data.commentId
+        },
+        beforeEnter(el) {
+            let ele = document.getElementById(el)
+
+            ele.style.overflow = 'hidden'
+        },
+        afterEnter(el) {
+            let ele = document.getElementById(el)
+
+            ele.style.overflow = 'visible'
         }
     },
-    created () {
+    created() {
         this.getComment()
     }
 }
