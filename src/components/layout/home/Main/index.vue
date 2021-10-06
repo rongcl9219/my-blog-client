@@ -46,7 +46,7 @@ export default {
 
 @media screen and (max-width: 720px) {
     .el-backtop {
-        display: none !important;
+        right: 20px !important;
     }
 }
 </style>

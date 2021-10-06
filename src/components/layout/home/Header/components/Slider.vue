@@ -1,76 +1,71 @@
 <template>
     <div class="slider">
-        <div class="header_tabs">
-            <div class="tab_item">
-                <router-link to="/" class="link-home">
-                    <i class="el-icon-s-home" ></i>
-                    <span>首页</span>
-                </router-link>
-            </div>
-            <div class="tab_item">
-                <router-link to="/classTag">
-                    <i class="el-icon-third-biaoqian"></i>
-                    <span>分类/标签</span>
-                </router-link>
-            </div>
-            <div class="tab_item">
-                <router-link to="/about">
-                    <i class="el-icon-user-solid"></i>
-                    <span>关于</span>
-                </router-link>
-            </div>
-            <div class="tab_item">
-                <router-link to="/timeLine">
-                    <i class="el-icon-third-shijian"></i>
-                    <span>时间线</span>
-                </router-link>
-            </div>
-            <div class="tab_item">
-                <router-link to="/search">
-                    <i class="el-icon-search"></i>
-                    <span>搜索</span>
-                </router-link>
-            </div>
+        <LinkTab/>
+        <div class="header_tabs_tool" @click="toggleHomeAside">
+            <span class="tabs_tool_line"></span>
+            <span class="tabs_tool_line"></span>
+            <span class="tabs_tool_line"></span>
         </div>
     </div>
 </template>
 
 <script>
+import LinkTab from "@/components/layout/home/components/LinkTab";
+
 export default {
     name: "Slider",
     computed: {
-        activeTag () {
-            return this.$route.path
+        activeRoute() {
+            return this.$route.name
+        }
+    },
+    components: {
+        LinkTab
+    },
+    data() {
+        return {
+            headerTool: false
         }
     }
 }
 </script>
 
 <style scoped lang="scss">
-.header_tabs {
-    display: flex;
-    align-items: center;
+.header_tabs_tool {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
 
-    .tab_item {
-        margin: 0 5px;
-        //padding: 2px 8px;
-        font-size: 14px;
-        border-radius: 5px;
-        cursor: pointer;
+    .tabs_tool_line {
+        display: inline-block;
+        width: 25px;
+        height: 3px;
+        background-color: #222;
+        transition: .3s;
+    }
+}
 
-        a {
-            transition: .3s;
-            padding: 2px 8px;
-            color: $--color-text-secondary;
-        }
+.home-slide-on .header_tabs_tool {
+    .tabs_tool_line:nth-child(1) {
+        transform: translate(0px, 8px) rotateZ(-45deg);
+    }
 
-        &:hover a, .router-link-exact-active {
-            color: $--color-text-primary;
-        }
+    .tabs_tool_line:nth-child(2) {
+        opacity: 0;
+    }
 
-        i {
-            margin-right: 3px;
-            font-size: 16px;
+    .tabs_tool_line:nth-child(3) {
+        transform: translate(0px, -9px) rotateZ(45deg);
+    }
+}
+
+@media screen and (max-width: 720px) {
+    .slider {
+        .header_tabs_tool {
+            display: flex;
         }
     }
 }

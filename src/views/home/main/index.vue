@@ -5,35 +5,33 @@
             <div class="banner_mask"></div>
             <div class="banner_info">
                 <h2>火星的青青草原</h2>
-                <p v-text="webInfo && webInfo.MOTTO"></p>
+                <p v-text="webInfo.MOTTO"></p>
             </div>
         </div>
         <div class="container">
             <ArticleList/>
-            <WebInfo :web-info="webInfo" />
+            <HomeWebInfo/>
         </div>
     </div>
 </template>
 
 <script>
 import ArticleList from './components/ArticleList'
-import WebInfo from "./components/WebInfo"
-import {getWebInfo} from "@/api/webInfo";
+import HomeWebInfo from "./components/WebInfo"
+import {mapGetters} from 'vuex'
 export default {
     name: 'HomePage',
     components: {
         ArticleList,
-        WebInfo
+        HomeWebInfo
     },
-    data () {
-        return {
-            webInfo: null
+    computed: {
+        ...mapGetters('common', [
+            'getWebInfo'
+        ]),
+        webInfo () {
+            return this.getWebInfo.webInfo || {}
         }
-    },
-    created() {
-        getWebInfo().then(res => {
-            this.webInfo = res.data.paramData
-        }).catch(() => {})
     }
 }
 </script>
@@ -81,6 +79,25 @@ export default {
             & > p {
                 font-size: 24px;
                 transition: .3s;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 720px) {
+    #homePage {
+        .container {
+            //display: block;
+            flex-direction: column;
+        }
+
+        .banner_info {
+            h2 {
+                font-size: 32px !important;
+            }
+
+            p {
+                font-size: 22px !important;
             }
         }
     }

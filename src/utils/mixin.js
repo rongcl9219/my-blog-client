@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import store from "@/store";
 
 Vue.mixin({
     methods: {
@@ -12,7 +13,10 @@ Vue.mixin({
             this.$router.push({
                 path: path,
                 query: query
-            })
+            }).then(() => {})
+        },
+        toggleHomeAside () {
+            store.dispatch('setting/toggleHomeAside').then(() => {})
         }
     }
 })

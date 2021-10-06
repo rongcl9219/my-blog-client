@@ -21,7 +21,7 @@
             </ul>
         </template>
         <template v-else>
-            <div style="margin-top: 7%; text-align: center;" :key="33333">
+            <div style="margin-top: 7%; text-align: center;">
                 <img src="@/assets/images/default_img/no_data.png" alt="">
                 <p style="font-size: 20px;">什么都没有</p>
             </div>

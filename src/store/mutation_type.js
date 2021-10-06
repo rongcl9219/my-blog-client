@@ -45,3 +45,21 @@ export const SET_TOKEN_EXP = 'SET_TOKEN_EXP'
  * @type {string}
  */
 export const SET_COMMENT_USER = 'SET_COMMENT_USER'
+
+/**
+ * 设置网站信息
+ * @type {string}
+ */
+export const SET_WEB_INFO = 'SET_WEB_INFO'
+
+/**
+ * 设置侧边栏
+ * @type {string}
+ */
+export const SET_HOME_ASIDE = 'SET_HOME_ASIDE'
+
+/**
+ * 设置菜单栏信息
+ * @type {string}
+ */
+export const SET_ASIDE_INFO = 'SET_ASIDE_INFO'

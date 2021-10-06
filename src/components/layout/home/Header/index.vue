@@ -9,16 +9,24 @@
 
 <script>
 import HeaderSlider from "./components/Slider";
+import {mapActions} from 'vuex'
 export default {
     name: "HomeHeader",
     components: {
         HeaderSlider
+    },
+    methods: {
+        ...mapActions('common', [
+            'setWebInfo'
+        ])
+    },
+    created() {
+        this.setWebInfo().catch(() => {})
     }
 }
 </script>
 
 <style scoped lang="scss">
-
 .header {
     position: fixed;
     top: 0;
@@ -29,7 +37,7 @@ export default {
     box-sizing: border-box;
     background-color: $--color-white;
     box-shadow: 0 1px 8px 0 rgba($--color-black, 0.1);
-    z-index: 999;
+    z-index: 20;
 
     .header_box {
         display: flex;

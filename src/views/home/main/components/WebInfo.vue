@@ -1,23 +1,6 @@
 <template>
     <div id="webInfo">
-        <el-avatar class="avatar" :size="90" :src="webInfo && webInfo.WEB_AVATAR.url"></el-avatar>
-        <h3 class="web_user" v-text="webInfo && webInfo.WEB_NAME"></h3>
-        <p class="web_info" v-text="webInfo && webInfo.WEB_DESC"></p>
-        <div class="web_menu_wrap">
-            <div class="menu_item" @click="pathTo('/')">
-                <p class="num" v-text="articleCount"></p>
-                <p>文章</p>
-            </div>
-            <div class="menu_item" @click="pathTo('/classTag')">
-                <p class="num" v-text="classList.length"></p>
-                <p>分类</p>
-            </div>
-            <div class="menu_item" @click="pathTo('/classTag')">
-                <p class="num" v-text="tagList.length"></p>
-                <p>标签</p>
-            </div>
-        </div>
-        <el-divider></el-divider>
+        <WebInfo class="home-web-info" />
         <div class="class_box">
             <h4><i class="el-icon-third-fenleiguanli"></i>分类</h4>
             <ul class="class_ul">
@@ -40,36 +23,34 @@
 </template>
 
 <script>
-import {getAsideInfo} from '@/api/common'
+import {getClass} from '@/api/class'
+import {getAllTag} from '@/api/tag'
+import WebInfo from '@/components/WebInfo'
+
 export default {
-    name: "WebInfo",
-    props: {
-        webInfo: {
-            type: Object,
-            default: function () {
-                return null
-            }
-        }
+    name: "HomeWebInfo",
+    components: {
+        WebInfo
     },
     data () {
         return {
             tagList: [],
-            classList: [],
-            articleCount: 0,
-            colorList: ['#12a933', '#e32c2c', '#f58b30', '#fdb004', '#3dccd3', '#a000d3', '#d10074', '#27d984', '#226cb9', '#b36b6b']
+            classList: []
         }
     },
     created() {
-        getAsideInfo().then(res => {
-            this.tagList = res.data.tagList
-            this.classList = res.data.classList
-            this.articleCount = res.data.articleCount
-        }).catch(() => {})
+        getClass().then(res => {
+            this.classList = res.data
+        })
+
+        getAllTag().then(res => {
+            this.tagList = res.data
+        })
     }
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 #webInfo {
     position: sticky;
     top: 80px;
@@ -85,47 +66,6 @@ export default {
 
     &:hover {
         box-shadow: $box-shadow-dark;
-    }
-
-    .avatar {
-        display: block;
-        margin: 30px auto 20px;
-    }
-
-    .web_user, .web_info {
-        text-align: center;
-        font-size: 16px;
-        color: $--color-text-primary;
-        margin-bottom: 10px;
-    }
-
-    .web_menu_wrap {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        .menu_item {
-            padding: 5px 15px;
-            text-align: center;
-            color: $--color-text-primary;
-            cursor: pointer;
-            transition: .3s;
-
-            &:hover {
-                color: $--color-primary;
-            }
-
-            &:nth-child(2) {
-                border-left: 1px solid #ccc;
-                border-right: 1px solid #ccc;
-            }
-        }
-
-        .num {
-            margin-bottom: 5px;
-            font-size: 18px;
-            font-weight: 600;
-        }
     }
 
     h4 {
@@ -181,6 +121,18 @@ export default {
         box-shadow: 0 2px 10px 1px rgba($--color-black, .1);
         cursor: pointer;
         transition: .3s;
+    }
+}
+
+@media screen and (max-width: 720px) {
+    #webInfo {
+        position: relative;
+        top: 0;
+        width: auto;
+        margin: 20px 0;
+        .home-web-info {
+            display: none;
+        }
     }
 }
 </style>
