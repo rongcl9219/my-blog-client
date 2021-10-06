@@ -1,8 +1,8 @@
 <template>
     <div id="Search">
         <div class="search_module">
-            <el-input placeholder="请输入搜索内容" v-model="query" clearable autofocus>
-                <el-button slot="append" icon="el-icon-search" @click="toSearch()"></el-button>
+            <el-input placeholder="请输入搜索内容" @keyup.enter.native="pathTo('/search', {query})" v-model="query" clearable autofocus>
+                <el-button slot="append" icon="el-icon-search" @click="pathTo('/search', {query})"></el-button>
             </el-input>
             <p class="search_total">共<span v-text="pagination.total"></span>篇</p>
         </div>
@@ -75,12 +75,6 @@ export default {
         },
         currentChange (page) {
             this.getArticleList(page)
-        },
-        toSearch () {
-            this.$router.push({
-                name: 'Search',
-                query: {query: this.query}
-            })
         }
     },
     mounted () {

@@ -7,6 +7,12 @@ Vue.mixin({
             const index = Math.floor(Math.random() * 10)
 
             return colorList[index]
+        },
+        pathTo (path, query) {
+            this.$router.push({
+                path: path,
+                query: query
+            })
         }
     }
 })

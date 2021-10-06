@@ -49,14 +49,6 @@ export default {
                 return {}
             }
         }
-    },
-    methods: {
-        pathTo (path, query) {
-            this.$router.push({
-                path: path,
-                query: query
-            })
-        }
     }
 }
 </script>

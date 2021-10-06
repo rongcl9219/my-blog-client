@@ -42,13 +42,6 @@ export default {
         activeTag () {
             return this.$route.path
         }
-    },
-    methods: {
-        pathTo (path) {
-            this.$router.push({
-                path
-            })
-        }
     }
 }
 </script>

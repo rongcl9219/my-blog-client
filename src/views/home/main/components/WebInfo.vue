@@ -59,14 +59,6 @@ export default {
             colorList: ['#12a933', '#e32c2c', '#f58b30', '#fdb004', '#3dccd3', '#a000d3', '#d10074', '#27d984', '#226cb9', '#b36b6b']
         }
     },
-    methods: {
-        pathTo (path, query) {
-            this.$router.push({
-                path: path,
-                query: query
-            })
-        }
-    },
     created() {
         getAsideInfo().then(res => {
             this.tagList = res.data.tagList

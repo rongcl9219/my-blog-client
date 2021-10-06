@@ -31,14 +31,6 @@ export default {
             tagList: []
         }
     },
-    methods: {
-        pathTo (path, query) {
-            this.$router.push({
-                path: path,
-                query: query
-            })
-        }
-    },
     created() {
         getClass().then(res => {
             this.classList = res.data
