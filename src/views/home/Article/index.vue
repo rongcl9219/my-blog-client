@@ -134,7 +134,7 @@ export default {
     min-height: calc(100vh - 60px);
 
     .article_wrapper {
-        flex: 1;
+        width: 100%;
     }
 
     .comment {
