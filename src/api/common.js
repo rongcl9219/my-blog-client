@@ -60,3 +60,11 @@ export const addComment = (data) => {
 export const getComment = articleId => {
     return fetchGet('/getComment', {articleId})
 }
+
+/**
+ * 获取时间线数据
+ * @returns {Promise<*>}
+ */
+export const getTimeLine = () => {
+    return fetchGet('/getTimeLine')
+}
