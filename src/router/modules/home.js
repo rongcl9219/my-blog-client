@@ -11,6 +11,14 @@ const HomeArticle = () => import(/* webpackChunkName: "home-article" */ '@/views
 
 const ArticleList = () => import(/* webpackChunkName: "home-articleList" */ '@/views/home/ArticleList')
 
+const ClassTag = () => import(/* webpackChunkName: "home-classTag" */ '@/views/home/ClassTag')
+
+const About = () => import(/* webpackChunkName: "home-about" */ '@/views/home/About')
+
+const TimeLine = () => import(/* webpackChunkName: "home-timeLine" */ '@/views/home/TimeLine')
+
+const Search = () => import(/* webpackChunkName: "home-search" */ '@/views/home/Search')
+
 export default [
     {
         path: '/',
@@ -34,6 +42,38 @@ export default [
         name: 'ArticleList',
         component: ArticleList,
         props: (route) => ({ type: route.query.type, typeId: String(route.query.id) }),
+        meta: {
+            home: true
+        }
+    },
+    {
+        path: '/classTag',
+        name: 'ClassTag',
+        component: ClassTag,
+        meta: {
+            home: true
+        }
+    },
+    {
+        path: '/about',
+        name: 'About',
+        component: About,
+        meta: {
+            home: true
+        }
+    },
+    {
+        path: '/timeLine',
+        name: 'TimeLine',
+        component: TimeLine,
+        meta: {
+            home: true
+        }
+    },
+    {
+        path: '/search',
+        name: 'Search',
+        component: Search,
         meta: {
             home: true
         }

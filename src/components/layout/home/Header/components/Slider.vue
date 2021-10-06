@@ -71,7 +71,7 @@ export default {
             color: $--color-text-secondary;
         }
 
-        &:hover a, .router-link-active {
+        &:hover a, .router-link-exact-active {
             color: $--color-text-primary;
         }
 

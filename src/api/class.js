@@ -58,3 +58,11 @@ export const getClassInfo = ({classId}) => {
 export const getAllClass = () => {
     return fetchGet('/getAllClass')
 }
+
+/**
+ * 获取分类
+ * @returns {*}
+ */
+export const getClass = () => {
+    return fetchGet('/getClass')
+}

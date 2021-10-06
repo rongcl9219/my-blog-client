@@ -4,15 +4,15 @@
         <h3 class="web_user" v-text="webInfo && webInfo.WEB_NAME"></h3>
         <p class="web_info" v-text="webInfo && webInfo.WEB_DESC"></p>
         <div class="web_menu_wrap">
-            <div class="menu_item">
+            <div class="menu_item" @click="pathTo('/')">
                 <p class="num" v-text="articleCount"></p>
                 <p>文章</p>
             </div>
-            <div class="menu_item">
+            <div class="menu_item" @click="pathTo('/classTag')">
                 <p class="num" v-text="classList.length"></p>
                 <p>分类</p>
             </div>
-            <div class="menu_item">
+            <div class="menu_item" @click="pathTo('/classTag')">
                 <p class="num" v-text="tagList.length"></p>
                 <p>标签</p>
             </div>
@@ -21,16 +21,20 @@
         <div class="class_box">
             <h4><i class="el-icon-third-fenleiguanli"></i>分类</h4>
             <ul class="class_ul">
-                <li class="li_item" v-for="item in classList" :key="item.classId">
+                <li class="li_item" v-for="item in classList" :key="item.classId" @click="pathTo('/articleList', {type: 'class', id: item.classId})">
                     <span>{{ item.className }}</span>
-                    <span :style="{backgroundColor: getBgColor()}">{{ item.classId }}</span>
+                    <span :style="{backgroundColor: getBgColor()}">{{ item.count }}</span>
                 </li>
             </ul>
         </div>
         <el-divider></el-divider>
         <h4><i class="el-icon-third-biaoqian"></i>标签</h4>
         <div class="tag_box">
-            <span class="tag_item" v-for="tag in tagList" :key="tag.tagId" :style="{backgroundColor: getBgColor()}">{{tag.tagName}}</span>
+            <span class="tag_item"
+                  v-for="tag in tagList"
+                  :key="tag.tagId"
+                  :style="{backgroundColor: getBgColor()}"
+                  @click="pathTo('/articleList', {type: 'tag', id: tag.tagId})">{{tag.tagName}}</span>
         </div>
     </div>
 </template>
@@ -53,6 +57,14 @@ export default {
             classList: [],
             articleCount: 0,
             colorList: ['#12a933', '#e32c2c', '#f58b30', '#fdb004', '#3dccd3', '#a000d3', '#d10074', '#27d984', '#226cb9', '#b36b6b']
+        }
+    },
+    methods: {
+        pathTo (path, query) {
+            this.$router.push({
+                path: path,
+                query: query
+            })
         }
     },
     created() {
