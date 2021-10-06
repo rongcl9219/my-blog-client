@@ -564,7 +564,7 @@ export default {
 
                     editArticle(editData).then(() => {
                         this.$message.success('修改成功')
-                        this.getArticleList(1)
+                        this.getArticleList(this.pagination.page)
                         this.editArticleDialog.dialogVisible = false
                     }).catch(err => {
                         console.log(err)

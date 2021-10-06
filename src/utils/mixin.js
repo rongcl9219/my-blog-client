@@ -17,6 +17,24 @@ Vue.mixin({
         },
         toggleHomeAside () {
             store.dispatch('setting/toggleHomeAside').then(() => {})
+        },
+        pageScrollTo(topHeight) {
+            topHeight = topHeight || 0
+            return new Promise((resolve => {
+                window.scrollTo({
+                    top: topHeight,
+                    behavior: "smooth"
+                })
+
+                let running = function () {
+                    let top = window.scrollY
+                    if (top === topHeight) {
+                        window.removeEventListener("scroll", running)
+                        resolve()
+                    }
+                }
+                window.addEventListener("scroll", running, false)
+            }))
         }
     }
 })

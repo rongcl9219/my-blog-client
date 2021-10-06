@@ -74,7 +74,9 @@ export default {
             })
         },
         currentChange (page) {
-            this.getArticleList(page)
+            this.pageScrollTo().then(() => {
+                this.getArticleList(page)
+            })
         }
     },
     mounted () {

@@ -53,7 +53,11 @@ export default {
             })
         },
         currentChange (page) {
-            this.getArticleList(page)
+            const clientHeight = window.innerHeight - 60
+
+            this.pageScrollTo(clientHeight).then(() => {
+                this.getArticleList(page)
+            })
         }
     },
     created() {
