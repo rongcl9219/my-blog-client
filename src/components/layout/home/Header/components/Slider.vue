@@ -2,8 +2,8 @@
     <div class="slider">
         <div class="header_tabs">
             <div class="tab_item">
-                <router-link to="/">
-                    <i class="el-icon-s-home"></i>
+                <router-link to="/" class="link-home">
+                    <i class="el-icon-s-home" ></i>
                     <span>首页</span>
                 </router-link>
             </div>
