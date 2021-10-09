@@ -10,7 +10,8 @@ const KEYS = {
     accessToken: 'ak',
     refreshToken: 'rk',
     tokenExp: 'exp',
-    commentUser: 'commentUser'
+    commentUser: 'commentUser',
+    theme: 'theme'
 }
 
 const nameSpace = 'MY_BLOG'
@@ -80,9 +81,16 @@ const cacheTokenExp = new CommonStorage(KEYS.tokenExp, null, 'sessionStorage')
  */
 const commentUserInfo = new CommonStorage(KEYS.commentUser, 0)
 
+/**
+ * 主题信息
+ * @type {CommonStorage}
+ */
+const cacheThemeInfo = new CommonStorage(KEYS.theme, 0)
+
 export {
     cacheAccessToken,
     cacheRefreshToken,
     cacheTokenExp,
-    commentUserInfo
+    commentUserInfo,
+    cacheThemeInfo
 }

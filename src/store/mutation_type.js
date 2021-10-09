@@ -59,7 +59,7 @@ export const SET_WEB_INFO = 'SET_WEB_INFO'
 export const SET_HOME_ASIDE = 'SET_HOME_ASIDE'
 
 /**
- * 设置菜单栏信息
+ * 设置主题
  * @type {string}
  */
-export const SET_ASIDE_INFO = 'SET_ASIDE_INFO'
+export const SET_THEME = 'SET_THEME'

@@ -2,11 +2,13 @@
  * @description 设置状态管理
  */
 
-import {SET_SIDEBAR, SET_HOME_ASIDE} from '../mutation_type'
+import {SET_SIDEBAR, SET_HOME_ASIDE, SET_THEME} from '../mutation_type'
+import {cacheThemeInfo} from '@/utils/auth'
 
 const state = {
     sidebarOpen: false,
-    homeAside: false
+    homeAside: false,
+    theme: cacheThemeInfo.load() || 'blove'
 }
 
 const getters = {
@@ -15,6 +17,9 @@ const getters = {
     },
     getHomeAside: state => {
         return state.homeAside
+    },
+    getTheme: state => {
+        return state.theme
     }
 }
 
@@ -24,6 +29,9 @@ const mutations = {
     },
     [SET_HOME_ASIDE]: state => {
         state.homeAside = !state.homeAside
+    },
+    [SET_THEME]: (state, theme) => {
+        state.theme = theme
     }
 }
 
@@ -33,6 +41,10 @@ const actions = {
     },
     toggleHomeAside  ({commit}) {
         commit(SET_HOME_ASIDE)
+    },
+    setTheme ({commit}, theme) {
+        cacheThemeInfo.save(theme)
+        commit(SET_THEME, theme)
     }
 }
 

@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="app" :class="themeClass">
         <template v-if="$route.meta.home">
             <HomeLayout/>
         </template>
@@ -11,13 +11,23 @@
 
 <script>
 import HomeLayout from '@/components/layout/home'
+import {mapGetters} from 'vuex'
 export default {
     name: 'App',
     components: {
         HomeLayout
     },
-    mounted() {
-        window.document.documentElement.setAttribute( "data-theme", "dark" );
+    computed: {
+        ...mapGetters('setting', [
+            'getTheme'
+        ]),
+        themeClass () {
+            return `theme-${this.getTheme}`
+        }
     }
 }
 </script>
+
+<style lang="scss">
+@import "@/assets/scss/theme/themeify.scss";
+</style>
