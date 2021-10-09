@@ -10,7 +10,7 @@ import ElementUI from 'element-ui'
 import '@/utils/mixin'
 
 import 'normalize.css/normalize.css'
-import "@/assets/css/main.scss"
+import "@/assets/scss/main.scss"
 import '@/assets/icon/iconfont.css'
 
 import "@/svg";

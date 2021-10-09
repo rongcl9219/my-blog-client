@@ -38,7 +38,7 @@
 
 <script>
 import {mapGetters} from 'vuex'
-import variables from '@/assets/css/variables.scss'
+import variables from '@/assets/scss/variables.scss'
 export default {
     name: 'AideBar',
     computed: {
