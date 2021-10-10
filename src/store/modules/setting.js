@@ -8,7 +8,7 @@ import {cacheThemeInfo} from '@/utils/auth'
 const state = {
     sidebarOpen: false,
     homeAside: false,
-    theme: cacheThemeInfo.load() || 'blove'
+    theme: cacheThemeInfo.load() || 'light'
 }
 
 const getters = {

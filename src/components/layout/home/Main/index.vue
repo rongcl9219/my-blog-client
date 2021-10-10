@@ -34,13 +34,13 @@ export default {
     .to_top {
         width: 100%;
         height: 100%;
-        background-color: $--color-white;
         text-align: center;
         font-size: 22px;
         line-height: 40px;
-        color: $--color-black;
-        box-shadow: $box-shadow-dark;
         border-radius: 5px;
+        @include background_color('background-color1');
+        @include font_color('text-color2');
+        @include box_shadow('box-shadow2');
     }
 }
 

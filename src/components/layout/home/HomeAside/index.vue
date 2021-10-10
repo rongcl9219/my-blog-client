@@ -33,10 +33,10 @@ export default {
     height: 100vh;
     padding-top: 60px;
     box-sizing: border-box;
-    background-color: $--color-white;
-    z-index: 15;
     transform: translateX(-100%);
     transition: .3s;
+    z-index: 15;
+    @include background_color('background-color1');
 }
 
 @media screen and (max-width: 720px) {
@@ -44,5 +44,4 @@ export default {
         transform: translateX(0);
     }
 }
-
 </style>

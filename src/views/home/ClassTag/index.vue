@@ -68,16 +68,17 @@ export default {
 
     .class_item {
         padding: 5px 15px;
-        border: 1px solid $--color-white;
+        border: 1px solid;
         margin: 5px;
         border-radius: 6px;
         font-size: 14px;
         font-weight: 600;
         line-height: 2;
-        color: $--color-text-primary;
-        box-shadow: $box-shadow-light;
         cursor: pointer;
         transition: .3s;
+        @include border_color('border-color1');
+        @include font_color('text-color2');
+        @include box_shadow('box-shadow1');
 
         .class_count {
             display: inline-block;
@@ -86,16 +87,16 @@ export default {
             margin-left: 4px;
             text-align: center;
             line-height: 22px;
-            color: $--color-white;
-            background-color: $--background-color-base;
             border-radius: 3px;
             font-size: 13px;
             transition: .3s;
+            @include font_color('text-color6');
+            @include background_color('background-color2');
         }
 
         &:hover {
-            color: $--color-white;
-            background-color: $--color-black;
+            @include font_color('text-color6');
+            @include background_color('background-color8');
         }
     }
 
@@ -109,7 +110,7 @@ export default {
         transition: .3s;
 
         & > span {
-            text-shadow: 2px 2px 1px rgba($--color-black, .15);
+            @include test_shadow('text-shadow1');
         }
 
         &:after {
@@ -119,13 +120,13 @@ export default {
             left: 0;
             width: 100%;
             height: 1px;
-            background-color: #222;
             transform: scaleX(0);
             transition: .3s;
+            @include background_color('background-color9');
         }
 
         &:hover {
-            color: #222;
+            @include font_color('text-color2');
 
             &:after {
                 transform: scaleX(1);

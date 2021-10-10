@@ -61,11 +61,11 @@ export default {
     margin-bottom: 20px;
     padding: 20px;
     border-radius: 6px;
-    box-shadow: $box-shadow-light;
     transition: .3s;
+    @include box_shadow('box-shadow1');
 
     &:hover {
-        box-shadow: $box-shadow-dark;
+        @include box_shadow('box-shadow2');
     }
 
     .article_head {
@@ -83,7 +83,7 @@ export default {
                 display: block;
                 content: '';
                 padding-top: 50%;
-                background: rgba(0, 0, 0, .3);
+                background-color: rgba($Ba0_u, .3);
             }
         }
 
@@ -93,7 +93,7 @@ export default {
             }
 
             .article_title {
-                color: #fff;
+                color: $Wh0_u;
                 transform: translate(-50%, -50%) scale(1.15);
             }
         }
@@ -103,7 +103,7 @@ export default {
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            color: #e2e2e2;
+            color: $Ga2_u;
             font-size: 30px;
             font-weight: 600;
             font-family: '宋体';
@@ -117,8 +117,8 @@ export default {
         justify-content: center;
         align-items: center;
         font-size: 14px;
-        color: #666;
         margin: 10px;
+        @include font_color('text-color4');
 
         .icon {
             margin: 0 5px;
@@ -132,8 +132,9 @@ export default {
         .underline {
             margin-right: 5px;
             position: relative;
-            border-bottom: 1px solid #222;
+            border-bottom: 1px solid;
             cursor: pointer;
+            @include border_color('border-color5');
         }
     }
 
@@ -142,9 +143,8 @@ export default {
         max-height: 60px;
         margin: 10px 0 15px;
         padding-left: 5px;
-        border-left: 2px solid #222;
+        border-left: 2px solid;
         border-radius: 0px;
-        color: #222;
         font-size: 15px;
         font-weight: 500;
         font-family: '宋体';
@@ -153,6 +153,8 @@ export default {
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
         overflow: hidden;
+        @include border_color('border-color6');
+        @include font-color('text-color2');
     }
 
     .tag_item {
@@ -160,7 +162,7 @@ export default {
         cursor: pointer;
         border: none;
         line-height: 2;
-        box-shadow: 0 2px 10px 1px rgba($--color-black, .1);
+        @include box_shadow('box-shadow3')
     }
 }
 

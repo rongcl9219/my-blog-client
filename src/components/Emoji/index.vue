@@ -111,5 +111,7 @@ export default {
     width: 22px;
     height: 22px;
     padding: 0;
+    border: none;
+    @include background_color('theme-color');
 }
 </style>

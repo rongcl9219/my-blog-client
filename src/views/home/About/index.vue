@@ -1,7 +1,7 @@
 <template>
     <div>
-        <button @click="setTheme('blove')">红色主题</button>
-        <button @click="setTheme('flammulated')">蓝色主题</button>
+        <button @click="setTheme('light')">红色主题</button>
+        <button @click="setTheme('dark')">蓝色主题</button>
         <hr />
         <h1 class="them_title">This is an about page</h1>
         <button class="them-btn-default">默认</button>
@@ -22,6 +22,9 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+.them_title {
+    font-size: 20px;
+    @include font_color("color-primary");
+}
 </style>

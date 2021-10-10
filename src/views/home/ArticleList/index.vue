@@ -86,6 +86,28 @@ export default {
 }
 </script>
 
+<style lang="scss">
+#articleList {
+    .el-pagination.is-background .el-pager li:not(.disabled).active {
+        @include background_color('theme-color');
+        @include font_color('text-color6');
+
+        &:hover {
+            @include font_color('text-color6');
+        }
+    }
+
+    .el-pagination.is-background .el-pager li:not(.disabled):hover {
+        @include font_color('theme-color');
+    }
+
+    .el-pagination.is-background .btn-prev, .el-pagination.is-background .btn-next, .el-pagination.is-background .el-pager li {
+        @include background_color('background-color3');
+        @include font_color('text-color7');
+    }
+}
+</style>
+
 <style scoped lang="scss">
 #articleList {
     overflow: hidden;

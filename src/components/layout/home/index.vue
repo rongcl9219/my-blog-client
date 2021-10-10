@@ -38,8 +38,8 @@ export default {
     left: 0;
     width: 100%;
     height: 100vh;
-    background-color: rgba($--color-black, .35);
     z-index: 10;
+    @include background_color('background-color10');
 }
 
 @media screen and (max-width: 720px) {

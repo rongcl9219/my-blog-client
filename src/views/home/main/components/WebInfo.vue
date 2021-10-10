@@ -60,17 +60,17 @@ export default {
     padding: 20px;
     border-radius: 5px;
     box-sizing: border-box;
-    box-shadow: $box-shadow-light;
     overflow: hidden;
     transition: .3s;
+    @include box_shadow('box-shadow1');
 
     &:hover {
-        box-shadow: $box-shadow-dark;
+        @include box_shadow('box-shadow2');
     }
 
     h4 {
         margin: 15px 0;
-        color: $--color-text-regular;
+        @include font_color('text-color2');
 
         & > i {
             margin-right: 5px;
@@ -86,13 +86,13 @@ export default {
         font-size: 14px;
         line-height: 2.2;
         border-radius: 3px;
-        box-shadow: $box-shadow-light;
         cursor: pointer;
         transition: .3s;
+        @include box_shadow('box-shadow1');
 
         &:hover {
             transform: scale(1.02);
-            box-shadow: $box-shadow-dark;
+            @include box_shadow('box-shadow2');
         }
 
         span:nth-child(2) {
@@ -100,9 +100,9 @@ export default {
             height: 22px;
             text-align: center;
             line-height: 22px;
-            color: $--color-white;
-            background-color: $--background-color-base;
             border-radius: 3px;
+            @include font_color('text-color6');
+            @include background_color('background-color2');
         }
     }
 
@@ -116,11 +116,11 @@ export default {
         margin: 0 10px 15px 0;
         padding: 5px 10px;
         border-radius: 3px;
-        color: $--color-white;
         line-height: 1;
-        box-shadow: 0 2px 10px 1px rgba($--color-black, .1);
         cursor: pointer;
         transition: .3s;
+        @include font_color('text-color6');
+        @include box_shadow('box-shadow3');
     }
 }
 

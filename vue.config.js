@@ -84,7 +84,7 @@ module.exports = {
         sourceMap: false,
         loaderOptions: {
             scss: {
-                prependData: `@import "@/assets/scss/element-variables.scss";$img_url: "~@/assets/images";`
+                prependData: `@import "@/assets/scss/theme/_handle.scss";$img_url: "~@/assets/images";`
             }
         }
     },

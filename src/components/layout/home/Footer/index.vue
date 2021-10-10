@@ -17,18 +17,19 @@ export default {
     align-items: center;
     height: 60px;
     text-align: center;
-    border-top: 1px solid $--border-color-base;
-    background-color: $--color-white;
-    color: $--color-text-regular;
     font-size: 14px;
+    border-top: 1px solid;
+    @include border_color('border-color2');
+    @include background_color('background-color1');
+    @include font_color('text-color2');
 
     p {
         line-height: 1.5;
     }
 
     a {
-        color: $--color-text-regular;
         font-size: 14px;
+        @include font_color('text-color2');
     }
 }
 </style>

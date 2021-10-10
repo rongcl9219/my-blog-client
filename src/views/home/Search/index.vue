@@ -86,6 +86,43 @@ export default {
 }
 </script>
 
+<style lang="scss">
+#Search {
+    .el-input__inner {
+        @include font_color('text-color2');
+        @include border_color('border-color2');
+
+        &:focus {
+            @include border_color('theme-color');
+        }
+    }
+
+    .el-pagination.is-background .el-pager li:not(.disabled).active {
+        @include background_color('theme-color');
+        @include font_color('text-color6');
+
+        &:hover {
+            @include font_color('text-color6');
+        }
+    }
+
+    .el-pagination.is-background .el-pager li:not(.disabled):hover {
+        @include font_color('theme-color');
+    }
+
+    .el-pagination.is-background .btn-prev, .el-pagination.is-background .btn-next, .el-pagination.is-background .el-pager li {
+        @include background_color('background-color3');
+        @include font_color('text-color7');
+    }
+
+    .el-input-group__append, .el-input-group__prepend {
+        @include background_color('background-color2');
+        @include font_color('text-color7');
+        @include border_color('border-color2');
+    }
+}
+</style>
+
 <style scoped lang="scss">
 #Search {
     min-width: 320px;
@@ -102,6 +139,7 @@ export default {
             font-size: 14px;
             color: #666;
             font-weight: 600;
+            @include font_color('text-color7');
 
             span {
                 margin: 0 5px;

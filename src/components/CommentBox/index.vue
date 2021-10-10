@@ -318,11 +318,23 @@ export default {
 }
 </script>
 
+<style lang="scss">
+.comment_module {
+    .el-input__inner, .el-textarea__inner {
+        @include font_color('text-color2');
+        &:focus {
+            @include border_color('theme-color');
+        }
+    }
+}
+</style>
+
 <style scoped lang="scss">
 .comment_module {
     padding: 20px;
     background-color: #fafafb;
     border-radius: 4px;
+    @include background_color('background-color2');
 }
 
 .comment_form {
@@ -354,14 +366,14 @@ export default {
                 font-size: 0;
 
                 .user_t {
-                    color: #4A90E2;
                     font-size: 12px;
+                    @include font_color('theme-color');
                 }
 
                 .colon {
                     margin-right: 5px;
-                    color: #999;
                     font-size: 12px;
+                    @include font_color('text-color3');
                 }
 
                 .comment_con {
@@ -378,14 +390,14 @@ export default {
                 justify-content: space-between;
                 margin-top: 5px;
                 font-size: 12px;
-                color: #999;
+                @include font_color('text-color4');
 
                 .reply_btn {
                     margin-right: 10px;
                     cursor: pointer;
 
                     &:hover {
-                        color: #f37327;
+                        color: $Or5_u;
                     }
                 }
             }
@@ -394,14 +406,19 @@ export default {
                 margin: 10px 0;
                 padding: 10px 0 10px 20px;
                 border-radius: 4px;
-                background-color: #efefef;
+                @include background_color('background-color4');
             }
         }
     }
 }
 
 .comment_list > .comment_list_item {
-    border-bottom: 1px solid #e8e8ee
+    border-bottom: 1px solid;
+    @include border_color('border-color2');
+}
+
+.el-button--primary {
+    @include background_color('theme-color');
 }
 
 .reply_editor {
@@ -413,15 +430,16 @@ export default {
     }
 
     .cancel_btn {
-        color: #e6a23c;
+        color: $Ye5_u;
 
         &:hover {
-            color: #ebb563;
+            color: $Ye4_u;
         }
     }
 
     .send_btn {
         margin-right: 10px;
+        @include font_color('theme-color');
     }
 }
 

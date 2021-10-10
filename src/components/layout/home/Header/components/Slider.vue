@@ -43,8 +43,8 @@ export default {
         display: inline-block;
         width: 25px;
         height: 3px;
-        background-color: #222;
         transition: .3s;
+        @include background_color('background-color9');
     }
 }
 

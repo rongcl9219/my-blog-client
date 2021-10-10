@@ -46,8 +46,8 @@ export default {
 .web_user, .web_info {
     text-align: center;
     font-size: 16px;
-    color: $--color-text-primary;
     margin-bottom: 10px;
+    @include font_color('text-color2');
 }
 
 .web_menu_wrap {
@@ -58,17 +58,18 @@ export default {
     .menu_item {
         padding: 5px 15px;
         text-align: center;
-        color: $--color-text-primary;
         cursor: pointer;
         transition: .3s;
+        @include font_color('text-color2');
 
         &:hover {
-            color: $--color-primary;
+            @include font_color('theme-color');
         }
 
         &:nth-child(2) {
-            border-left: 1px solid #ccc;
-            border-right: 1px solid #ccc;
+            border-left: 1px solid;
+            border-right: 1px solid;
+            @include border_color('border-color2');
         }
     }
 

@@ -35,9 +35,9 @@ export default {
     height: 60px;
     padding: 15px 30px;
     box-sizing: border-box;
-    background-color: $--color-white;
-    box-shadow: 0 1px 8px 0 rgba($--color-black, 0.1);
     z-index: 20;
+    @include background_color('background-color1');
+    @include box_shadow('box-shadow1');
 
     .header_box {
         display: flex;
@@ -49,12 +49,13 @@ export default {
     }
 
     .home-link {
-        color: $--color-text-primary;
         font-weight: 500;
         font-size: 22px;
+        @include font_color('text-color2');
 
         h1 {
             font-weight: 600;
+            @include font_color('text-color2');
         }
     }
 }

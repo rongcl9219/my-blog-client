@@ -1,0 +1,78 @@
+/**
+ 不同主题下的颜色列表
+ */
+
+@import "./_variable.scss";
+
+$themes: (
+    light: (
+        // 主色
+        theme-color: $light-theme-color,
+        // 文字色
+        text-color1: $light-text-color1,
+        text-color2: $light-text-color2,
+        text-color3: $light-text-color3,
+        text-color4: $light-text-color4,
+        text-color5: $light-text-color5,
+        text-color6: $light-text-color6,
+        text-color7: $light-text-color7,
+        // 背景色
+        background-color1: $light-background-color1,
+        background-color2: $light-background-color2,
+        background-color3: $light-background-color3,
+        background-color4: $light-background-color4,
+        background-color5: $light-background-color5,
+        background-color6: $light-background-color6,
+        background-color7: $light-background-color7,
+        background-color8: $light-background-color8,
+        background-color9: $light-background-color9,
+        background-color10: $light-background-color10,
+        // 阴影
+        box-shadow1: $light-box-shadow1,
+        box-shadow2: $light-box-shadow2,
+        box-shadow3: $light-box-shadow3,
+        box-shadow4: $light-box-shadow4,
+        box-shadow5: $light-box-shadow5,
+        box-shadow6: $light-box-shadow6,
+        // 边框色
+        border-color1: $light-border-color1,
+        border-color2: $light-border-color2,
+        border-color3: $light-border-color3,
+        border-color4: $light-border-color4,
+        border-color5: $light-border-color5,
+        border-color6: $light-border-color6,
+        // 文字阴影
+        text-shadow1: $light-text-shadow1
+    ),
+    dark:(
+        color-primary: $dark-theme-color,
+        // 文字色
+        text-color1: $dark-text-color1,
+        text-color2: $dark-text-color2,
+        text-color3: $dark-text-color3,
+        text-color4: $dark-text-color4,
+        text-color5: $dark-text-color5,
+        text-color6: $dark-text-color6,
+        // 背景色
+        background-color1: $dark-background-color1,
+        background-color2: $dark-background-color2,
+        background-color3: $dark-background-color3,
+        background-color4: $dark-background-color4,
+        background-color5: $dark-background-color5,
+        background-color6: $dark-background-color6,
+        // 阴影
+        box-shadow1: $dark-box-shadow1,
+        box-shadow2: $dark-box-shadow2,
+        box-shadow3: $dark-box-shadow3,
+        box-shadow4: $dark-box-shadow4,
+        box-shadow5: $dark-box-shadow5,
+        box-shadow6: $dark-box-shadow6,
+        // 边框色
+        border-color1: $dark-border-color1,
+        border-color2: $dark-border-color2,
+        border-color3: $dark-border-color3,
+        border-color4: $dark-border-color4,
+        border-color5: $dark-border-color5,
+        border-color6: $dark-border-color6
+    )
+);

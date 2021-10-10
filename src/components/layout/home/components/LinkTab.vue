@@ -1,8 +1,8 @@
 <template>
     <nav class="header_tabs">
         <div class="tab_item">
-            <router-link to="/" class="link-home">
-                <i class="el-icon-s-home" :class="'HomePage' === activeRoute ? 'route-active' : ''"></i>
+            <router-link to="/" class="link-home" :class="'HomePage' === activeRoute ? 'route-active' : ''">
+                <i class="el-icon-s-home"></i>
                 <span>首页</span>
             </router-link>
         </div>
@@ -57,11 +57,15 @@ export default {
         a {
             transition: .3s;
             padding: 2px 8px;
-            color: $--color-text-secondary;
+            @include font_color('text-color4');
+
+            &:hover {
+                @include font_color('text-color2');
+            }
         }
 
-        &:hover a, .route-active {
-            color: $--color-text-primary;
+        & a:hover, .route-active {
+            @include font_color('text-color2');
         }
 
         i {

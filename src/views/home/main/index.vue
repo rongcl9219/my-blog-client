@@ -57,15 +57,15 @@ export default {
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: rgba(0, 0, 0, 0.3);
+            background-color: rgba($Ba0_u, .3);
         }
 
         .banner_info {
             position: absolute;
             top: 50%;
             left: 50%;
-            color: $--color-white;
             text-align: center;
+            color: $Ga1_u;
             transform: translate(-50%, -50%);
 
             h2 {
@@ -87,7 +87,6 @@ export default {
 @media screen and (max-width: 720px) {
     #homePage {
         .container {
-            //display: block;
             flex-direction: column;
         }
 

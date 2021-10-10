@@ -10,7 +10,7 @@
                     <ul class="time_year_content">
                         <li class="time_line_item" v-for="item in year.list" :key="item.articleId">
                             <div class="time_line_content">
-                                <h4 class="time_month" @click="pathTo('/article', {article: item.articleId})">
+                                <h4 class="time_month" @click="pathTo('/article', {articleId: item.articleId})">
                                     <span class="month" v-text="item.month"></span>
                                     <span class="title" v-text="item.articleTitle"></span>
                                 </h4>
@@ -66,13 +66,13 @@ export default {
             left: 0;
             height: 100%;
             width: 4px;
-            background-color: #eaecef;
+            @include background_color('background-color4');
         }
     }
 
     .time_total {
         position: relative;
-        color: #242424;
+        @include font_color('text-color2');
 
         span {
             margin: 0 5px;
@@ -85,17 +85,19 @@ export default {
             left: -24px;
             width: 10px;
             height: 10px;
-            border: 1px solid #eaecef;
+            border: 1px solid;
             border-radius: 50%;
-            background-color: #fff;
             z-index: 1;
+            @include border_color('border-color2');
+            @include background_color('background-color1');
         }
     }
 
     .time_line_content {
         position: relative;
         padding: 30px 0 10px;
-        border-bottom: 1px dashed #eaecef;
+        border-bottom: 1px dashed;
+        @include border_color('border-color3');
     }
 
     .time_year {
@@ -104,6 +106,7 @@ export default {
         font-size: 26px;
         font-weight: 600;
         color: #222;
+        @include font_color('text-color1');
 
         &:after {
             content: '';
@@ -112,10 +115,11 @@ export default {
             left: -25px;
             width: 12px;
             height: 12px;
-            border: 1px solid #eaecef;
+            border: 1px solid;
             border-radius: 50%;
-            background-color: #ccc;
             z-index: 1;
+            @include border_color('border-color2');
+            @include background_color('background-color5');
         }
     }
 
@@ -123,15 +127,16 @@ export default {
         position: relative;
         display: flex;
         line-height: 24px;
-        color: #7f7f7f;
         cursor: pointer;
         transition: .3s;
+        @include font_color('text-color3');
 
         &:hover {
-            color: #222;
+            @include font_color('text-color2');
 
             &:after {
                 background-color: #666;
+                @include background_color('background-color7');
             }
         }
 
@@ -147,11 +152,12 @@ export default {
             left: -23px;
             width: 8px;
             height: 8px;
-            border: 1px solid #eaecef;
+            border: 1px solid;
             border-radius: 50%;
-            background-color: #fff;
             transition: .3s;
             z-index: 1;
+            @include border_color('border-color2');
+            @include background_color('background-color1');
         }
     }
 }
