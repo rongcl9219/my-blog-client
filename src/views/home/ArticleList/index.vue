@@ -18,10 +18,7 @@
             </el-pagination>
         </template>
         <template v-else>
-            <div style="margin-top: 7%; text-align: center;" :key="33333">
-                <img src="@/assets/images/default_img/no_data.png" alt="">
-                <p style="font-size: 20px;">什么都没有</p>
-            </div>
+            <NoData/>
         </template>
     </div>
 </template>
@@ -89,21 +86,8 @@ export default {
 <style lang="scss">
 #articleList {
     .el-pagination.is-background .el-pager li:not(.disabled).active {
-        @include background_color('theme-color');
-        @include font_color('text-color6');
-
-        &:hover {
-            @include font_color('text-color6');
-        }
-    }
-
-    .el-pagination.is-background .el-pager li:not(.disabled):hover {
-        @include font_color('theme-color');
-    }
-
-    .el-pagination.is-background .btn-prev, .el-pagination.is-background .btn-next, .el-pagination.is-background .el-pager li {
-        @include background_color('background-color3');
-        @include font_color('text-color7');
+        background-color: red;
+        color: #FFFFFF;
     }
 }
 </style>

@@ -21,10 +21,7 @@
             </ul>
         </template>
         <template v-else>
-            <div style="margin-top: 7%; text-align: center;">
-                <img src="@/assets/images/default_img/no_data.png" alt="">
-                <p style="font-size: 20px;">什么都没有</p>
-            </div>
+            <NoData/>
         </template>
     </div>
 </template>
@@ -52,7 +49,7 @@ export default {
 #timeLine {
     max-width: 860px;
     margin: 30px auto 0;
-    padding: 20px 30px;
+    padding: 20px 30px 100px;
     box-sizing: border-box;
 
     .time_line_module {

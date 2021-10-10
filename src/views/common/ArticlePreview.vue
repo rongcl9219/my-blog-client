@@ -4,7 +4,7 @@
             <div class="content">
                 <template v-if="loadFail">
                     <div class="load_fail" style="text-align: center;margin-top: 100px;">
-                        <img src="/static/img/default_img/no_data.png" alt="">
+                        <img src="@/assets/images/default_img/no_data.png" alt="">
                         <p style="font-size: 20px;">加载失败</p>
                     </div>
                 </template>

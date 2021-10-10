@@ -321,7 +321,7 @@ export default {
 <style lang="scss">
 .comment_module {
     .el-input__inner, .el-textarea__inner {
-        @include font_color('text-color2');
+        color: $Ba2_u;
         &:focus {
             @include border_color('theme-color');
         }

@@ -53,6 +53,7 @@ export default {
         margin-top: 60px;
         text-align: center;
         font-size: 22px;
+        @include font_color('text-color2');
 
         & > i {
             margin-right: 5px;
@@ -79,6 +80,7 @@ export default {
         @include border_color('border-color1');
         @include font_color('text-color2');
         @include box_shadow('box-shadow1');
+        @include background_color('background-color1');
 
         .class_count {
             display: inline-block;

@@ -88,6 +88,7 @@ export default {
         border-radius: 3px;
         cursor: pointer;
         transition: .3s;
+        @include font_color('text-color2');
         @include box_shadow('box-shadow1');
 
         &:hover {

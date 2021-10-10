@@ -3,22 +3,17 @@
         <el-button class="choose_theme" @click.stop="visible = !visible" type="text"><i class="el-icon-third-theme"></i></el-button>
         <transition name="fade">
             <div class="theme_menu" v-show="visible">
-                <button :class="{active: getTheme === 'light'}" @click="setTheme('light')">light</button>
-                <button :class="{active: getTheme === 'dark'}" @click="setTheme('dark')">dark</button>
+                <button class="light_btn" @click="setTheme('light')">light</button>
+                <button class="dark_btn" @click="setTheme('dark')">dark</button>
             </div>
         </transition>
     </div>
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import {mapActions} from 'vuex'
 export default {
     name: "Theme",
-    computed: {
-        ...mapGetters('setting', [
-            'getTheme'
-        ])
-    },
     data () {
         return {
             visible: false
@@ -64,7 +59,7 @@ export default {
         padding: 10px;
         border-radius: 5px;
         transition: .3s;
-        @include box_shadow('box-shadow1');
+        @include box_shadow('box-shadow2');
         @include background_color('background-color1');
 
         button {
@@ -88,10 +83,16 @@ export default {
             }
         }
 
-        .active {
-            @include font_color('text-color6');
-            @include background_color('background-color9');
+        .light_btn {
+            color: $Ba2_u;
+            background-color: $Ga0_u;
         }
+
+        .dark_btn {
+            color: $Ga0_u;
+            background-color: $Ba2_u;
+        }
+
     }
 }
 

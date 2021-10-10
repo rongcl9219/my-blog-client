@@ -31,6 +31,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.wrapper {
+    @include background_color('background-color1');
+}
 .aside-mask {
     display: none;
     position: fixed;

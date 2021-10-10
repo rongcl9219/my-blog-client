@@ -12,10 +12,7 @@
             </el-select>
         </div>
         <template v-if="articleList.length == 0 && (articleStatus == 3 || articleStatus == 1)">
-            <div style="margin-top: 5%; text-align: center;">
-                <img src="@/assets/images/default_img/no_data.png" alt="">
-                <p style="font-size: 20px;">没有发现文章</p>
-            </div>
+            <NoData/>
         </template>
         <template v-else>
             <el-row :gutter="24">

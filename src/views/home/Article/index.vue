@@ -1,10 +1,7 @@
 <template>
     <div id="articlePage" class="container">
         <template v-if="loadFail">
-            <div class="load_fail" style="text-align: center;margin-top: 100px;">
-                <img src="/static/assets/img/default_img/no_data.png" alt="">
-                <p style="font-size: 20px;">加载失败</p>
-            </div>
+            <NoData/>
         </template>
         <template v-else>
             <div v-if="articleData" class="article_wrapper">
@@ -129,12 +126,44 @@ export default {
 }
 </script>
 
+<style lang="scss">
+#articlePage {
+    pre {
+        color: $Ba2_u;
+    }
+}
+</style>
+
 <style scoped lang="scss">
 #articlePage {
     min-height: calc(100vh - 60px);
 
     .article_wrapper {
         width: 100%;
+    }
+
+    .article_title, .article_info{
+        @include font_color('text-color2');
+    }
+
+    .article_subtitle {
+        @include font_color('text-color4');
+    }
+
+    .article_more {
+        @include font_color('text-color3');
+
+        .underline {
+            padding-bottom: 2px;
+            border-bottom: 1px solid;
+            @include border_color('border-color6');
+        }
+    }
+
+    .article_body {
+        * {
+            @include font_color('text-color2');
+        }
     }
 
     .comment {

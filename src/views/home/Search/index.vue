@@ -23,10 +23,7 @@
             </el-pagination>
         </template>
         <template v-else>
-            <div style="margin-top: 7%; text-align: center;" :key="33333">
-                <img src="@/assets/images/default_img/no_data.png" alt="">
-                <p style="font-size: 20px;">什么都没有</p>
-            </div>
+            <NoData/>
         </template>
     </div>
 </template>
@@ -89,7 +86,7 @@ export default {
 <style lang="scss">
 #Search {
     .el-input__inner {
-        @include font_color('text-color2');
+        color: $Ba2_u;
         @include border_color('border-color2');
 
         &:focus {

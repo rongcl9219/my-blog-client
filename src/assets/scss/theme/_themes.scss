@@ -16,6 +16,7 @@ $themes: (
         text-color5: $light-text-color5,
         text-color6: $light-text-color6,
         text-color7: $light-text-color7,
+        text-color8: $light-text-color8,
         // 背景色
         background-color1: $light-background-color1,
         background-color2: $light-background-color2,
@@ -45,7 +46,7 @@ $themes: (
         text-shadow1: $light-text-shadow1
     ),
     dark:(
-        color-primary: $dark-theme-color,
+        theme-color: $dark-theme-color,
         // 文字色
         text-color1: $dark-text-color1,
         text-color2: $dark-text-color2,
@@ -54,6 +55,7 @@ $themes: (
         text-color5: $dark-text-color5,
         text-color6: $dark-text-color6,
         text-color7: $dark-text-color7,
+        text-color8: $dark-text-color8,
         // 背景色
         background-color1: $dark-background-color1,
         background-color2: $dark-background-color2,

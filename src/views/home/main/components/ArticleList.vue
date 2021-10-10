@@ -15,10 +15,7 @@
             </el-pagination>
         </div>
         <div v-show="articleList.length === 0">
-            <div style="margin-top: 5%; text-align: center;">
-                <img src="@/assets/images/default_img/no_data.png" alt="">
-                <p style="font-size: 20px;">什么都没有</p>
-            </div>
+            <NoData/>
         </div>
     </div>
 </template>

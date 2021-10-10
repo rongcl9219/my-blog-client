@@ -1,7 +1,11 @@
 import Vue from 'vue'
 import store from "@/store";
 
+import NoData from '@/components/NoData'
 Vue.mixin({
+    components: {
+        NoData
+    },
     methods: {
         getBgColor () {
             const colorList = ['#12a933', '#e32c2c', '#f58b30', '#fdb004', '#3dccd3', '#a000d3', '#d10074', '#147c4b', '#226cb9', '#b36b6b']
