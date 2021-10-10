@@ -58,7 +58,8 @@ export default {
             let param = {
                 page: page,
                 pageSize: this.pagination.pageSize,
-                query: this.query
+                query: this.query,
+                articleStatus: 1
             }
 
             getArticleList(param).then(res => {

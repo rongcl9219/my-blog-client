@@ -54,7 +54,7 @@ export default {
     },
     methods: {
         getArticleList (page) {
-            let param = {page: page, pageSize: this.pagination.pageSize}
+            let param = {page: page, pageSize: this.pagination.pageSize, articleStatus: 1}
 
             if (this.type === 'class') {
                 param.classType = this.typeId

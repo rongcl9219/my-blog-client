@@ -40,7 +40,7 @@ export default {
     },
     methods: {
         getArticleList(page) {
-            getArticleList({page: page, pageSize: this.pagination.pageSize}).then(res => {
+            getArticleList({page: page, pageSize: this.pagination.pageSize, articleStatus: 1}).then(res => {
                 let data = res.data
                 this.pagination.page = data.pagination.page
                 this.pagination.total = data.pagination.total
