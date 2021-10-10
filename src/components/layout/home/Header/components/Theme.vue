@@ -69,6 +69,7 @@ export default {
             width: 40px;
             font-size: 13px;
             line-height: 1.2;
+            border-radius: 0;
             @include border_color('border-color5');
 
             &:first-of-type {
