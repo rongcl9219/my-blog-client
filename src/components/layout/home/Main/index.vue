@@ -25,7 +25,7 @@ export default {
 <style scoped lang="scss">
 .app-main {
     padding: 60px 0 0 0;
-    min-height: calc(100vh - 130px);
+    min-height: calc(100vh - 120px);
 
     .el-backtop {
         box-shadow: none;

@@ -19,6 +19,7 @@ export default {
     text-align: center;
     font-size: 14px;
     border-top: 1px solid;
+    box-sizing: border-box;
     @include border_color('border-color2');
     @include background_color('background-color1');
     @include font_color('text-color2');
