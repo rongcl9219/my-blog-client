@@ -418,6 +418,7 @@ export default {
 }
 
 .el-button--primary {
+    border: none;
     @include background_color('theme-color');
 }
 
