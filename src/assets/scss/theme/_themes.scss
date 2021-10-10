@@ -53,6 +53,7 @@ $themes: (
         text-color4: $dark-text-color4,
         text-color5: $dark-text-color5,
         text-color6: $dark-text-color6,
+        text-color7: $dark-text-color7,
         // 背景色
         background-color1: $dark-background-color1,
         background-color2: $dark-background-color2,
@@ -60,6 +61,10 @@ $themes: (
         background-color4: $dark-background-color4,
         background-color5: $dark-background-color5,
         background-color6: $dark-background-color6,
+        background-color7: $dark-background-color7,
+        background-color8: $dark-background-color8,
+        background-color9: $dark-background-color9,
+        background-color10: $dark-background-color10,
         // 阴影
         box-shadow1: $dark-box-shadow1,
         box-shadow2: $dark-box-shadow2,
@@ -73,6 +78,8 @@ $themes: (
         border-color3: $dark-border-color3,
         border-color4: $dark-border-color4,
         border-color5: $dark-border-color5,
-        border-color6: $dark-border-color6
+        border-color6: $dark-border-color6,
+        // 文字阴影
+        text-shadow1: $dark-text-shadow1
     )
 );

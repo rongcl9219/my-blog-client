@@ -50,21 +50,26 @@ $light-text-shadow1: 2px 2px 1px rgba($Ba0_u, .15);
 dark theme
  */
 // 主色
-$dark-theme-color: red;
+$dark-theme-color: $Re7_u;
 // 文字色
-$dark-text-color1: $Ba0_u;
-$dark-text-color2: $Ba1_u;
-$dark-text-color3: $Ba2_u;
-$dark-text-color4: #999;
-$dark-text-color5: #18191C;
-$dark-text-color6: #999;
+$dark-text-color1: $Ba1_u;
+$dark-text-color2: $Ba2_u;
+$dark-text-color3: $Ga6_u;
+$dark-text-color4: $Ga5_u;
+$dark-text-color5: $Ga3_u;
+$dark-text-color6: $Ga1_u;
+$dark-text-color7: $Ga7_u;
 // 背景色
 $dark-background-color1: $Wh0_u;
-$dark-background-color2: $Ga4_u;
-$dark-background-color3: $Ga6_u;
-$dark-background-color4: rgba($Ba0_u, .35);
-$dark-background-color5: $Ba2_u;
-$dark-background-color6: rgba($Ba0_u, .35);
+$dark-background-color2: $Ga0_u;
+$dark-background-color3: $Ga1_u;
+$dark-background-color4: $Ga2_u;
+$dark-background-color5: $Ga3_u;
+$dark-background-color6: $Ga4_u;
+$dark-background-color7: $Ga5_u;
+$dark-background-color8: rgba($Ba0_u, .9);
+$dark-background-color9: $Ba2_u;
+$dark-background-color10: rgba($Ba0_u, .35);
 // 阴影
 $dark-box-shadow1: 0 1px 8px 0 rgba($Ba0_u, .1);
 $dark-box-shadow2: 0 2px 16px 0 rgba($Ba0_u, .2);
@@ -74,8 +79,10 @@ $dark-box-shadow5: 0 2px 16px 0 rgba($Ba0_u, .2);
 $dark-box-shadow6: 0 2px 10px 1px rgba($Ba0_u, .1);
 // 边框色
 $dark-border-color1: $Ga0_u;
-$dark-border-color2: $Ga3_u;
+$dark-border-color2: $Ga2_u;
 $dark-border-color3: $Ga5_u;
 $dark-border-color4: $Ga7_u;
 $dark-border-color5: $Ga9_u;
 $dark-border-color6: $Ga10_u;
+// 文字阴影
+$dark-text-shadow1: 2px 2px 1px rgba($Ba0_u, .15);

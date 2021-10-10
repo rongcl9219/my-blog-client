@@ -1,5 +1,6 @@
 <template>
     <div class="slider">
+        <Theme/>
         <LinkTab/>
         <div class="header_tabs_tool" @click="toggleHomeAside">
             <span class="tabs_tool_line"></span>
@@ -11,6 +12,7 @@
 
 <script>
 import LinkTab from "@/components/layout/home/components/LinkTab";
+import Theme from "./Theme"
 
 export default {
     name: "Slider",
@@ -20,7 +22,8 @@ export default {
         }
     },
     components: {
-        LinkTab
+        LinkTab,
+        Theme
     },
     data() {
         return {
@@ -31,6 +34,13 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.slider {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .header_tabs_tool {
     display: none;
     flex-direction: column;
@@ -66,6 +76,7 @@ export default {
     .slider {
         .header_tabs_tool {
             display: flex;
+            margin-left: 15px;
         }
     }
 }
