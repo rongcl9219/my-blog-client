@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 2097015 */
-  src: url('iconfont.woff2?t=1633355090606') format('woff2'),
-       url('iconfont.woff?t=1633355090606') format('woff'),
-       url('iconfont.ttf?t=1633355090606') format('truetype');
+  src: url('iconfont.woff2?t=1633861794235') format('woff2'),
+       url('iconfont.woff?t=1633861794235') format('woff'),
+       url('iconfont.ttf?t=1633861794235') format('truetype');
 }
 
 #app [class^="el-icon-third"], #app [class*=" el-icon-third"] {
@@ -19,7 +19,6 @@
 .el-icon-third-shijian:before {
   content: "\e6ad";
 }
-
 
 .el-icon-third-yanzhengma:before {
     content: "\e6a0";

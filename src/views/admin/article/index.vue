@@ -86,8 +86,7 @@
                                                     <template v-if="articleStatus == 3">
                                                         <p>
                                                             <el-button style="color: #ffa200;" type="text" size="mini"
-                                                                       icon="el-icon-third-huifushanchu"
-                                                                       @click="recoverArticle(article.articleId)">恢复
+                                                                       @click="recoverArticle(article.articleId)">恢复删除
                                                             </el-button>
                                                         </p>
                                                     </template>
