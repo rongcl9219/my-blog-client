@@ -41,8 +41,7 @@ http.interceptors.request.use(config => {
                         config.headers['authorization'] = `Bearer ${accessToken}`
                         requestList.forEach((cb) => cb(accessToken))
                         requestList = []
-                    }).catch(err => {
-                        console.log(err)
+                    }).catch(() => {
                         requestList = []
                         isRefreshing = false
                         router.replace({path: '/403'}).then(() => {})

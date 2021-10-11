@@ -151,8 +151,7 @@ export default {
                 this.pagination.page = data.pagination.page
                 this.pagination.total = data.pagination.total
                 this.tagTableList = data.tagList
-            }).catch((e) => {
-                console.log(e)
+            }).catch(() => {
                 this.$message.error('获取失败')
             }).finally(() => {
                 this.tagTableLoading = false
@@ -173,8 +172,7 @@ export default {
                     this.tagDialog.tagForm.tagName = res.data.tagName
                     this.tagDialog.tagForm.classType = res.data.classType
                     this.tagDialog.tagForm.tagDesc = res.data.tagDesc
-                }).catch((e) => {
-                    console.log(e)
+                }).catch(() => {
                     this.$message.error('获取信息失败')
                 }).finally(() => {
                     this.tagDialog.loading = false
@@ -203,8 +201,7 @@ export default {
                             this.$message.success('新增成功')
                             this.tagDialog.dialogVisible = false
                             this.getTagList(1)
-                        }).catch((e) => {
-                            console.log(e)
+                        }).catch(() => {
                             this.$message.error('新增失败')
                         }).finally(() => {
                             this.tagDialog.saveFlag = false
@@ -216,8 +213,7 @@ export default {
                             this.$message.success('修改成功')
                             this.tagDialog.dialogVisible = false
                             this.getTagList(1)
-                        }).catch((e) => {
-                            console.log(e)
+                        }).catch(() => {
                             this.$message.error('修改失败')
                         }).finally(() => {
                             this.tagDialog.saveFlag = false
@@ -240,8 +236,7 @@ export default {
                 deleteTag({tagId: rowData.tagId}).then(() => {
                     this.$message.success('删除成功')
                     this.getTagList(1)
-                }).catch((e) => {
-                    console.log(e)
+                }).catch(() => {
                     this.$message.error('删除失败')
                 })
             }).catch(() => {

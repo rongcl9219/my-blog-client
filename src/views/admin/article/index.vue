@@ -408,8 +408,7 @@ export default {
                 this.pagination.page = data.pagination.page
                 this.pagination.total = data.pagination.total
                 this.articleList = data.articleList
-            }).catch(err => {
-                console.log(err)
+            }).catch(() => {
                 this.$message.error('获取失败')
             }).finally(() => {
                 this.articleListLoading = false
@@ -443,8 +442,7 @@ export default {
                         this.$message.success('新增成功')
                         this.getArticleList(1)
                         this.newArticleDialog.dialogVisible = false
-                    }).catch(err => {
-                        console.log(err)
+                    }).catch(() => {
                         this.$message.error('新增失败')
                     }).finally(() => {
                         this.newArticleDialog.loading = false
@@ -498,8 +496,7 @@ export default {
                 deleteArticle(articleId).then(() => {
                     this.$message.success('删除成功')
                     this.getArticleList(1)
-                }).catch(err => {
-                    console.log(err)
+                }).catch(() => {
                     this.$message.error('删除失败')
                 })
             }).catch(() => {
@@ -524,8 +521,7 @@ export default {
                 res.data.tagTypeList.map(tagType => {
                     this.editArticleDialog.editArticleForm.tagType.push(tagType.tagId)
                 })
-            }).catch(err => {
-                console.log(err)
+            }).catch(() => {
                 this.$message.error('获取文章信息失败')
             }).finally(() => {
                 this.editArticleDialog.formLoading = false
@@ -562,8 +558,7 @@ export default {
                         this.$message.success('修改成功')
                         this.getArticleList(this.pagination.page)
                         this.editArticleDialog.dialogVisible = false
-                    }).catch(err => {
-                        console.log(err)
+                    }).catch(() => {
                         this.$message.error('修改失败')
                     }).finally(() => {
                         this.editArticleDialog.loading = false
@@ -579,8 +574,7 @@ export default {
             updatePublish({articleId, isPublish}).then(() => {
                 this.$message.success(tip + '成功')
                 this.getArticleList(1)
-            }).catch(err => {
-                console.log(err)
+            }).catch(() => {
                 this.$message.error(tip + '失败')
             })
         },
@@ -589,8 +583,7 @@ export default {
 
             getContent(articleId).then(res => {
                 this.editContentModel.articleContent = res.data.articleContent || ''
-            }).catch(err => {
-                console.log(err)
+            }).catch(() => {
                 this.$message.error('获取内容失败')
             })
 
@@ -606,13 +599,11 @@ export default {
             recoverArticle(articleId).then(() => {
                 this.$message.success('恢复成功')
                 this.getArticleList(1)
-            }).catch(err => {
-                console.log(err)
+            }).catch(() => {
                 this.$message.error('删除失败')
             })
         },
         uploadDialogClose () {
-            console.log(1)
             this.$previewRefresh()
         },
         saveContent () {
@@ -623,8 +614,7 @@ export default {
                 articledContent: this.editContentModel.articleContent
             }).then(() => {
                 this.$message.success('保存成功')
-            }).catch(err => {
-                console.log(err)
+            }).catch(() => {
                 this.$message.error('保存失败')
             })
         }

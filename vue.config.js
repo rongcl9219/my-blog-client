@@ -32,10 +32,14 @@ module.exports = {
             );
 
             config.plugins = [...config.plugins, ...plugins];
+
+            // 打包文件大小警告配置
+            config.performance = {
+                hints: false
+            }
         }
     },
     chainWebpack: (config) => {
-
         // 添加别名
         config.resolve.alias
             .set("vue$", "vue/dist/vue.esm.js")

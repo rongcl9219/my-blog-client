@@ -224,8 +224,7 @@ export default {
                     this.classDialog.classForm.className = res.data.className
                     this.classDialog.classForm.classType = res.data.classType
                     this.classDialog.classForm.classDesc = res.data.classDesc
-                }).catch(e => {
-                    console.log(e)
+                }).catch(() => {
                     this.$message.error('获取失败')
                 }).finally(() => {
                     this.classDialog.loading = false

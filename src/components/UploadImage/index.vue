@@ -136,7 +136,6 @@ export default {
                     })
                 })
             }).catch(err => {
-                console.log(err)
                 this.$emit('upload-fail', err)
                 this.$message.error('上传失败')
             }).finally(() => {

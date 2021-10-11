@@ -79,15 +79,13 @@ export default {
 
             saveWebInfo(paramObj).then(() => {
                 this.$message.success('修改成功')
-            }).catch(e => {
-                console.log(e)
+            }).catch(() => {
                 this.$message.error('修改失败')
             }).finally(() => {
                 this.aboutMeLoading = false
             })
         },
         uploadAvatarSuccess (file) {
-            console.log(file)
             this.form.avatar.key = file.key
             this.form.avatar.url = file.url
         }
@@ -104,8 +102,7 @@ export default {
             if (paramData.WEB_AVATAR) {
                 this.form.avatar = paramData.WEB_AVATAR
             }
-        }).catch((e) => {
-            console.log(e)
+        }).catch(() => {
         }).finally(() => {
             this.aboutMeLoading = false
         })
