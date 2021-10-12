@@ -2,6 +2,7 @@ const path = require("path");
 const resolve = (dir) => path.join(__dirname, dir);
 const IS_PROD = ["production", "prod"].includes(process.env.NODE_ENV);
 const CompressionWebpackPlugin = require("compression-webpack-plugin");
+
 const productionGzipExtensions = /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i;
 const cdn = require('./config/cdn.config')
 
