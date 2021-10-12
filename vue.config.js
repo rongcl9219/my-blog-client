@@ -3,7 +3,6 @@ const resolve = (dir) => path.join(__dirname, dir);
 const IS_PROD = ["production", "prod"].includes(process.env.NODE_ENV);
 const CompressionWebpackPlugin = require("compression-webpack-plugin");
 const productionGzipExtensions = /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i;
-
 const cdn = require('./config/cdn.config')
 
 module.exports = {
@@ -14,13 +13,16 @@ module.exports = {
     productionSourceMap: false,
     configureWebpack: config => {
         const plugins = [];
+        // 引入cdn资源
         config.externals = {
             'mavon-editor': 'MavonEditor',
             'highlight': 'hljs',
             'marked': 'marked',
             'vue-photo-preview': 'vuePhotoPreview'
         };
+
         if (IS_PROD) {
+            /* region 开启gzip */
             plugins.push(
                 new CompressionWebpackPlugin({
                     filename: "[path].gz[query]",
@@ -30,6 +32,7 @@ module.exports = {
                     minRatio: 0.8
                 })
             );
+            /* endregion */
 
             config.plugins = [...config.plugins, ...plugins];
 
@@ -53,6 +56,7 @@ module.exports = {
         });
 
         if (IS_PROD) {
+            /* region 图片压缩 */
             config.module
                 .rule("images")
                 .use("image-webpack-loader")
@@ -63,9 +67,10 @@ module.exports = {
                     pngquant: {quality: [0.65, 0.9], speed: 4},
                     gifsicle: {interlaced: false}
                 });
+            /* endregion  */
         }
 
-        /* 使用svg组件 */
+        /* region 使用svg组件 */
         const svgRule = config.module.rule("svg");
         svgRule.uses.clear();
         svgRule.exclude.add(/node_modules/);
@@ -80,6 +85,7 @@ module.exports = {
         const imagesRule = config.module.rule("images");
         imagesRule.exclude.add(resolve("src/svg"));
         config.module.rule("images").test(/\.(png|jpe?g|gif|svg)(\?.*)?$/);
+        /* endregion  */
 
         return config;
     },
@@ -100,15 +106,16 @@ module.exports = {
         },
         open: false, // 是否打开浏览器
         host: "localhost",
-        port: "4000", // 代理断就
+        port: "4000", // 端口
         https: false,
         hotOnly: false, // 热更新
         proxy: {
             "/api": {
                 target: "http://localhost:90/", // 目标代理接口地址
-                secure: false,
+                ws: false, // 如果代理websockets，需要配置这个参数
+                secure: false, // https接口，需要配置这个参数
                 changeOrigin: true, // 开启代理，在本地创建一个虚拟服务端
-                pathRewrite: {
+                pathRewrite: { // 路径重写
                     "^/api": "/"
                 }
             }
