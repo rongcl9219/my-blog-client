@@ -1,11 +1,11 @@
 const path = require("path");
-const resolve = (dir) => path.join(__dirname, dir);
+const resolve = dir => path.join(__dirname, dir);
 const IS_PROD = ["production", "prod"].includes(process.env.NODE_ENV);
 const CompressionWebpackPlugin = require("compression-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 const productionGzipExtensions = /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i;
-const cdn = require('./config/cdn.config')
+const cdn = require('./config/cdn.config');
 
 module.exports = {
     publicPath: "/",
@@ -48,7 +48,7 @@ module.exports = {
             }
         }
     },
-    chainWebpack: (config) => {
+    chainWebpack: config => {
         // 添加别名
         config.resolve.alias
             .set("vue$", "vue/dist/vue.esm.js")
