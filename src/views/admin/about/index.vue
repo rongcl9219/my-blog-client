@@ -3,18 +3,18 @@
         <el-card class="box-card">
             <el-form ref="form" :model="form" label-width="100px">
                 <el-form-item label="网站名称">
-                    <el-input v-model="form.webName"></el-input>
+                    <el-input v-model="form.webUser"></el-input>
                 </el-form-item>
                 <el-form-item label="座右铭">
                     <el-input v-model="form.motto"></el-input>
                 </el-form-item>
                 <el-form-item label="github地址">
-                    <el-input v-model="form.githublink"></el-input>
+                    <el-input v-model="form.githubLink"></el-input>
                 </el-form-item>
                 <el-form-item label="个人头像">
                     <template v-if="form.avatar.url">
                         <div class="avatar_item">
-                            <img :src="form.avatar.url" preview="aboutMeAvatar">
+                            <img :src="form.avatar.url" preview="aboutMeAvatar" alt="" />
                         </div>
                     </template>
                     <el-button class="upload_avatar_btn" type="primary" icon="el-icon-plus" @click="upLoadImgVisible = true"></el-button>
@@ -49,7 +49,7 @@ export default {
         return {
             upLoadImgVisible: false,
             form: {
-                webName: '',
+                webUser: '',
                 githubLink: '',
                 avatar: {
                     url: '',
@@ -69,7 +69,7 @@ export default {
             this.aboutMeLoading = true
 
             let paramObj = {
-                WEB_NAME: this.form.webName,
+                WEB_USER: this.form.webUser,
                 GITHUB_LINK: this.form.githubLink,
                 WEB_AVATAR: this.form.avatar.key,
                 PERSONAL_DESC: this.form.personalDesc,
@@ -94,7 +94,7 @@ export default {
         this.aboutMeLoading = true
         getWebInfo().then(res => {
             let paramData = res.data.paramData
-            this.form.webName = paramData.WEB_NAME || ''
+            this.form.webUser = paramData.WEB_USER|| ''
             this.form.githubLink = paramData.GITHUB_LINK || ''
             this.form.personalDesc = paramData.PERSONAL_DESC || ''
             this.form.webDesc = paramData.WEB_DESC || ''

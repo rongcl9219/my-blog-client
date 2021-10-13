@@ -91,7 +91,7 @@ export default {
             font-weight: 600;
             line-height: 1;
             padding: 0 15px;
-            margin: 10px 5px;
+            margin: 5px;
         }
     }
 }

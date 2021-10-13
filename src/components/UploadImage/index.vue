@@ -229,6 +229,10 @@ export default {
     margin: 0 0 5px 0;
 }
 
+.el-upload {
+    margin: 0 5px 5px 0;
+}
+
 .list_item {
     position: relative;
     display: inline-block;
