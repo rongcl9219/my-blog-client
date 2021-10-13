@@ -5,6 +5,7 @@
         <breadcrumb class="breadcrumb-container"/>
 
         <div class="right-menu">
+            <el-link href="/" class="link-home" :underline="false" target="_blank"><i class="el-icon-s-home"></i>首页</el-link>
             <el-dropdown class="avatar-container" trigger="click">
                 <div class="avatar-wrapper">
                     <el-avatar style="float: left; cursor: pointer;" shape="square" :size="40">
@@ -272,8 +273,14 @@ export default {
 
     .right-menu {
         float: right;
+        display: flex;
         height: 100%;
         line-height: 50px;
+
+        .link-home {
+            margin-right: 20px;
+            transition: .3s;
+        }
 
         &:focus {
             outline: none;
