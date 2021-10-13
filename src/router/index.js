@@ -25,6 +25,11 @@ const router = new Router({
     }
 })
 
+// 改变进度条的HTML结构
+NProgress.configure({
+    template: '<div class="bar" role="bar"><div class="peg"></div></div>'
+});
+
 // 路由拦截
 router.beforeEach((to, from, next) => {
     const token = store.state.common.token
