@@ -177,4 +177,18 @@ export default {
         line-height: 2;
     }
 }
+
+@media screen and (max-width: 720px) {
+    .container {
+        padding: 0;
+        .article_wrapper {
+            padding: 0;
+            .article_content {
+                margin: 0;
+                padding: 40px 20px;
+                box-shadow: none;
+            }
+        }
+    }
+}
 </style>
