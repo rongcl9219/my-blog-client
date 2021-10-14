@@ -41,7 +41,6 @@ export default [
         path: '/articleList',
         name: 'ArticleList',
         component: ArticleList,
-        props: (route) => ({ type: route.query.type, typeId: String(route.query.id) }),
         meta: {
             home: true
         }

@@ -32,18 +32,18 @@ export default {
     components: {
         ArticleCard
     },
-    props: {
-        type: {
-            type: String,
-            default: ''
-        },
-        typeId: {
-            type: String,
-            default: ''
+    watch: {
+        '$route'(val) {
+            console.log(val);
+            this.type = val.query.type
+            this.typeId = val.query.id
+            this.getArticleList(1)
         }
     },
     data () {
         return {
+            type: '',
+            typeId: '',
             articleList: [],
             pagination: {
                 page: 1,
@@ -78,6 +78,8 @@ export default {
         }
     },
     created() {
+        this.type = this.$route.query.type
+        this.typeId = this.$route.query.id
         this.getArticleList(1)
     }
 }
