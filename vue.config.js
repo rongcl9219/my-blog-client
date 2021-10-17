@@ -7,7 +7,7 @@ const productionGzipExtensions = /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i;
 const cdn = require('./config/cdn.config');
 
 module.exports = {
-    publicPath: "",
+    publicPath: "/",
     assetsDir: "static",
     lintOnSave: true,
     runtimeCompiler: true,
