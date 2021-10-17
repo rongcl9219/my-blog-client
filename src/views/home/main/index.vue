@@ -45,7 +45,8 @@ export default {
         .banner_bg {
             width: 100%;
             height: 100%;
-            background-image: url($img_url + "/other/banner.jpg");
+            //background-image: url("../../../../src/assets/images/other/banner.jpg");
+            background-image: url("../../../../src/assets/images/other/banner.jpg");
             background-position: center;
             background-size: cover;
             background-repeat: no-repeat;
