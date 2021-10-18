@@ -410,8 +410,6 @@ export default {
                 let y = 0
                 // 图片像素不达标
                 if (nWidth < width || nHeight < height) {
-                    // this.hasError = true
-                    // this.errorMsg = lang.error.lowestPx + width + '*' + height
                     return false
                 }
                 if (ratio > nRatio) {

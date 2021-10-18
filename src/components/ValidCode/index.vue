@@ -53,11 +53,8 @@ export default {
     },
     methods: {
         getCode () {
-            let _this = this
-            getValidCode().then((res) => {
-                if (res.code === 200) {
-                    _this.createdCode(res.data.validCode)
-                }
+            getValidCode().then(res => {
+                this.createdCode(res.data.validCode)
             }).catch(() => {
             })
         },

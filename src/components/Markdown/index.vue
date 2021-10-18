@@ -6,7 +6,6 @@
 import md5 from 'js-md5'
 import {getUuid} from '@/utils/tool'
 import {getUploadToken, uploadImg} from '@/api/common'
-// import 'mavon-editor/dist/css/index.css'
 
 export default {
     name: 'Markdown',
