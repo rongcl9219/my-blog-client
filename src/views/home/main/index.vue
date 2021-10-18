@@ -1,7 +1,8 @@
 <template>
     <div id="homePage">
         <div class="banner">
-            <div class="banner_bg"></div>
+            <div class="banner_bg"
+                 :style="{backgroundImage: `url('${webBanner}')`}"></div>
             <div class="banner_mask"></div>
             <div class="banner_info">
                 <h2>火星的青青草原</h2>
@@ -19,6 +20,7 @@
 import ArticleList from './components/ArticleList'
 import HomeWebInfo from "./components/WebInfo"
 import {mapGetters} from 'vuex'
+
 export default {
     name: 'HomePage',
     components: {
@@ -29,8 +31,11 @@ export default {
         ...mapGetters('common', [
             'getWebInfo'
         ]),
-        webInfo () {
+        webInfo() {
             return this.getWebInfo.webInfo || {}
+        },
+        webBanner() {
+            return this.webInfo.WEB_BANNER ? this.webInfo.WEB_BANNER.url : ''
         }
     }
 }
@@ -45,7 +50,6 @@ export default {
         .banner_bg {
             width: 100%;
             height: 100%;
-            background-image: url("~@/assets/images/other/banner.jpg");
             background-position: center;
             background-size: cover;
             background-repeat: no-repeat;

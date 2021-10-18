@@ -14,7 +14,15 @@
                 <el-form-item label="个人头像">
                     <template v-if="form.avatar.url">
                         <div class="avatar_item">
-                            <img :src="form.avatar.url" preview="aboutMeAvatar" alt="" />
+                            <img :src="form.avatar.url" alt="" />
+                        </div>
+                    </template>
+                    <el-button class="upload_avatar_btn" type="primary" icon="el-icon-plus" @click="uploadAvatarVisible = true"></el-button>
+                </el-form-item>
+                <el-form-item label="网站banner">
+                    <template v-if="webBannerUrl">
+                        <div class="avatar_item">
+                            <img :src="webBannerUrl" alt="" />
                         </div>
                     </template>
                     <el-button class="upload_avatar_btn" type="primary" icon="el-icon-plus" @click="upLoadImgVisible = true"></el-button>
@@ -31,23 +39,35 @@
             </el-form>
         </el-card>
 
-        <upload-avatar thumbnail="avatar" @crop-upload-success="uploadAvatarSuccess"
-                       :uploadAvatarVisible.sync="upLoadImgVisible"></upload-avatar>
+        <UploadAvatar thumbnail="avatar" @crop-upload-success="uploadAvatarSuccess"
+                       :uploadAvatarVisible.sync="uploadAvatarVisible"></UploadAvatar>
+
+        <UploadImage :imgList.sync="form.webBanner"
+                     :uploadImgVisible.sync="upLoadImgVisible"
+                     :limitNum="1"></UploadImage>
     </div>
 </template>
 
 <script>
 import {getWebInfo, saveWebInfo} from '@/api/webInfo'
 import UploadAvatar from '@/components/UploadAvatar'
+import UploadImage from '@/components/UploadImage'
 
 export default {
     name: 'AdminAbout',
     components: {
-        'upload-avatar': UploadAvatar
+        UploadAvatar,
+        UploadImage
+    },
+    computed: {
+        webBannerUrl() {
+            return this.form.webBanner.length > 0 ? this.form.webBanner[0].url : ''
+        }
     },
     data () {
         return {
             upLoadImgVisible: false,
+            uploadAvatarVisible: false,
             form: {
                 webUser: '',
                 githubLink: '',
@@ -55,6 +75,7 @@ export default {
                     url: '',
                     key: ''
                 },
+                webBanner: [],
                 motto: '',
                 personalDesc: '',
                 webDesc: ''
@@ -74,7 +95,8 @@ export default {
                 WEB_AVATAR: this.form.avatar.key,
                 PERSONAL_DESC: this.form.personalDesc,
                 WEB_DESC: this.form.webDesc,
-                MOTTO: this.form.motto
+                MOTTO: this.form.motto,
+                WEB_BANNER: this.form.webBanner ? this.form.webBanner[0].key : ''
             }
 
             saveWebInfo(paramObj).then(() => {
@@ -101,6 +123,9 @@ export default {
             this.form.motto = paramData.MOTTO || ''
             if (paramData.WEB_AVATAR) {
                 this.form.avatar = paramData.WEB_AVATAR
+            }
+            if (paramData.WEB_BANNER) {
+                this.form.webBanner.push(paramData.WEB_BANNER)
             }
         }).catch(() => {
         }).finally(() => {
