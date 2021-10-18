@@ -87,3 +87,11 @@ export const recoverArticle = articleId => {
 export const updatePublish = ({articleId, isPublish}) => {
     return fetchGet('/admin/updatePublish', {articleId, isPublish})
 }
+
+/**
+ * 获取最近发布的文章
+ * @returns {*}
+ */
+export const getCurrentArticles = () => {
+    return fetchGet('/admin/getCurrentArticles')
+}

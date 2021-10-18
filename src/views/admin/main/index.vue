@@ -1,5 +1,5 @@
 <template>
-    <div id="homePage">
+    <div class="admin-home-page">
         <el-card class="box-card">
             <div slot="header" class="clearfix">
                 <p style="color: rgb(107, 132, 148);"><span class="header_title" style="margin-right: 20px;">欢迎光临</span>【RongCL博客后台】
@@ -15,27 +15,27 @@
                         <li class="list_item about"><span class="list_item_title"><i
                             class="el-icon-third-yuan list_icon"></i>博主网站首页：</span>
                             <el-link :underline="false" type="primary" target="_blank" :href="myBlog">
-                                {{myBlog}}
+                                {{ myBlog }}
                             </el-link>
                         </li>
                         <li class="list_item about"><span class="list_item_title"><i
                             class="el-icon-third-yuan list_icon"></i>开源项目地址：</span>
                             <el-link :underline="false" type="primary" target="_blank"
-                                     :href="github">{{github}}
+                                     :href="github">{{ github }}
                             </el-link>
                         </li>
                         <li class="list_item about"><span class="list_item_title"><i
                             class="el-icon-third-yuan list_icon"></i>前台项目地址：</span>
                             <el-link :underline="false" type="primary" target="_blank"
                                      :href="clientGithub">
-                                {{clientGithub}}
+                                {{ clientGithub }}
                             </el-link>
                         </li>
                         <li class="list_item about"><span class="list_item_title"><i
                             class="el-icon-third-yuan list_icon"></i>后台项目地址：</span>
                             <el-link :underline="false" type="primary" target="_blank"
                                      :href="adminGithub">
-                                {{adminGithub}}
+                                {{ adminGithub }}
                             </el-link>
                         </li>
                     </ul>
@@ -49,9 +49,11 @@
                         </div>
                         <div>
                             <ul>
-                                <li class="list_article" v-for="o in 4" :key="o">
-                                    <el-link :underline="false"><span class="list_time">2020-11-04 13:21</span><span
-                                        class="article_title">RonCL简介{{ o }}</span></el-link>
+                                <li class="list_article"  v-for="article in currentArticles" :key="article.articleId">
+                                    <el-link :underline="false" target="_blank" :href="'/article?articleId='+article.articleId">
+                                        <span class="list_time">{{ article.createDate | formatDate }}</span>
+                                        <span class="article_title">{{ article.articleTitle }}</span>
+                                    </el-link>
                                 </li>
                             </ul>
                         </div>
@@ -77,21 +79,36 @@
 </template>
 
 <script>
+import {getCurrentArticles} from '@/api/article'
+import {formatDate} from '@/utils/tool'
+
 export default {
     name: 'AdminMain',
-    data () {
+    data() {
         return {
             myBlog: 'http://rongcl.cn',
             github: 'https://github.com/rongcl9219',
             clientGithub: 'https://github.com/rongcl9219/my-blog-client',
-            adminGithub: 'https://github.com/rongcl9219/my-blog-server'
+            adminGithub: 'https://github.com/rongcl9219/my-blog-server',
+            currentArticles: []
         }
+    },
+    filters: {
+        formatDate(val) {
+            return formatDate('yyyy-MM-dd hh:mm', val)
+        }
+    },
+    created() {
+        getCurrentArticles().then(res => {
+            this.currentArticles = res.data
+        }).catch(() => {
+        })
     }
 }
 </script>
 
 <style lang="scss">
-#homePage {
+.admin-home-page {
     .header_title {
         color: #42657b;
         font-size: 20px;
@@ -126,6 +143,11 @@ export default {
 
     .list_article {
         height: 28px;
+
+        a:hover {
+            color: #11a2e0;
+            transition: .3s;
+        }
 
         .list_time {
             font-size: 15px;
