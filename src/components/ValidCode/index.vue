@@ -63,8 +63,8 @@ export default {
             // 生成
             codeArr.forEach(code => {
                 const rgb = [
+                    Math.round(Math.random() * 200),
                     Math.round(Math.random() * 220),
-                    Math.round(Math.random() * 240),
                     Math.round(Math.random() * 200)
                 ]
                 codeList.push({
