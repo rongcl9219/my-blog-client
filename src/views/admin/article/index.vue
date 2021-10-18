@@ -2,7 +2,7 @@
     <div id="articleManage" v-loading="articleListLoading">
         <div class="search_box">
             <label>文章状态：</label>
-            <el-select v-model="articleStatus" size="small" placeholder="请选择" @change="articleStatusChange">
+            <el-select v-model="articleStatus" size="small" placeholder="请选择" @change="getArticleList(1)">
                 <el-option
                     v-for="item in options"
                     :key="item.value"
@@ -11,17 +11,17 @@
                 </el-option>
             </el-select>
         </div>
-        <template v-if="articleList.length == 0 && (articleStatus == 3 || articleStatus == 1)">
+        <template v-if="articleList.length === 0 && (articleStatus === 3 || articleStatus === 1)">
             <NoData/>
         </template>
         <template v-else>
             <el-row :gutter="24">
                 <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="6" style="margin-bottom: 20px"
-                        v-show="articleStatus == 0 || articleStatus == 2">
+                        v-show="articleStatus === 0 || articleStatus === 2">
                     <div class="card_item">
                         <el-card class="box-card new_card">
                             <div class="card_back"></div>
-                            <div class="card_content" @click="newArticleDialog.dialogVisible = true">
+                            <div class="card_content" @click="openArticleDialog(false)">
                                 <el-button type="text" icon="el-icon-circle-plus-outline"
                                            class="new_article_btn"></el-button>
                             </div>
@@ -83,7 +83,7 @@
                                                 width="50"
                                                 trigger="hover">
                                                 <div style="text-align: center;">
-                                                    <template v-if="articleStatus == 3">
+                                                    <template v-if="articleStatus === 3">
                                                         <p>
                                                             <el-button style="color: #ffa200;" type="text" size="mini"
                                                                        @click="recoverArticle(article.articleId)">恢复删除
@@ -93,7 +93,7 @@
                                                     <template v-else>
                                                         <p>
                                                             <el-button type="text" size="mini" icon="el-icon-edit"
-                                                                       @click="openEditArticleDialog(article.articleId)">
+                                                                       @click="openArticleDialog(true, article.articleId)">
                                                                 编辑
                                                             </el-button>
                                                         </p>
@@ -127,135 +127,59 @@
                 style="margin: 30px auto;text-align: center;"
                 background
                 layout="prev, pager, next"
-                @current-change="currentChange"
+                @current-change="getArticleList"
                 :page-size="pagination.pageSize"
                 :current-page.sync="pagination.page"
                 :total="pagination.total">
             </el-pagination>
         </template>
 
-        <!--    新增文章弹窗    -->
+        <!--    文章弹窗    -->
         <el-dialog
-            title="新增文章"
-            :visible.sync="newArticleDialog.dialogVisible"
+            :title="articleDialog.title"
+            :visible.sync="articleDialog.visible"
             :close-on-press-escape="false"
             :close-on-click-modal="false"
-            @close="closeNewArticleDialog('newArticleForm')"
+            @closed="closeArticleDialog"
             width="40%">
-            <el-form :model="newArticleDialog.newArticleForm" status-icon :rules="formRules"
-                     ref="newArticleForm" label-width="100px">
+            <el-form :model="articleDialog.articleForm" status-icon :rules="articleDialog.formRules"
+                     ref="articleForm" label-width="100px" v-loading="articleDialog.formLoading">
                 <el-form-item label="文章标题" prop="articleTitle">
-                    <el-input type="text" v-model="newArticleDialog.newArticleForm.articleTitle"
+                    <el-input type="text" v-model="articleDialog.articleForm.articleTitle"
                               autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="文章副标题">
-                    <el-input type="text" v-model="newArticleDialog.newArticleForm.articleSubtitle"
+                    <el-input type="text" v-model="articleDialog.articleForm.articleSubtitle"
                               autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="文章关键词">
-                    <el-input type="text" v-model="newArticleDialog.newArticleForm.articleKeyword"
+                    <el-input type="text" v-model="articleDialog.articleForm.articleKeyword"
                               autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="文章简介" prop="articleInfo">
                     <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}"
-                              v-model="newArticleDialog.newArticleForm.articleInfo"
+                              v-model="articleDialog.articleForm.articleInfo"
                               autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="文章封面" prop="articleCover">
-                    <template v-if="newArticleDialog.newArticleForm.articleCover.length > 0">
+                    <template v-if="articleDialog.articleForm.articleCover.length > 0">
                         <div
                             style="float: left; width: 60px; height: 60px; margin-right: 20px; border-radius: 6px; overflow: hidden;">
                             <img style="width: 100%; height: 100%; cursor: pointer;"
-                                 :src="newArticleDialog.newArticleForm.articleCover[0].url" preview="articleCover">
+                                 :src="articleDialog.articleForm.articleCover[0].url" preview="articleCover">
                         </div>
                     </template>
                     <el-button type="primary" size="mini" icon="el-icon-upload"
-                               @click="newArticleDialog.uploadImgVisible = true">上传封面
+                               @click="articleDialog.uploadImgVisible = true">上传封面
                     </el-button>
-                    <UploadImage :imgList.sync="newArticleDialog.newArticleForm.articleCover"
-                                 :uploadImgVisible.sync="newArticleDialog.uploadImgVisible"
-                                 @upload-close="uploadDialogClose"
+                    <UploadImage :imgList.sync="articleDialog.articleForm.articleCover"
+                                 :uploadImgVisible.sync="articleDialog.uploadImgVisible"
                                  thumbnail="articleCover"
+                                 @upload-close="uploadDialogClose"
                                  :limitNum="1"></UploadImage>
                 </el-form-item>
                 <el-form-item label="所属类型" prop="classType">
-                    <el-select v-model="newArticleDialog.newArticleForm.classType" style="width: 100%" multiple
-                               @visible-change="classTypeChange" @remove-tag="classTypeRemove" placeholder="请选择">
-                        <el-option
-                            v-for="item in classTypeOptions"
-                            :key="item.classId"
-                            :label="item.className"
-                            :value="item.classId">
-                        </el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="文章标签" prop="tagType">
-                    <el-select v-model="newArticleDialog.newArticleForm.tagType" style="width: 100%" multiple
-                               placeholder="请选择">
-                        <el-option
-                            v-for="item in newArticleDialog.tagTypeOptions"
-                            :key="item.tagId"
-                            :label="item.tagName"
-                            :value="item.tagId">
-                        </el-option>
-                    </el-select>
-                </el-form-item>
-            </el-form>
-            <span slot="footer" class="dialog-footer">
-                <el-button @click="newArticleDialog.dialogVisible = false">取 消</el-button>
-                <el-button type="primary" @click="newArticle('newArticleForm')"
-                           v-loading="newArticleDialog.loading">
-                    {{ newArticleDialog.loading ? '加载中...' : '保 存' }}
-                </el-button>
-              </span>
-        </el-dialog>
-
-        <!--    编辑文章弹窗    -->
-        <el-dialog
-            title="编辑文章"
-            :visible.sync="editArticleDialog.dialogVisible"
-            :close-on-press-escape="false"
-            :close-on-click-modal="false"
-            @close="closeEditArticleDialog('editArticleForm')"
-            width="40%">
-            <el-form :model="editArticleDialog.editArticleForm" status-icon :rules="formRules"
-                     ref="editArticleForm" label-width="100px" v-loading="editArticleDialog.formLoading">
-                <el-form-item label="文章标题" prop="articleTitle">
-                    <el-input type="text" v-model="editArticleDialog.editArticleForm.articleTitle"
-                              autocomplete="off"></el-input>
-                </el-form-item>
-                <el-form-item label="文章副标题">
-                    <el-input type="text" v-model="editArticleDialog.editArticleForm.articleSubtitle"
-                              autocomplete="off"></el-input>
-                </el-form-item>
-                <el-form-item label="文章关键词">
-                    <el-input type="text" v-model="editArticleDialog.editArticleForm.articleKeyword"
-                              autocomplete="off"></el-input>
-                </el-form-item>
-                <el-form-item label="文章简介" prop="articleInfo">
-                    <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}"
-                              v-model="editArticleDialog.editArticleForm.articleInfo"
-                              autocomplete="off"></el-input>
-                </el-form-item>
-                <el-form-item label="文章封面" prop="articleCover">
-                    <template v-if="editArticleDialog.editArticleForm.articleCover.length > 0">
-                        <div
-                            style="float: left; width: 60px; height: 60px; margin-right: 20px; border-radius: 6px; overflow: hidden;">
-                            <img style="width: 100%; height: 100%; cursor: pointer;"
-                                 :src="editArticleDialog.editArticleForm.articleCover[0].url" preview="articleCover">
-                        </div>
-                    </template>
-                    <el-button type="primary" size="mini" icon="el-icon-upload"
-                               @click="editArticleDialog.uploadImgVisible = true">上传封面
-                    </el-button>
-                    <Upload-Image :imgList.sync="editArticleDialog.editArticleForm.articleCover"
-                                  :uploadImgVisible.sync="editArticleDialog.uploadImgVisible"
-                                  thumbnail="articleCover"
-                                  @upload-close="uploadDialogClose"
-                                  :limitNum="1"></Upload-Image>
-                </el-form-item>
-                <el-form-item label="所属类型" prop="classType">
-                    <el-select v-model="editArticleDialog.editArticleForm.classType" style="width: 100%" multiple
+                    <el-select v-model="articleDialog.articleForm.classType" style="width: 100%" multiple
                                @visible-change="classTypeChange"
                                @remove-tag="classTypeRemove" placeholder="请选择">
                         <el-option
@@ -267,10 +191,10 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="文章标签" prop="tagType">
-                    <el-select v-model="editArticleDialog.editArticleForm.tagType" style="width: 100%" multiple
+                    <el-select v-model="articleDialog.articleForm.tagType" style="width: 100%" multiple
                                placeholder="请选择">
                         <el-option
-                            v-for="item in editArticleDialog.tagTypeOptions"
+                            v-for="item in articleDialog.tagTypeOptions"
                             :key="item.tagId"
                             :label="item.tagName"
                             :value="item.tagId">
@@ -279,10 +203,10 @@
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
-                <el-button @click="editArticleDialog.dialogVisible = false">取 消</el-button>
-                <el-button type="primary" @click="updateArticle('editArticleForm')"
-                           v-loading="editArticleDialog.loading">
-                    {{ editArticleDialog.loading ? '加载中...' : '保 存' }}
+                <el-button @click="articleDialog.visible = false">取 消</el-button>
+                <el-button type="primary" @click="submitArticle('articleForm')"
+                           :loading="articleDialog.btnLoading">
+                    {{ articleDialog.btnLoading ? '加载中...' : '保 存' }}
                 </el-button>
               </span>
         </el-dialog>
@@ -304,7 +228,17 @@
 </template>
 
 <script>
-import {getArticleList, newArticle, editArticle, deleteArticle, recoverArticle, updatePublish, getArticleInfo, saveContent, getContent} from '@/api/article'
+import {
+    getArticleList,
+    newArticle,
+    editArticle,
+    deleteArticle,
+    recoverArticle,
+    updatePublish,
+    getArticleInfo,
+    saveContent,
+    getContent
+} from '@/api/article'
 import {getAllClass} from '@/api/class'
 import {getAllTag} from '@/api/tag'
 
@@ -317,7 +251,7 @@ export default {
         UploadImage,
         Markdown
     },
-    data () {
+    data() {
         return {
             articleStatus: 0,
             options: [{
@@ -337,51 +271,20 @@ export default {
             articleListLoading: false,
             allTagList: [],
             classTypeOptions: [],
-            formRules: {
-                articleTitle: [
-                    {required: true, message: '请输入文章标题', trigger: 'blur'}
-                ],
-                articleInfo: [
-                    {required: true, message: '请输入文章简介', trigger: 'blur'}
-                ],
-                articleCover: [
-                    {required: true, message: '请选择文章封面', trigger: 'blur'}
-                ],
-                classType: [
-                    {required: true, message: '请选择所属分类', trigger: 'change'}
-                ],
-                tagType: [
-                    {required: true, message: '请选择所属标签', trigger: 'change'}
-                ]
-            },
-            isEdit: false,
-            newArticleDialog: {
-                dialogVisible: false,
-                loading: false,
-                uploadImgVisible: false,
-                tagTypeOptions: [],
-                newArticleForm: {
-                    articleTitle: '',
-                    articleSubtitle: '',
-                    articleKeyword: '',
-                    articleInfo: '',
-                    articleCover: [],
-                    classType: [],
-                    tagType: []
-                }
-            },
             pagination: {
                 page: 1,
                 pageSize: 7,
                 total: 0
             },
-            editArticleDialog: {
-                dialogVisible: false,
+            articleDialog: {
+                title: '',
+                isEdit: false,
+                visible: false,
+                btnLoading: false,
                 formLoading: false,
-                loading: false,
                 uploadImgVisible: false,
                 tagTypeOptions: [],
-                editArticleForm: {
+                articleForm: {
                     articleId: '',
                     articleTitle: '',
                     articleSubtitle: '',
@@ -390,6 +293,23 @@ export default {
                     articleCover: [],
                     classType: [],
                     tagType: []
+                },
+                formRules: {
+                    articleTitle: [
+                        {required: true, message: '请输入文章标题', trigger: 'blur'}
+                    ],
+                    articleInfo: [
+                        {required: true, message: '请输入文章简介', trigger: 'blur'}
+                    ],
+                    articleCover: [
+                        {required: true, message: '请选择文章封面', trigger: 'blur'}
+                    ],
+                    classType: [
+                        {required: true, message: '请选择所属分类', trigger: 'change'}
+                    ],
+                    tagType: [
+                        {required: true, message: '请选择所属标签', trigger: 'change'}
+                    ]
                 }
             },
             editContentModel: {
@@ -400,10 +320,14 @@ export default {
         }
     },
     methods: {
-        getArticleList (page) {
+        getArticleList(page) {
             this.articleListLoading = true
 
-            getArticleList({page: page, pageSize: this.pagination.pageSize, articleStatus: this.articleStatus}).then(res => {
+            getArticleList({
+                page: page,
+                pageSize: this.pagination.pageSize,
+                articleStatus: this.articleStatus
+            }).then(res => {
                 let data = res.data
                 this.pagination.page = data.pagination.page
                 this.pagination.total = data.pagination.total
@@ -414,68 +338,24 @@ export default {
                 this.articleListLoading = false
             })
         },
-        closeNewArticleDialog (formName) {
-            this.newArticleDialog.newArticleForm.articleSubtitle = ''
-            this.newArticleDialog.newArticleForm.articleKeyword = ''
-            this.newArticleDialog.newArticleForm.articleCover = []
-            this.$refs[formName].resetFields()
-        },
-        newArticle (formName) {
-            if (this.newArticleDialog.loading) {
-                return false
-            }
-            this.newArticleDialog.loading = true
-
-            this.$refs[formName].validate((valid) => {
-                if (valid) {
-                    let newData = {
-                        articleTitle: this.newArticleDialog.newArticleForm.articleTitle,
-                        articleSubtitle: this.newArticleDialog.newArticleForm.articleSubtitle,
-                        articleKeyword: this.newArticleDialog.newArticleForm.articleKeyword,
-                        articleInfo: this.newArticleDialog.newArticleForm.articleInfo,
-                        articleCover: this.newArticleDialog.newArticleForm.articleCover[0].key,
-                        classType: this.newArticleDialog.newArticleForm.classType.join(','),
-                        tagType: this.newArticleDialog.newArticleForm.tagType.join(',')
-                    }
-
-                    newArticle(newData).then(() => {
-                        this.$message.success('新增成功')
-                        this.getArticleList(1)
-                        this.newArticleDialog.dialogVisible = false
-                    }).catch(() => {
-                        this.$message.error('新增失败')
-                    }).finally(() => {
-                        this.newArticleDialog.loading = false
-                    })
-                } else {
-                    this.newArticleDialog.loading = false
-                    return false
-                }
-            })
-        },
-        classTypeChange (flag) {
+        classTypeChange(flag) {
             if (!flag) {
-                let dialogName = this.isEdit ? 'editArticleDialog' : 'newArticleDialog'
-                let formName = this.isEdit ? 'editArticleForm' : 'newArticleForm'
-
-                this[dialogName].tagTypeOptions = []
+                this.articleDialog.tagTypeOptions = []
                 let tagTypeOptionId = []
                 this.allTagList.forEach(tag => {
-                    if (this[dialogName][formName].classType.indexOf(tag.classType) > -1) {
-                        this[dialogName].tagTypeOptions.push(tag)
+                    if (this.articleDialog.articleForm.classType.indexOf(tag.classType) > -1) {
+                        this.articleDialog.tagTypeOptions.push(tag)
                         tagTypeOptionId.push(tag.tagId)
                     }
                 })
-                if (this[dialogName][formName].tagType.length > 0) {
-                    this[dialogName][formName].tagType = this[dialogName][formName].tagType.filter(tag => {
+                if (this.articleDialog.articleForm.tagType.length > 0) {
+                    this.articleDialog.articleForm.tagType = this.articleDialog.articleForm.tagType.filter(tag => {
                         return tagTypeOptionId.indexOf(tag) > -1
                     })
                 }
             }
         },
-        classTypeRemove (val) {
-            let dialogName = this.isEdit ? 'editArticleDialog' : 'newArticleDialog'
-            let formName = this.isEdit ? 'editArticleForm' : 'newArticleForm'
+        classTypeRemove(val) {
             let tagArr = this.allTagList.reduce((arr, cur) => {
                 if (cur.classType === val) {
                     arr.push(cur.tagId)
@@ -483,11 +363,109 @@ export default {
                 return arr
             }, [])
 
-            this[dialogName][formName].tagType = this[dialogName][formName].tagType.filter(tag => {
+            this.articleDialog.articleForm.tagType = this.articleDialog.articleForm.tagType.filter(tag => {
                 return tagArr.indexOf(tag) === -1
             })
         },
-        deleteArticle (articleId) {
+        openArticleDialog(isEdit, articleId) {
+            this.articleDialog.title = isEdit ? '编辑文章' : '新增文章'
+            this.articleDialog.visible = true
+            this.articleDialog.isEdit = isEdit
+
+            if (isEdit) {
+                this.articleDialog.formLoading = true
+                getArticleInfo(articleId).then(res => {
+                    this.articleDialog.articleForm.articleId = res.data.articleId
+                    this.articleDialog.articleForm.articleTitle = res.data.articleTitle
+                    this.articleDialog.articleForm.articleSubtitle = res.data.articleSubtitle
+                    this.articleDialog.articleForm.articleKeyword = res.data.articleKeyword
+                    this.articleDialog.articleForm.articleInfo = res.data.articleInfo
+                    this.articleDialog.articleForm.articleCover.push(res.data.articleCoverInfo)
+                    res.data.classTypeList.map(classType => {
+                        this.articleDialog.articleForm.classType.push(classType.classId)
+                    })
+                    this.classTypeChange(false)
+                    res.data.tagTypeList.map(tagType => {
+                        this.articleDialog.articleForm.tagType.push(tagType.tagId)
+                    })
+                }).catch(() => {
+                    this.$message.error('获取文章信息失败')
+                }).finally(() => {
+                    this.articleDialog.formLoading = false
+                })
+            }
+        },
+        closeArticleDialog() {
+            this.articleDialog.articleForm.articleId = ''
+            this.articleDialog.articleForm.articleSubtitle = ''
+            this.articleDialog.articleForm.articleKeyword = ''
+            this.articleDialog.articleForm.articleCover = []
+            this.articleDialog.isEdit = false
+            this.$refs['articleForm'].resetFields()
+        },
+        submitArticle() {
+            if (this.articleDialog.btnLoading) {
+                return false
+            }
+            this.articleDialog.btnLoading = true
+
+            this.$refs['articleForm'].validate((valid) => {
+                if (valid) {
+                    let articleData = {
+                        articleTitle: this.articleDialog.articleForm.articleTitle,
+                        articleSubtitle: this.articleDialog.articleForm.articleSubtitle,
+                        articleKeyword: this.articleDialog.articleForm.articleKeyword,
+                        articleInfo: this.articleDialog.articleForm.articleInfo,
+                        articleCover: this.articleDialog.articleForm.articleCover[0].key,
+                        classType: this.articleDialog.articleForm.classType.join(','),
+                        tagType: this.articleDialog.articleForm.tagType.join(',')
+                    }
+                    let tips = this.articleDialog.title
+                    this.saveArticle(articleData).then(() => {
+                        this.$message.success(`${tips}成功`)
+                        let page = this.articleDialog.isEdit ? this.pagination.page : 1
+                        this.getArticleList(page)
+                        this.articleDialog.visible = false
+                    }).catch(() => {
+                        this.$message.error(`${tips}失败`)
+                    }).finally(() => {
+                        this.articleDialog.btnLoading = false
+                    })
+                } else {
+                    this.articleDialog.btnLoading = false
+                    return false
+                }
+            })
+        },
+        saveArticle(articleData) {
+            if (this.articleDialog.isEdit) {
+                articleData.articleId = this.articleDialog.articleForm.articleId
+                return editArticle(articleData)
+            } else {
+                return newArticle(articleData)
+            }
+        },
+        updatePublish(articleId, isPublish) {
+            let tip = isPublish === 0 ? '发布' : '取消发布'
+            updatePublish({articleId, isPublish}).then(() => {
+                this.$message.success(tip + '成功')
+                this.getArticleList(1)
+            }).catch(() => {
+                this.$message.error(tip + '失败')
+            })
+        },
+        openUpdateContent(articleId) {
+            this.editContentModel.articleId = articleId
+
+            getContent(articleId).then(res => {
+                this.editContentModel.articleContent = res.data.articleContent || ''
+            }).catch(() => {
+                this.$message.error('获取内容失败')
+            })
+
+            this.editContentModel.mavonEditorVisible = true
+        },
+        deleteArticle(articleId) {
             this.$confirm('确定删除该文章？', '提示', {
                 type: 'warning',
                 confirmButtonText: '删除',
@@ -503,99 +481,7 @@ export default {
 
             })
         },
-        openEditArticleDialog (articleId) {
-            this.editArticleDialog.dialogVisible = true
-            this.editArticleDialog.formLoading = true
-            this.isEdit = true
-            getArticleInfo(articleId).then(res => {
-                this.editArticleDialog.editArticleForm.articleId = res.data.articleId
-                this.editArticleDialog.editArticleForm.articleTitle = res.data.articleTitle
-                this.editArticleDialog.editArticleForm.articleSubtitle = res.data.articleSubtitle
-                this.editArticleDialog.editArticleForm.articleKeyword = res.data.articleKeyword
-                this.editArticleDialog.editArticleForm.articleInfo = res.data.articleInfo
-                this.editArticleDialog.editArticleForm.articleCover.push(res.data.articleCoverInfo)
-                res.data.classTypeList.map(classType => {
-                    this.editArticleDialog.editArticleForm.classType.push(classType.classId)
-                })
-                this.classTypeChange(false)
-                res.data.tagTypeList.map(tagType => {
-                    this.editArticleDialog.editArticleForm.tagType.push(tagType.tagId)
-                })
-            }).catch(() => {
-                this.$message.error('获取文章信息失败')
-            }).finally(() => {
-                this.editArticleDialog.formLoading = false
-            })
-        },
-        closeEditArticleDialog (formName) {
-            this.editArticleDialog.editArticleForm.articleId = ''
-            this.editArticleDialog.editArticleForm.articleSubtitle = ''
-            this.editArticleDialog.editArticleForm.articleKeyword = ''
-            this.editArticleDialog.editArticleForm.articleCover = []
-            this.isEdit = false
-            this.$refs[formName].resetFields()
-        },
-        updateArticle (formName) {
-            if (this.editArticleDialog.loading) {
-                return false
-            }
-            this.editArticleDialog.loading = true
-
-            this.$refs[formName].validate((valid) => {
-                if (valid) {
-                    let editData = {
-                        articleId: this.editArticleDialog.editArticleForm.articleId,
-                        articleTitle: this.editArticleDialog.editArticleForm.articleTitle,
-                        articleSubtitle: this.editArticleDialog.editArticleForm.articleSubtitle,
-                        articleKeyword: this.editArticleDialog.editArticleForm.articleKeyword,
-                        articleInfo: this.editArticleDialog.editArticleForm.articleInfo,
-                        articleCover: this.editArticleDialog.editArticleForm.articleCover[0].key,
-                        classType: this.editArticleDialog.editArticleForm.classType.join(','),
-                        tagType: this.editArticleDialog.editArticleForm.tagType.join(',')
-                    }
-
-                    editArticle(editData).then(() => {
-                        this.$message.success('修改成功')
-                        this.getArticleList(this.pagination.page)
-                        this.editArticleDialog.dialogVisible = false
-                    }).catch(() => {
-                        this.$message.error('修改失败')
-                    }).finally(() => {
-                        this.editArticleDialog.loading = false
-                    })
-                } else {
-                    this.editArticleDialog.loading = false
-                    return false
-                }
-            })
-        },
-        updatePublish (articleId, isPublish) {
-            let tip = isPublish === 0 ? '发布' : '取消发布'
-            updatePublish({articleId, isPublish}).then(() => {
-                this.$message.success(tip + '成功')
-                this.getArticleList(1)
-            }).catch(() => {
-                this.$message.error(tip + '失败')
-            })
-        },
-        openUpdateContent (articleId) {
-            this.editContentModel.articleId = articleId
-
-            getContent(articleId).then(res => {
-                this.editContentModel.articleContent = res.data.articleContent || ''
-            }).catch(() => {
-                this.$message.error('获取内容失败')
-            })
-
-            this.editContentModel.mavonEditorVisible = true
-        },
-        currentChange (page) {
-            this.getArticleList(page)
-        },
-        articleStatusChange () {
-            this.getArticleList(1)
-        },
-        recoverArticle (articleId) {
+        recoverArticle(articleId) {
             recoverArticle(articleId).then(() => {
                 this.$message.success('恢复成功')
                 this.getArticleList(1)
@@ -603,10 +489,10 @@ export default {
                 this.$message.error('删除失败')
             })
         },
-        uploadDialogClose () {
+        uploadDialogClose() {
             this.$previewRefresh()
         },
-        saveContent () {
+        saveContent() {
             this.editContentModel.articleContent = this.$refs['markdown'].getContent()
 
             saveContent({
@@ -619,7 +505,7 @@ export default {
             })
         }
     },
-    created () {
+    created() {
         // 获取所有分类
         getAllClass().then(res => {
             this.classTypeOptions = res.data
@@ -640,6 +526,7 @@ export default {
     background-color: #f00 !important;
     border-color: #f00 !important;
 }
+
 .markdown-content {
     .el-dialog__body {
         height: calc(100vh - 180px);
@@ -655,6 +542,7 @@ export default {
 #articleManage {
     padding: 20px;
 }
+
 .box-card {
     position: absolute;
     top: 0;
