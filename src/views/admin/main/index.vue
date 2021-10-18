@@ -81,7 +81,7 @@ export default {
     name: 'AdminMain',
     data () {
         return {
-            myBlog: 'http://rongcl.club',
+            myBlog: 'http://rongcl.cn',
             github: 'https://github.com/rongcl9219',
             clientGithub: 'https://github.com/rongcl9219/my-blog-client',
             adminGithub: 'https://github.com/rongcl9219/my-blog-server'

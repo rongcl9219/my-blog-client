@@ -104,30 +104,28 @@ export default {
             'loginOut'
         ]),
         handleLogin (formName) {
-            let _this = this
-
-            if (_this.loginLock) {
+            if (this.loginLock) {
                 return false
             }
-            _this.loginLock = true
-            _this.loading = true
-            _this.$refs[formName].validate((valid) => {
+            this.loginLock = true
+            this.loading = true
+            this.$refs[formName].validate(valid => {
                 if (valid) {
                     let data = {
-                        username: _this.loginForm.username,
-                        password: _this.loginForm.password
+                        username: this.loginForm.username,
+                        password: this.loginForm.password
                     }
-                    _this.login(data).then(() => {
-                        _this.$router.push('/admin')
+                    this.login(data).then(() => {
+                        this.$router.push('/admin')
                     }).catch(err => {
-                        _this.$message.error(err.msg)
-                        _this.ValidCodeModel.codeRefresh++
-                        _this.loading = false
-                        _this.loginLock = false
+                        this.$message.error(err.msg)
+                        this.ValidCodeModel.codeRefresh++
+                        this.loading = false
+                        this.loginLock = false
                     })
                 } else {
-                    _this.loading = false
-                    _this.loginLock = false
+                    this.loading = false
+                    this.loginLock = false
                     return false
                 }
             })
@@ -146,8 +144,7 @@ export default {
         }
     },
     created () {
-        let _this = this
-        _this.loginOut().then(() => {
+        this.loginOut().then(() => {
         }).catch(() => {
         })
 

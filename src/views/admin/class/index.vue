@@ -251,32 +251,24 @@ export default {
                         classDesc: this.classDialog.classForm.classDesc
                     }
                     if (this.classDialog.isNew) {
-                        newClass(data).then(res => {
-                            if (res.code === 200) {
-                                this.$message.success('新增成功')
-                                this.classDialog.dialogVisible = false
-                                this.getClassList(1)
-                            } else {
-                                this.$message.error('新增失败')
-                            }
+                        newClass(data).then(() => {
+                            this.$message.success('新增成功')
+                            this.classDialog.dialogVisible = false
+                            this.getClassList(1)
                         }).catch(() => {
-
+                            this.$message.error('新增失败')
                         }).finally(() => {
                             this.classDialog.saveFlag = false
                             this.classDialog.loading = false
                         })
                     } else {
                         data.classId = this.classDialog.classForm.classId
-                        updateClass(data).then(res => {
-                            if (res.code === 200) {
-                                this.$message.success('修改成功')
-                                this.classDialog.dialogVisible = false
-                                this.getClassList(1)
-                            } else {
-                                this.$message.error('修改失败')
-                            }
+                        updateClass(data).then(() => {
+                            this.$message.success('修改成功')
+                            this.classDialog.dialogVisible = false
+                            this.getClassList(1)
                         }).catch(() => {
-
+                            this.$message.error('修改失败')
                         }).finally(() => {
                             this.classDialog.saveFlag = false
                             this.classDialog.loading = false
@@ -295,16 +287,12 @@ export default {
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                deleteClass({classId: rowData.classId}).then(res => {
-                    if (res.code === 200) {
-                        this.$message.success('删除成功')
-                        this.getClassList(1)
-                    } else {
-                        this.$message.error('删除失败')
-                    }
+                deleteClass({classId: rowData.classId}).then(() => {
+                    this.$message.success('删除成功')
+                    this.getClassList(1)
                 })
             }).catch(() => {
-
+                this.$message.error('删除失败')
             })
         }
     },

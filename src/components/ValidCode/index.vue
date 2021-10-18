@@ -1,13 +1,10 @@
 <template>
-    <div
-        class="ValidCode disabled-select"
+    <div class="valid-code-box"
         :style="`width:${width}; height:${height}`"
-        @click="getCode"
-    >
-    <span
-        v-for="(item, index) in codeList"
-        :key="index"
-        :style="getStyle(item)">{{ item.code }}</span>
+        @click="getCode">
+        <span v-for="(item, index) in codeList"
+            :key="index"
+            :style="getStyle(item)">{{ item.code }}</span>
     </div>
 </template>
 
@@ -38,36 +35,33 @@ export default {
             default: 0
         }
     },
-    data () {
+    data() {
         return {
             codeList: []
         }
     },
     watch: {
-        refresh () {
+        refresh() {
             this.getCode()
         }
     },
-    mounted () {
+    mounted() {
         this.getCode()
     },
     methods: {
-        getCode () {
-            let _this = this
-            getValidCode().then((res) => {
-                if (res.code === 200) {
-                    _this.createdCode(res.data.validCode)
-                }
+        getCode() {
+            getValidCode().then(res => {
+                this.createdCode(res.data.validCode)
             }).catch(() => {
             })
         },
-        createdCode (codeArr) {
+        createdCode(codeArr) {
             let codeList = []
             // 生成
             codeArr.forEach(code => {
                 const rgb = [
+                    Math.round(Math.random() * 200),
                     Math.round(Math.random() * 220),
-                    Math.round(Math.random() * 240),
                     Math.round(Math.random() * 200)
                 ]
                 codeList.push({
@@ -84,7 +78,7 @@ export default {
             // 将当前数据派发出去
             this.$emit('input', codeList.map(item => item.code).join(''))
         },
-        getStyle (data) {
+        getStyle(data) {
             return `color: ${data.color}; font-size: ${data.fontSize}; padding: ${data.padding}; transform: ${data.transform}`
         }
     }
@@ -92,7 +86,7 @@ export default {
 </script>
 
 <style scoped>
-.ValidCode {
+.valid-code-box {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -103,7 +97,7 @@ export default {
     cursor: pointer;
 }
 
-.ValidCode span {
+.valid-code-box span {
     display: inline-block;
 }
 </style>
